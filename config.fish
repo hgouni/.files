@@ -167,6 +167,9 @@ if type -q stack
     set -U fish_user_paths (command stack path --compiler-bin) $fish_user_paths
 end
 
+# set gpg domain for qubes
+set -x QUBES_GPG_DOMAIN vault-gpg
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
