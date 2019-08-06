@@ -81,6 +81,7 @@ if status --is-interactive
     abbr --add --global rb bash -c
     abbr --add --global bl tput bel
     abbr --add --global mv mv -b
+    abbr --add --global la ls -ahlt
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
