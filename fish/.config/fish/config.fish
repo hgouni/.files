@@ -19,6 +19,12 @@ if string match '*bash*' $SHELL >/dev/null 2>&1
     printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> $HOME/.bashrc
 end
 
+if test -z "$SSH_SETUP_COMPLETE"
+    command chown $USER $HOME/.ssh/config
+    command chmod 600 $HOME/.ssh/config
+    set SSH_SETUP_COMPLETE 1
+end
+
 # Suppress greeting
 set fish_greeting
 
@@ -100,9 +106,6 @@ function fish_prompt
         printf '%s' (set_color purple)"$last_status"' '(set_color normal)
     end
 
-    # set prompt ending character before ssh detection
-    set prompt_end '❯'
-
     # detect if running in a virtual terminal (note: figure out string escaping in
     # command sub); can also use fgconsole here
     # show username and hostname if ssh or vt
@@ -110,6 +113,9 @@ function fish_prompt
         or test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
         printf '%s' (set_color red)"$USER"(set_color yellow)'@'(set_color green)(prompt_hostname)' '(set_color normal)
         set prompt_end '>'
+    else
+        # set normal prompt ending character
+        set prompt_end '❯'
     end
 
     # indicate sudo status
