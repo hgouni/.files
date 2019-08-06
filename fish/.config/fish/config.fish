@@ -182,9 +182,9 @@ set -x QUBES_GPG_DOMAIN vault-gpg
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
-# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ and Trash/ folders)
 if type -q rg
-    set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git"'
+    set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!Trash"'
 end
 
 # faster than having completion tools etc autodetect it
