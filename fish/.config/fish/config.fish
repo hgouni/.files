@@ -22,7 +22,7 @@ end
 if test -z "$SSH_SETUP_COMPLETE"
     command chown $USER $HOME/.ssh/config
     command chmod 600 $HOME/.ssh/config
-    set SSH_SETUP_COMPLETE 1
+    set -U SSH_SETUP_COMPLETE 1
 end
 
 # Suppress greeting
