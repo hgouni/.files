@@ -15,12 +15,13 @@
 # automatically configure bash to replace itself with fish process while preserving login scripts
 # allow 'bash -c' to be used without passing --norc
 if string match '*bash*' $SHELL >/dev/null 2>&1
-    and not command grep -q "exec fish" $HOME/.bashrc
+    and not command grep -s "exec fish" $HOME/.bashrc
     printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> $HOME/.bashrc
 end
 
 # setup ssh permissions for use with stow
 if test -z "$SSH_SETUP_COMPLETE"
+    and test -e "$HOME/.ssh/config"
     command chown $USER $HOME/.ssh/config
     command chmod 600 $HOME/.ssh/config
     set -U SSH_SETUP_COMPLETE 1
