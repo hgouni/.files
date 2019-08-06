@@ -22,7 +22,6 @@ end
 # setup ssh permissions for use with stow
 if test -z "$SSH_SETUP_COMPLETE"
     and test -e "$HOME/.ssh/config"
-    command chown $USER $HOME/.ssh/config
     command chmod 600 $HOME/.ssh/config
     set -U SSH_SETUP_COMPLETE 1
 end
