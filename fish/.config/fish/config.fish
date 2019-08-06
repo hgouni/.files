@@ -19,11 +19,11 @@ if string match '*bash*' $SHELL >/dev/null 2>&1
     printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> $HOME/.bashrc
 end
 
-if test -z "$SSH_SETUP_COMPLETE"
-    command chown $USER $HOME/.ssh/config
-    command chmod 600 $HOME/.ssh/config
-    set SSH_SETUP_COMPLETE 1
-end
+# if test -z "$SSH_SETUP_COMPLETE"
+#     command chown $USER $HOME/.ssh/config
+#     command chmod 600 $HOME/.ssh/config
+#     set SSH_SETUP_COMPLETE 1
+# end
 
 # Suppress greeting
 set fish_greeting
