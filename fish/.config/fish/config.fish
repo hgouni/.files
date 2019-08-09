@@ -42,9 +42,7 @@ set fish_cursor_replace_one underscore
 
 # General keybind function
 function fish_user_key_bindings
-    # can i make it escape afterwards, to emulate the expected alt-<key> behavior?
-    # forward-char works, too
-    bind -M insert \el accept-autosuggestion
+    bind -M insert -m default \el accept-autosuggestion
     bind -M insert ! bind_bang
     bind -M insert '$' bind_dollar
 end
@@ -104,7 +102,7 @@ function fish_prompt
     # detected successfully, but the exit code will display as zero
     set last_status $status
     if test "$last_status" -ne 0
-        printf '%s' (set_color purple)"$last_status"' '(set_color normal)
+        printf '%s%s %s' (set_color purple) "$last_status" (set_color normal)
     end
 
     # detect if running in a virtual terminal (note: figure out string escaping in
@@ -112,7 +110,7 @@ function fish_prompt
     # show username and hostname if ssh or vt
     if string match '*tty*' (tty) >/dev/null 2>&1
         or test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
-        printf '%s' (set_color red)"$USER"(set_color yellow)'@'(set_color green)(prompt_hostname)' '(set_color normal)
+        printf '%s%s%s@%s%s %s' (set_color red) "$USER" (set_color yellow) (set_color green) "$hostname" (set_color normal)
         set prompt_end '>'
     else
         # set normal prompt ending character
@@ -121,13 +119,13 @@ function fish_prompt
 
     # indicate sudo status
     if command sudo -n true >/dev/null 2>&1
-        printf '%s' (set_color red)(prompt_pwd)' '(set_color normal)
+        printf '%s%s %s' (set_color red) (prompt_pwd) (set_color normal)
     else
-        printf '%s' (set_color cyan)(prompt_pwd)' '(set_color normal)
+        printf '%s%s %s' (set_color cyan) (prompt_pwd) (set_color normal)
     end
 
     # prompt end
-    printf '%s' (set_color red)"$prompt_end"(set_color yellow)"$prompt_end"(set_color green)"$prompt_end"' '(set_color normal)
+    printf '%s%s%s%s%s%s %s' (set_color red) "$prompt_end" (set_color yellow) "$prompt_end" (set_color green) "$prompt_end" (set_color normal)
 end
 
 # create git prompt
@@ -143,7 +141,7 @@ set __fish_git_prompt_showcolorhints
 function fish_right_prompt
     # git status
     __fish_git_prompt
-    printf '%s' ' '
+    printf '%s '
 
     # execution time; posix-compliant test statement ensures $CMD_DURATION is not null
     if test "$CMD_DURATION"
@@ -151,11 +149,11 @@ function fish_right_prompt
         set duration (printf '%s\n' "$CMD_DURATION 1000" | awk '{printf "%.3f", $1 / $2}')
         # change time color based on execution time
         if test "$CMD_DURATION" -lt 5000
-            printf '%s' (set_color green)"$duration"(set_color normal)
+            printf '%s%s%s' (set_color green) "$duration" (set_color normal)
         else if test "$CMD_DURATION" -ge 5000; and test "$CMD_DURATION" -lt 60000
-            printf '%s' (set_color yellow)"$duration"(set_color normal)
+            printf '%s%s%s' (set_color yellow) "$duration" (set_color normal)
         else
-            printf '%s' (set_color red)"$duration"(set_color normal)
+            printf '%s%s%s' (set_color red) "$duration" (set_color normal)
         end
     end
 end
