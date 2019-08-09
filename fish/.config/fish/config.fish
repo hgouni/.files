@@ -42,6 +42,7 @@ set fish_cursor_replace_one underscore
 
 # General keybind function
 function fish_user_key_bindings
+    # note: change repaint to repaint-mode here once fish 3.1.0 releases
     bind -M insert -m default \el accept-autosuggestion repaint
     bind -M insert ! bind_bang
     bind -M insert '$' bind_dollar
