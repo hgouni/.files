@@ -42,7 +42,7 @@ set fish_cursor_replace_one underscore
 
 # General keybind function
 function fish_user_key_bindings
-    bind -M insert -m default \el accept-autosuggestion
+    bind -M insert -m default \el accept-autosuggestion repaint
     bind -M insert ! bind_bang
     bind -M insert '$' bind_dollar
 end
