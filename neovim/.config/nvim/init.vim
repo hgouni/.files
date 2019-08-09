@@ -78,8 +78,8 @@ call plug#end()
 "already do this (alt+char creates terminal escape code that executes
 "<esc> + <char>)
 
-"make vim extremely responsive without destroying ssd with writes (might mess
-"with cursorhold?)
+"make vim extremely responsive without destroying ssd with writes
+"(might mess with cursorhold?)
 set updatetime=0
 set directory=/dev/shm//
 
