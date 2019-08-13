@@ -13,22 +13,20 @@ endif
 
 "dependencies:
 "generic:
-"python for neovim? (pip3 install --user --upgrade pynvim)
-"universal-ctags (pull from git repo, build and install in $PATH)
-"ripgrep (sudo dnf install ripgrep)
+"- python for neovim? (pip3 install --user --upgrade pynvim)
+"- universal-ctags (pull from git repo, build and install in $PATH)
+"- ripgrep (sudo dnf install ripgrep)
 "language-specific:
-"rust:
-"rust (curl https://sh.rustup.rs -sSf | sh)
-"rls (rustup component add rls rust-analysis rust-src)
-"rustfmt (rustup component add rustfmt)
-"ctags (compile/install from source)
+"- rust:
+"- rust (curl https://sh.rustup.rs -sSf | sh)
+"- rls (rustup component add rls rust-analysis rust-src)
+"- rustfmt (rustup component add rustfmt)
 "racket/sicp:
-"download racket from racket-lang.org
-"use ddg, idk
+"- download racket from racket-lang.org
 "haskell:
-"hie
-"install stack then follow source install instructions on github
-"install hfmt and all of hfmt fixers
+"- hie
+"- install stack then follow source install instructions on github
+"- install hfmt and all of hfmt fixers
 
 call plug#begin()
 
