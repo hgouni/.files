@@ -30,7 +30,7 @@ end
 if type -q rclone
     and not command pgrep rclone >/dev/null 2>&1
     mkdir -p "$HOME/gdrive"
-    rclone mount gdrive:/ "$HOME/gdrive" >/dev/null 2>&1
+    rclone mount gdrive:/ "$HOME/gdrive" >/dev/null 2>&1&
 end
 
 # Suppress greeting
