@@ -81,7 +81,26 @@ call plug#end()
 "make vim extremely responsive without destroying ssd with writes
 "(might mess with cursorhold?)
 set updatetime=0
-set directory=/dev/shm//
+set directory=/dev/shm/nvim_swap//
+
+function Gdrive_sync(timer)
+    call jobstart('rclone sync /dev/shm/nvim_swap/ gdrive:/nvim_swap/')
+endfunction
+
+function Rclone_dedupe(timer)
+    call jobstart('rclone dedupe skip "gdrive:/nvim_swap/"')
+endfunction
+
+function Fs_sync(timer)
+    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
+endfunction
+
+if executable('rclone')
+    let timer = timer_start(1000, 'Gdrive_sync', {'repeat': -1})
+    let timer = timer_start(1000, 'Rclone_dedupe', {'repeat': -1})
+else
+    let timer = timer_start(1000, 'Fs_sync', {'repeat': -1})
+endif
 
 "disable modelines (security)
 set nomodeline
