@@ -100,14 +100,14 @@ set splitbelow
 "make cursor more visible"
 set cursorline
 
-"toggle highlighting for searches
-set hlsearch!
-nnoremap <silent><leader>/ :set hlsearch!<CR>
-
 "tab settings
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+"toggle highlighting for searches
+set hlsearch!
+nnoremap <silent><leader>/ :set hlsearch!<CR>
 
 " automatically close things
 inoremap " ""<left>
