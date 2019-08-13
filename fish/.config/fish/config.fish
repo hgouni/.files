@@ -27,10 +27,9 @@ if test -z "$SSH_SETUP_COMPLETE"
 end
 
 if type -q rclone
-    and test -z "$RCLONE_SETUP_COMPLETE"
+    and not command pgrep rclone
     mkdir -p "$HOME/gdrive"
     rclone mount gdrive:/ "$HOME/gdrive"&
-    set -x RCLONE_SETUP_COMPLETE 1
 end
 
 # Suppress greeting
