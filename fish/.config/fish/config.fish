@@ -14,16 +14,23 @@
 
 # automatically configure bash to replace itself with fish process while preserving login scripts
 # allow 'bash -c' to be used without passing --norc
-if string match '*bash*' $SHELL >/dev/null 2>&1
-    and not command grep -qs 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' $HOME/.bashrc
-    printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> $HOME/.bashrc
+if string match '*bash*' "$SHELL" >/dev/null 2>&1
+    and not command grep -qs 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' "$HOME/.bashrc"
+    printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> "$HOME/.bashrc"
 end
 
 # setup ssh permissions for use with stow
 if test -z "$SSH_SETUP_COMPLETE"
     and test -e "$HOME/.ssh/config"
-    command chmod 600 $HOME/.ssh/config
+    command chmod 600 "$HOME/.ssh/config"
     set -U SSH_SETUP_COMPLETE 1
+end
+
+if type -q rclone
+    and test -z "$RCLONE_SETUP_COMPLETE"
+    mkdir -p "$HOME/gdrive"
+    rclone mount gdrive:/ "$HOME/gdrive"&
+    set -x RCLONE_SETUP_COMPLETE 1
 end
 
 # Suppress greeting
@@ -88,6 +95,7 @@ if status --is-interactive
     abbr --add --global bl tput bel
     abbr --add --global mv mv -b
     abbr --add --global la ls -ahlt
+    abbr --add --global cv cat -nvET
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
@@ -163,8 +171,8 @@ end
 
 # add local dir to PATH
 if test -d "$HOME/.local/bin"
-    and not contains $HOME/.local/bin $PATH
-    set PATH $HOME/.local/bin $PATH
+    and not contains "$HOME/.local/bin" $PATH
+    set PATH "$HOME/.local/bin" $PATH
 end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
@@ -195,5 +203,5 @@ end
 # set editor env vars
 if type -q nvim
     set -x VISUAL nvim
-    set -x EDITOR $VISUAL
+    set -x EDITOR "$VISUAL"
 end
