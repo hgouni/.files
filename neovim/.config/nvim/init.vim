@@ -172,6 +172,7 @@ set directory=/dev/shm/nvim_swap//
 
 set autowriteall
 
+"use async job control to sync swapfiles to non-volatile storage
 function Fs_sync(time_fs_sync)
     call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
 endfunction
