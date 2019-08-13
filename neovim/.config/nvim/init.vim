@@ -128,15 +128,15 @@ inoremap \Sigma Σ
 inoremap \exists ∃
 inoremap \equiv ≡
 
+"esc returns to normal in terminal
+"note: use alt + j or something similar to switch to normal mode in fish
+tnoremap <Esc> <C-\><C-n>
+
 "last position jump
 au BufReadPost *
   \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
   \ |   exe "normal! g`\""
   \ | endif
-
-"esc returns to normal in terminal
-"note: use alt + j or something similar to switch to normal mode in fish
-tnoremap <Esc> <C-\><C-n>
 
 "toggle terminal
 let s:term_buf = 0
