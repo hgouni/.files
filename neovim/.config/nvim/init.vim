@@ -178,21 +178,6 @@ endfunction
 
 let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
 
-""sync swapfiles to google drive using async job control
-"function Gdrive_sync(timer_gdrive_sync)
-"    call jobstart('rclone sync /dev/shm/nvim_swap/ gdrive:/nvim_swap/')
-"endfunction
-
-""necessary for google drive (removes duplicate filenames)
-"function Gdrive_dedupe(timer_gdrive_dedupe)
-"    call jobstart('rclone dedupe skip \"gdrive:/nvim_swap/"')
-"endfunction
-
-"if executable('rclone')
-"    let timer_gdrive_sync = timer_start(5000, 'Gdrive_sync', {'repeat': -1})
-"    let timer_gdrive_dedupe = timer_start(5000, 'Gdrive_dedupe', {'repeat': -1})
-"endif
-
 "theming
 set termguicolors
 set background=dark
@@ -326,5 +311,4 @@ let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
-let g:haskell_backpack = 1
 let g:haskell_backpack = 1
