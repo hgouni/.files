@@ -78,33 +78,6 @@ call plug#end()
 "already do this (alt+char creates terminal escape code that executes
 "<esc> + <char>)
 
-"make vim extremely responsive without destroying ssd with writes
-"(might mess with cursorhold?)
-set updatetime=0
-set directory=/dev/shm/nvim_swap//
-
-"sync swapfiles to google drive using async job control
-function Gdrive_sync(timer)
-    call jobstart('rclone sync /dev/shm/nvim_swap/ gdrive:/nvim_swap/')
-endfunction
-
-"necessary for google drive (removes duplicate filenames)
-function Gdrive_dedupe(timer)
-    call jobstart('rclone dedupe skip "gdrive:/nvim_swap/"')
-endfunction
-
-"if rclone isn't present, sync to nvim swap dir instead
-function Fs_sync(timer)
-    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
-endfunction
-
-if executable('rclone')
-    let timer = timer_start(1000, 'Gdrive_sync')
-    let timer = timer_start(200, 'Gdrive_dedupe')
-else
-    let timer = timer_start(1000, 'Fs_sync')
-endif
-
 "disable modelines (security)
 set nomodeline
 
@@ -191,6 +164,34 @@ endfunction
 nnoremap <silent><M-t> :call Term_toggle(10)<CR>
 inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
 tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
+
+"make vim extremely responsive without destroying ssd with writes
+"(might mess with cursorhold?)
+set updatetime=0
+set directory=/dev/shm/nvim_swap//
+
+set autowriteall
+
+function Fs_sync(time_fs_sync)
+    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
+endfunction
+
+let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
+
+""sync swapfiles to google drive using async job control
+"function Gdrive_sync(timer_gdrive_sync)
+"    call jobstart('rclone sync /dev/shm/nvim_swap/ gdrive:/nvim_swap/')
+"endfunction
+
+""necessary for google drive (removes duplicate filenames)
+"function Gdrive_dedupe(timer_gdrive_dedupe)
+"    call jobstart('rclone dedupe skip \"gdrive:/nvim_swap/"')
+"endfunction
+
+"if executable('rclone')
+"    let timer_gdrive_sync = timer_start(5000, 'Gdrive_sync', {'repeat': -1})
+"    let timer_gdrive_dedupe = timer_start(5000, 'Gdrive_dedupe', {'repeat': -1})
+"endif
 
 "theming
 set termguicolors
@@ -325,4 +326,5 @@ let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
+let g:haskell_backpack = 1
 let g:haskell_backpack = 1
