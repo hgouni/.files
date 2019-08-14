@@ -1,32 +1,32 @@
-"vim needs a more posix-compatible shell than fish
+" vim needs a more posix-compatible shell than fish
 if &shell =~# 'fish$'
-    "from vim-sensible
+    " from vim-sensible
     set shell=/usr/bin/env\ bash
 endif
 
-"autoinstall plug
+" autoinstall plug
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-"dependencies:
-"generic:
-"- python for neovim? (pip3 install --user --upgrade pynvim)
-"- universal-ctags (pull from git repo, build and install in $PATH)
-"- ripgrep (sudo dnf install ripgrep)
-"language-specific:
-"- rust:
-"- rust (curl https://sh.rustup.rs -sSf | sh)
-"- rls (rustup component add rls rust-analysis rust-src)
-"- rustfmt (rustup component add rustfmt)
-"racket/sicp:
-"- download racket from racket-lang.org
-"haskell:
-"- hie
-"- install stack then follow source install instructions on github
-"- install hfmt and all of hfmt fixers
+" dependencies:
+" generic:
+" - python for neovim? (pip3 install --user --upgrade pynvim)
+" - universal-ctags (pull from git repo, build and install in $PATH)
+" - ripgrep (sudo dnf install ripgrep)
+" language-specific:
+" - rust:
+" - rust (curl https://sh.rustup.rs -sSf | sh)
+" - rls (rustup component add rls rust-analysis rust-src)
+" - rustfmt (rustup component add rustfmt)
+" racket/sicp:
+" - download racket from racket-lang.org
+" haskell:
+" - hie
+" - install stack then follow source install instructions on github
+" - install hfmt and all of hfmt fixers
 
 call plug#begin()
 
@@ -72,38 +72,38 @@ Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 
-"note: there's no need to create an alternative escape-- alt+space will
-"already do this (alt+char creates terminal escape code that executes
-"<esc> + <char>)
+" note: there's no need to create an alternative escape-- alt+space will
+" already do this (alt+char creates terminal escape code that executes
+" <esc> + <char>)
 
-"disable modelines (security)
+" disable modelines (security)
 set nomodeline
 
-"leader key
+" leader key
 let mapleader = " "
 
-"localleader key; '\\' must be used because '\' functions as escape char
+" localleader key; '\\' must be used because '\' functions as escape char
 let maplocalleader = "\\"
 
-"line numbers
+" line numbers
 set number
 
-"scroll context (note that for set <var>=<mode>, there must be not be spaces on
-"either side of the equal sign)
+" scroll context (note that for set <var>=<mode>, there must be not be spaces on
+" either side of the equal sign)
 set scrolloff=5
 
-"move preview window to bottom (less intrusive)
+" move preview window to bottom (less intrusive)
 set splitbelow
 
-"make cursor more visible"
+" make cursor more visible
 set cursorline
 
-"tab settings
+" tab settings
 set expandtab
 set tabstop=4
 set shiftwidth=4
 
-"toggle highlighting for searches
+" toggle highlighting for searches
 set hlsearch!
 nnoremap <silent><leader>/ :set hlsearch!<CR>
 
@@ -126,17 +126,17 @@ inoremap \Sigma Σ
 inoremap \exists ∃
 inoremap \equiv ≡
 
-"esc returns to normal in terminal
-"note: use alt + j or something similar to switch to normal mode in fish
+" esc returns to normal in terminal
+" note: use alt + j or something similar to switch to normal mode in fish
 tnoremap <Esc> <C-\><C-n>
 
-"last position jump
+" last position jump
 au BufReadPost *
   \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
   \ |   exe "normal! g`\""
   \ | endif
 
-"toggle terminal
+" toggle terminal
 let s:term_buf = 0
 let s:term_win = 0
 
@@ -152,7 +152,7 @@ function! Term_toggle(height)
         catch
             call termopen($SHELL, {"detach": 0})
             let s:term_buf = bufnr("")
-            setlocal nocursorline "signcolumn=no
+            setlocal nocursorline " signcolumn=no
         endtry
         startinsert!
         let s:term_win = win_getid()
@@ -163,27 +163,27 @@ nnoremap <silent><M-t> :call Term_toggle(10)<CR>
 inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
 tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
 
-"make vim extremely responsive without destroying ssd with writes
-"(might mess with cursorhold?)
+" make vim extremely responsive without destroying ssd with writes
+" (might mess with cursorhold?)
 set updatetime=0
 set directory=/dev/shm/nvim_swap//
 
 set autowriteall
 
-"use async job control to sync swapfiles to non-volatile storage
-function Fs_sync(time_fs_sync)
+" use async job control to sync swapfiles to non-volatile storage
+function Fs_sync(timer_fs_sync)
     call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
 endfunction
 
 let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
 
-"theming
+" theming
 set termguicolors
 set background=dark
 let g:gruvbox_contrast_dark = 'medium'
 colorscheme gruvbox
 
-"persistent undo and undo tree config (not necessary to specify undodir)
+" persistent undo and undo tree config (not necessary to specify undodir)
 set undofile
 let g:undotree_WindowLayout = 3
 let g:undotree_ShortIndicators = 1
@@ -192,10 +192,10 @@ let g:undotree_HelpLine = 0
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
 
-"enable jumping to hints
+" enable jumping to hints
 let g:sneak#label = 1
 
-"ALE config
+" ALE config
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
@@ -210,7 +210,7 @@ let g:ale_fixers = {
 let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 
-"fzf config
+" fzf config
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :BLines<CR>
 nnoremap <leader>fl :Lines<CR>
@@ -260,7 +260,7 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>= <Plug>AirlineSelectNextTab
 
-"tagbar config
+" tagbar config
 nnoremap <leader>t :TagbarToggle<CR>
 let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 let g:tagbar_type_rust = {
