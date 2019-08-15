@@ -17,7 +17,7 @@ endif
 " - universal-ctags (pull from git repo, build and install in $PATH)
 " - ripgrep (sudo dnf install ripgrep)
 " language-specific:
-" - rust:
+" rust:
 " - rust (curl https://sh.rustup.rs -sSf | sh)
 " - rls (rustup component add rls rust-analysis rust-src)
 " - rustfmt (rustup component add rustfmt)
@@ -98,6 +98,10 @@ set splitbelow
 " make cursor more visible
 set cursorline
 
+" less annoying write behavior (no more write errors on switching buffers,
+" among others)
+set autowriteall
+
 " tab settings
 set expandtab
 set tabstop=4
@@ -168,10 +172,8 @@ tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
 set updatetime=0
 set directory=/dev/shm/nvim_swap//
 
-set autowriteall
-
 " use async job control to sync swapfiles to non-volatile storage
-function Fs_sync(timer_fs_sync)
+function! Fs_sync(timer_fs_sync)
     call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
 endfunction
 
