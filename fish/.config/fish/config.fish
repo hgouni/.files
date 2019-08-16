@@ -178,6 +178,12 @@ end
 # set gpg domain for qubes
 set -x QUBES_GPG_DOMAIN vault-gpg
 
+# add cargo bin dir to PATH
+if test -d "$HOME/.cargo/bin"
+    and not contains "$HOME/.cargo/bin" $PATH
+    set PATH "$HOME/.cargo/bin" $PATH
+end
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
