@@ -162,6 +162,9 @@ end
 
 ### ENVIRONMENT VARIABLES ###
 
+# for tmux
+set -x SHELL (type --force-path fish)
+
 # add local dir to PATH
 if test -d "$HOME/.local/bin"
     and not contains "$HOME/.local/bin" $PATH
