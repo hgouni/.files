@@ -20,10 +20,9 @@ if string match '*bash*' "$SHELL" >/dev/null 2>&1
 end
 
 # setup ssh permissions for use with stow
-if test -z "$SSH_SETUP_COMPLETE"
-    and test -e "$HOME/.ssh/config"
-    command chmod 600 "$HOME/.ssh/config"
-    set -U SSH_SETUP_COMPLETE 1
+if test -e "$HOME/.dotfiles/ssh/.ssh/config"
+    and test (command stat -c "%a" "$HOME/.dotfiles/ssh/.ssh/config") -ne 600
+    command chmod 600 "$HOME/.dotfiles/ssh/.ssh/config"
 end
 
 # Suppress greeting
@@ -89,6 +88,7 @@ if status --is-interactive
     abbr --add --global mv mv -b
     abbr --add --global la ls -ahlt
     abbr --add --global cv cat -nvET
+    abbr --add --global shred shred -uvz
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
