@@ -171,13 +171,16 @@ end
 
 ### ENVIRONMENT VARIABLES ###
 
-# for tmux
-set -x SHELL (type --force-path fish)
-
 # add local dir to PATH
 if test -d "$HOME/.local/bin"
     and not contains "$HOME/.local/bin" $PATH
     set PATH "$HOME/.local/bin" $PATH
+end
+
+# add cargo bin dir to PATH
+if test -d "$HOME/.cargo/bin"
+    and not contains "$HOME/.cargo/bin" $PATH
+    set PATH "$HOME/.cargo/bin" $PATH
 end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
@@ -189,12 +192,6 @@ end
 
 # set gpg domain for qubes
 set -x QUBES_GPG_DOMAIN vault-gpg
-
-# add cargo bin dir to PATH
-if test -d "$HOME/.cargo/bin"
-    and not contains "$HOME/.cargo/bin" $PATH
-    set PATH "$HOME/.cargo/bin" $PATH
-end
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
@@ -216,3 +213,6 @@ if type -q nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
 end
+
+# for tmux
+set -x SHELL (type --force-path fish)
