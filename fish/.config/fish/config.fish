@@ -20,7 +20,7 @@ if string match '*bash*' "$SHELL" >/dev/null 2>&1
 end
 
 # setup ssh permissions for use with stow
-if test -e "$HOME/.dotfiles/ssh/.ssh/config"
+if test -e "$HOME/.ssh/config"
     and test (command stat -c "%a" "$HOME/.dotfiles/ssh/.ssh/config") -ne 600
     command chmod 600 "$HOME/.dotfiles/ssh/.ssh/config"
 end
