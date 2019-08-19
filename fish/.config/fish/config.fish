@@ -70,8 +70,11 @@ end
 # function for safe rm; moves files to xdg trash using trash-cli or moves removed files to ~/.trash
 # must manually invoke /bin/rm for destructive actions
 # gnu mv with -b flag creates backups of duplicate file names
+# passing -s securely deletes the file with shred
 function rm
-    if type -q trash-put
+    if test $argv[1] = '-s'
+        command shred -uvz $argv[2..-1]
+    else if type -q trash-put
         command trash-put $argv
     else
         command mkdir -p "$HOME/.trash";
@@ -88,7 +91,6 @@ if status --is-interactive
     abbr --add --global mv mv -b
     abbr --add --global la ls -ahlt
     abbr --add --global cv cat -nvET
-    abbr --add --global shred shred -uvz
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
