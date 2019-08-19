@@ -73,7 +73,7 @@ end
 # passing -s securely deletes the file with shred
 function rm
     if test $argv[1] = '-s'
-        command shred -uvz $argv[2..-1]
+        command shred -uz $argv[2..-1]
     else if type -q trash-put
         command trash-put $argv
     else
@@ -86,11 +86,18 @@ end
 
 # general abbreviation function
 if status --is-interactive
+    abbr --add --global mv mv -b
+    abbr --add --global cp cp -b
+    abbr --add --global ln ln -b
+    abbr --add --global chown chown --preserve-root
+    abbr --add --global chmod chmod --preserve-root
+    abbr --add --global chgrp chgrp --preserve-root
+    abbr --add --global c clear
     abbr --add --global rb bash -c
     abbr --add --global bl tput bel
-    abbr --add --global mv mv -b
     abbr --add --global la ls -ahlt
     abbr --add --global cv cat -nvET
+    abbr --add --global untar tar -zxvf
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
