@@ -97,7 +97,7 @@ if status --is-interactive
     abbr --add --global bl tput bel
     abbr --add --global la ls -ahlt
     abbr --add --global cv cat -nvET
-    abbr --add --global untar tar -zxvf
+    abbr --add --global untar tar -xvf
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
