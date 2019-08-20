@@ -1,3 +1,6 @@
+[core]
+    untrackedCache = true
+
 [user]
     name = LawAbidingCactus
     email = lawabidingcactus@lawabidingcactus.com
