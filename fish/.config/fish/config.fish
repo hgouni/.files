@@ -141,7 +141,7 @@ end
 
 # create git prompt
 # showdirtystate is too slow
-# set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showuntrackedfiles 'yes'
 set __fish_git_prompt_showstashstate 'yes'
 set __fish_git_prompt_showupstream auto
