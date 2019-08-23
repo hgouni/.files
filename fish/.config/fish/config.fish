@@ -67,10 +67,8 @@ function bind_dollar
     end
 end
 
-# function for safe rm; moves files to xdg trash using trash-cli or moves removed files to ~/.trash
+# function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
 # must manually invoke /bin/rm for destructive actions
-# gnu mv with -b flag creates backups of duplicate file names
-# passing -s securely deletes the file with shred
 function rm
     if test $argv[1] = '-s'
         command shred -uz $argv[2..-1]
@@ -107,10 +105,7 @@ end
 
 # emulate sorin prompt
 function fish_prompt
-    # show exit code if nonzero
-    # it's necessary to first save $status to last_status because it will get overwritten
-    # by the test statement otherwise. If this is not done, the nonzero exit code will be
-    # detected successfully, but the exit code will display as zero
+    # save $status to $last_status to prevent overwriting
     set last_status $status
     if test "$last_status" -ne 0
         printf '%s%s %s' (set_color purple) "$last_status" (set_color normal)
