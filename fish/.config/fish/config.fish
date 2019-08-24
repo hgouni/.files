@@ -210,4 +210,5 @@ if type -q nvim
 end
 
 # for tmux
+# can't use a universal variable here because it would get shadowed
 set -x SHELL (type --force-path fish)
