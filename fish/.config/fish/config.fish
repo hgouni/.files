@@ -72,7 +72,7 @@ end
 function rm
     if test $argv[1] = '-s'
         command shred -uz $argv[2..-1]
-    else if type -q trash-put
+    else if command -sq trash-put
         command trash-put $argv
     else
         command mkdir -p "$HOME/.trash";
@@ -180,8 +180,8 @@ end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
 # we're not going to use contains here because that would require invoking stack, which is slow
-if type -q stack
-    and not type -q ghc
+if command -sq stack
+    and not command -sq ghc
     set -U fish_user_paths (command stack path --compiler-bin) $fish_user_paths
 end
 
@@ -193,18 +193,18 @@ set -x QUBES_GPG_DOMAIN vault-gpg
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ and Trash/ folders)
-if type -q rg
+if command -sq rg
     set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!Trash"'
 end
 
 # faster than having completion tools etc autodetect it
-if type -q rustc
+if command -sq rustc
     and test -z "$RUST_SRC_PATH"
     set -Ux RUST_SRC_PATH (command rustc --print sysroot)/lib/rustlib/src/rust/src
 end
 
 # set editor env vars
-if type -q nvim
+if command -sq nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
 end
