@@ -70,6 +70,8 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'neovimhaskell/haskell-vim'
 
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
 " note: there's no need to create an alternative escape-- alt+space will
@@ -110,17 +112,6 @@ set shiftwidth=4
 " toggle highlighting for searches
 set hlsearch!
 nnoremap <silent><leader>/ :set hlsearch!<CR>
-
-" automatically close things
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-" skip past inserted characters
-inoremap <C-s> <C-o>A
 
 " special symbols
 inoremap \forall ∀
@@ -193,6 +184,9 @@ let g:undotree_HighlightChangedText = 0
 let g:undotree_HelpLine = 0
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
+
+" skip past inserted characters
+let g:AutoPairsFlyMode = 1
 
 " enable jumping to hints
 let g:sneak#label = 1
