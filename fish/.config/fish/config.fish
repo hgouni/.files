@@ -178,6 +178,9 @@ if test -d "$HOME/.cargo/bin"
     set PATH "$HOME/.cargo/bin" $PATH
 end
 
+# allows libraries to be installed locally in ~/.local/lib
+set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
+
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
 # we're not going to use contains here because that would require invoking stack, which is slow
 if command -sq stack
