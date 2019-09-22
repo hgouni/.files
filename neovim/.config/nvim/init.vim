@@ -186,6 +186,8 @@ let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
 
 " skip past inserted characters
+" <M-b> jumps back and inserts
+" <M-e> wraps the following word
 let g:AutoPairsFlyMode = 1
 
 " enable jumping to hints
