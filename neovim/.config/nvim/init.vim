@@ -30,6 +30,8 @@ endif
 
 call plug#begin()
 
+Plug 'idris-hackers/idris-vim'
+
 Plug 'justinmk/vim-sneak'
 
 Plug 'morhetz/gruvbox'
@@ -216,6 +218,7 @@ nnoremap <leader>ft :BTags<CR>
 nnoremap <leader>fp :Tags<CR>
 nnoremap <leader>fm :Marks<CR>
 nnoremap <leader>fc :Commands<CR>
+nnoremap <leader>fo :Buffers<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --hidden --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,

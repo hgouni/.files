@@ -179,7 +179,10 @@ if test -d "$HOME/.cargo/bin"
 end
 
 # allows libraries to be installed locally in ~/.local/lib
-set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
+if test -d "$HOME/.local/lib"
+    and not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
+    set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
+end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
 # we're not going to use contains here because that would require invoking stack, which is slow
@@ -189,7 +192,7 @@ if command -sq stack
 end
 
 # set gpg domain for qubes
-set -x QUBES_GPG_DOMAIN vault-gpg
+set -x QUBES_GPG_DOMAIN gpg-vault
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
