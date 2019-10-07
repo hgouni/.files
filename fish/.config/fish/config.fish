@@ -80,6 +80,12 @@ function rm
     end
 end
 
+function gcpr -a repo branch
+    git clone $repo;
+    and cd (ls -t | sed -n 1p);
+    and git checkout -b $branch
+end
+
 ### ALIASES/ABBREVIATIONS ###
 
 # general abbreviation function
