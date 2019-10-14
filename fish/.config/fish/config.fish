@@ -80,6 +80,19 @@ function rm
     end
 end
 
+# function to post to 0x0.st
+function post
+    switch $argv[1]
+    case -u
+        curl -F url=$argv[2] https://0x0.st
+    case -s
+        curl -F shorten=$argv[2] https://0x0.st
+    case "*"
+        curl -F file=@$argv[1] https://0x0.st
+    end
+end
+
+# git function to clone, change directory, and checkout a branch
 function gcpr -a repo branch
     git clone $repo;
     and cd (ls -t | sed -n 1p);
@@ -221,6 +234,6 @@ if command -sq nvim
     set -x EDITOR "$VISUAL"
 end
 
-# for tmux
+# for tmux; gets set to /bin/bash otherwise, because fish is exec'd by bash
 # can't use a universal variable here because it would get shadowed
 set -x SHELL (type --force-path fish)
