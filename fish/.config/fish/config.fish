@@ -70,33 +70,33 @@ end
 # function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
 # must manually invoke /bin/rm for destructive actions
 function rm
-    if test $argv[1] = '-s'
-        command shred -uz $argv[2..-1]
+    if test "$argv[1]" = '-s'
+        command shred -uz "$argv[2..-1]"
     else if command -sq trash-put
-        command trash-put $argv
+        command trash-put "$argv"
     else
         command mkdir -p "$HOME/.trash";
-        and command mv -b $argv "$HOME/.trash"
+        and command mv -b "$argv" "$HOME/.trash"
     end
 end
 
 # function to post to 0x0.st
 function post
-    switch $argv[1]
+    switch "$argv[1]"
     case -u
-        curl -F url=$argv[2] https://0x0.st
+        curl -F url="$argv[2]" https://0x0.st
     case -s
-        curl -F shorten=$argv[2] https://0x0.st
+        curl -F shorten="$argv[2]" https://0x0.st
     case "*"
-        curl -F file=@$argv[1] https://0x0.st
+        curl -F file=@"$argv[1]" https://0x0.st
     end
 end
 
 # git function to clone, change directory, and checkout a branch
 function gcpr -a repo branch
-    git clone $repo;
+    git clone "$repo";
     and cd (ls -t | sed -n 1p);
-    and git checkout -b $branch
+    and git checkout -b "$branch"
 end
 
 ### ALIASES/ABBREVIATIONS ###
