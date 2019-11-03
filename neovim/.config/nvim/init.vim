@@ -209,6 +209,7 @@ let g:ale_fixers = {
     \ }
 let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_haskell_hie_executable = 'hie-wrapper'
+nnoremap <leader>d :ALEDetail<CR>
 
 " fzf config
 nnoremap <leader>ff :Files<CR>
