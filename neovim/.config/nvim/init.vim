@@ -84,7 +84,7 @@ call plug#end()
 set nomodeline
 
 " leader key
-let mapleader = <Space>
+let mapleader = " "
 
 " localleader key; '\\' must be used because '\' functions as escape char
 let maplocalleader = "\\"
