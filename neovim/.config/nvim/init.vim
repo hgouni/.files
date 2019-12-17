@@ -160,8 +160,8 @@ nnoremap <silent><M-t> :call Term_toggle(10)<CR>
 inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
 tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
 
-" make vim extremely responsive without destroying ssd with writes
-" (might mess with cursorhold?)
+" make vim functions that depend on CursorHoldI extremely responsive
+" without destroying ssd with writes
 set updatetime=0
 set directory=/dev/shm/nvim_swap//
 
@@ -185,7 +185,7 @@ let g:undotree_ShortIndicators = 1
 let g:undotree_HighlightChangedText = 0
 let g:undotree_HelpLine = 0
 let g:undotree_SetFocusWhenToggle = 1
-nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " enable jumping to hints
 let g:sneak#label = 1
@@ -204,17 +204,17 @@ let g:ale_fixers = {
     \ }
 let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_haskell_hie_executable = 'hie-wrapper'
-nnoremap <leader>d :ALEDetail<CR>
+nnoremap <silent><leader>d :ALEDetail<CR>
 
 " fzf config
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :BLines<CR>
-nnoremap <leader>fl :Lines<CR>
-nnoremap <leader>ft :BTags<CR>
-nnoremap <leader>fp :Tags<CR>
-nnoremap <leader>fm :Marks<CR>
-nnoremap <leader>fc :Commands<CR>
-nnoremap <leader>fo :Buffers<CR>
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>fb :BLines<CR>
+nnoremap <silent><leader>fl :Lines<CR>
+nnoremap <silent><leader>ft :BTags<CR>
+nnoremap <silent><leader>fp :Tags<CR>
+nnoremap <silent><leader>fm :Marks<CR>
+nnoremap <silent><leader>fc :Commands<CR>
+nnoremap <silent><leader>fo :Buffers<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --hidden --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
@@ -258,7 +258,7 @@ nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>= <Plug>AirlineSelectNextTab
 
 " tagbar config
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <silent><leader>t :TagbarToggle<CR>
 let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 let g:tagbar_type_rust = {
   \ 'ctagsbin' : '/home/user/.local/bin/ctags',
