@@ -112,7 +112,7 @@ if status --is-interactive
     abbr --add --global c clear
     abbr --add --global rb bash -c
     abbr --add --global bl tput bel
-    abbr --add --global la ls -ahlt
+    abbr --add --global l ls -ahlt
     abbr --add --global cv cat -nvET
     abbr --add --global untar tar -xvf
     abbr --add --global rmls trash-list
