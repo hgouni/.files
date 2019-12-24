@@ -118,6 +118,7 @@ if status --is-interactive
     abbr --add --global rmls trash-list
     abbr --add --global unrm trash-restore
     abbr --add --global rmrm trash-rm
+    abbr --add --global rmempty trash-empty
     abbr --add --global gpgq qubes-gpg-client
 end
 
