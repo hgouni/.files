@@ -1,15 +1,5 @@
 ### INITIAL SHELL SETUP ###
 
-# Install Fisher:
-# Plugins:
-# jethrokuan/z
-# edc/bass
-# if not functions -q fisher
-#     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-#     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-#     fish -c fisher
-# end
-
 # Note: run fish_config to choose colorscheme
 
 # automatically configure bash to replace itself with fish process while preserving login scripts
