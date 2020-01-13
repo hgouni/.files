@@ -111,6 +111,9 @@ if status --is-interactive
     abbr --add --global rmrm trash-rm
     abbr --add --global rmempty trash-empty
     abbr --add --global gpgq qubes-gpg-client
+    abbr --add --global sewebfile chcon -t httpd_sys_content_t
+    abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
+    abbr --add --global fwmod firewall-cmd --zone=public --permanent
 end
 
 ### PROMPT ###
@@ -249,4 +252,4 @@ end
 
 # for tmux; gets set to /bin/bash otherwise, because fish is exec'd by bash
 # can't use a universal variable here because it would get shadowed
-set -x SHELL (type --force-path fish)
+set -x SHELL (command -s fish)
