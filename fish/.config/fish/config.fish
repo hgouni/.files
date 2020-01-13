@@ -84,7 +84,7 @@ function post
 end
 
 # git function to clone, change directory, and checkout a branch
-function gcpr -a repo branch
+function gitcpr -a repo branch
     git clone "$repo";
     and cd (ls -t | sed -n 1p);
     and git checkout -b "$branch"
@@ -114,6 +114,7 @@ if status --is-interactive
     abbr --add --global sewebfile chcon -t httpd_sys_content_t
     abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
     abbr --add --global fwmod firewall-cmd --zone=public --permanent
+    abbr --add --global gitls git ls-tree -r master --name-only
 end
 
 ### PROMPT ###
