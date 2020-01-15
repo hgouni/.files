@@ -1,8 +1,8 @@
-### INITIAL SHELL SETUP ###
+### SHELL SETUP ###
 
 # Note: run fish_config to choose colorscheme
 
-# automatically configure bash to replace itself with fish process while preserving login scripts
+# configure bash to replace itself with fish process while preserving login scripts
 # allow 'bash -c' to be used without passing --norc
 # grep works faster on longer strings, so we might as well search for the whole line
 if string match '*bash*' "$SHELL" >/dev/null 2>&1
@@ -22,7 +22,7 @@ set fish_greeting
 # Minimize escape delay (for vi mode)
 set -g fish_escape_delay_ms 10
 
-### KEYBINDINGS ###
+### KEYBINDS ###
 
 # Turn on vi mode and set cursors
 set -g fish_key_bindings fish_vi_key_bindings
@@ -90,7 +90,7 @@ function gitcpr -a repo branch
     and git checkout -b "$branch"
 end
 
-### ALIASES/ABBREVIATIONS ###
+### ALIASES ###
 
 # general abbreviation function
 if status --is-interactive
@@ -124,19 +124,21 @@ function fish_mode_prompt
     switch $fish_bind_mode
         case default
             set_color --bold red
-            echo '[N]'
+            printf '%s ' '[N]'
         case insert
             set_color --bold green
-            echo '[I]'
+            printf '%s ' '[I]'
         case replace_one
             set_color --bold green
-            echo '[R]'
+            printf '%s ' '[R]'
         case visual
             set_color --bold yellow
-            echo '[V]'
+            printf '%s ' '[V]'
+        case '*'
+            set_color --bold red
+            printf '%s ' '[?]'
     end
     set_color normal
-    printf '%s '
 end
 
 # emulate sorin prompt
@@ -200,7 +202,7 @@ function fish_right_prompt
     end
 end
 
-### ENVIRONMENT VARIABLES ###
+### ENV VARS ###
 
 # add local dir to PATH
 if test -d "$HOME/.local/bin"
