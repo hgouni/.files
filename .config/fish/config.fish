@@ -90,6 +90,17 @@ function gitcpr -a repo branch
     and git checkout -b "$branch"
 end
 
+function config
+    switch "$argv[1]"
+    case --setup
+        git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files"
+        config checkout
+        config config --local status.showUntrackedFiles no
+    case "*"
+        command git --git-dir="$HOME/.files/" --work-tree="$HOME" $argv
+    end
+end
+
 ### ALIASES ###
 
 # general abbreviation function
@@ -115,7 +126,6 @@ if status --is-interactive
     abbr --add --global sewebdir command chcon -Rt httpd_sys_content_t
     abbr --add --global fwmod command firewall-cmd --zone=public --permanent
     abbr --add --global gitls command git ls-tree -r master --name-only
-    abbr --add --global config command git --git-dir=$HOME/.files/ --work-tree=$HOME
 end
 
 ### PROMPT ###
