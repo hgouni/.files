@@ -6,8 +6,8 @@
 # allow 'bash -c' to be used without passing --norc
 # grep works faster on longer strings, so we might as well search for the whole line
 if string match '*bash*' "$SHELL" >/dev/null 2>&1
-    and not command grep -Fqsx 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' "$HOME/.bashrc"
-    printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish; fi' >> "$HOME/.bashrc"
+    and not command grep -Fqsx 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish -c tmux; fi' "$HOME/.bashrc"
+    printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish -c tmux; fi' >> "$HOME/.bashrc"
 end
 
 # setup ssh permissions for use with stow
