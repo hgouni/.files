@@ -12,8 +12,8 @@ end
 
 # setup ssh permissions for use with stow
 if test -e "$HOME/.ssh/config"
-    and test (command stat -c "%a" "$HOME/.dotfiles/ssh/.ssh/config") -ne 600
-    command chmod 600 "$HOME/.dotfiles/ssh/.ssh/config"
+    and test (command stat -c "%a" "$HOME/.ssh/config") -ne 600
+    command chmod 600 "$HOME/.ssh/config"
 end
 
 # Suppress greeting
