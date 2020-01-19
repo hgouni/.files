@@ -92,7 +92,8 @@ end
 
 function config
     switch "$argv[1]"
-    case --setup
+    case --reset
+        rm "$HOME/.files" "$HOME/.ssh/config" "$HOME/.config/fish" "$HOME/.config/nvim" "$HOME/.gitconfig" "$HOME/.gitignore" "$HOME/.tmux.conf" "$HOME/.tmux.colorscheme.conf" "$HOME/.st/patches"
         git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files"
         config checkout
         config config --local status.showUntrackedFiles no
