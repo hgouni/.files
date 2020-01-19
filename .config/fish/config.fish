@@ -90,6 +90,7 @@ function gitcpr -a repo branch
     and git checkout -b "$branch"
 end
 
+# function to manage dotfiles
 function config
     switch "$argv[1]"
     case --reset
