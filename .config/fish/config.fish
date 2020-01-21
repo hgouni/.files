@@ -60,6 +60,8 @@ function bind_dollar
     end
 end
 
+### FUNCTIONS ###
+
 # function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
 # must manually invoke /bin/rm for destructive actions
 function rm
@@ -77,19 +79,19 @@ end
 function post
     switch "$argv[1]"
     case -u
-        curl -F url="$argv[2]" https://0x0.st
+        command curl -F url="$argv[2]" https://0x0.st
     case -s
-        curl -F shorten="$argv[2]" https://0x0.st
+        command curl -F shorten="$argv[2]" https://0x0.st
     case "*"
-        curl -F file=@"$argv[1]" https://0x0.st
+        command curl -F file=@"$argv[1]" https://0x0.st
     end
 end
 
 # git function to clone, change directory, and checkout a branch
 function gitcpr -a repo branch
-    git clone "$repo";
-    and cd (ls -t | sed -n 1p);
-    and git checkout -b "$branch"
+    command git clone "$repo";
+    and cd (command ls -t | command sed -n 1p);
+    and command git checkout -b "$branch"
 end
 
 # function to manage dotfiles
@@ -101,7 +103,7 @@ function config
                 rm $file
             end;
         and rm "$HOME/.files";
-        and git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files";
+        and command git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files";
         and config checkout;
         and config config --local status.showUntrackedFiles no
     case "*"
