@@ -259,7 +259,7 @@ set -x QUBES_GPG_DOMAIN gpg-vault
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ and Trash/ folders)
 if command -sq rg
-    set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!Trash"'
+    set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!Trash"'
 end
 
 # faster than having completion tools etc autodetect it
