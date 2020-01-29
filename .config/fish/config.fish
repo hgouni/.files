@@ -10,7 +10,7 @@ if string match '*bash*' "$SHELL" >/dev/null 2>&1
     printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish -c tmux; fi' >> "$HOME/.bashrc"
 end
 
-# setup ssh permissions for use with stow
+# setup ssh permissions
 if test -e "$HOME/.ssh/config"
     and test (command stat -c "%a" "$HOME/.ssh/config") -ne 600
     command chmod 600 "$HOME/.ssh/config"
@@ -194,7 +194,7 @@ function fish_prompt
 end
 
 # create git prompt
-# showdirtystate is too slow
+# showdirtystate is slow
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showuntrackedfiles 'yes'
 set __fish_git_prompt_showstashstate 'yes'
@@ -267,6 +267,7 @@ if command -sq rustc
     set -Ux RUST_SRC_PATH (command rustc --print sysroot)/lib/rustlib/src/rust/src
 end
 
+# set up ocaml env
 if command -sq opam
     source "$HOME/.opam/opam-init/init.fish" >/dev/null 2>&1; or true
 end
