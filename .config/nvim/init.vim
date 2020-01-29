@@ -74,6 +74,8 @@ Plug 'neovimhaskell/haskell-vim'
 
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'whonore/Coqtail'
+
 call plug#end()
 
 " note: there's no need to create an alternative escape-- alt+space will
