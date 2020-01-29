@@ -267,6 +267,10 @@ if command -sq rustc
     set -Ux RUST_SRC_PATH (command rustc --print sysroot)/lib/rustlib/src/rust/src
 end
 
+if command -sq opam
+    source "$HOME/.opam/opam-init/init.fish" >/dev/null 2>&1; or true
+end
+
 # set editor env vars
 if command -sq nvim
     set -x VISUAL nvim
