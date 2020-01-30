@@ -171,7 +171,7 @@ function fish_prompt
     end
 
     # detect if running in a virtual terminal (note: figure out string escaping in
-    # command sub); can also use fgconsole here
+    # fish command sub); can also use fgconsole here
     # show username and hostname if ssh or vt
     if string match '*tty*' (tty) >/dev/null 2>&1
         or test -n "$SSH_TTY" -o -n "$SSH_CLIENT"

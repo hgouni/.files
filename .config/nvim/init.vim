@@ -74,7 +74,7 @@ Plug 'neovimhaskell/haskell-vim'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'whonore/Coqtail'
+Plug 'https://framagit.org/tyreunom/coquille.git', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -310,3 +310,19 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
+
+" coq setup
+nnoremap <silent><leader>cL :call CoqLaunch()<CR>
+nnoremap <silent><leader>cS :call CoqStop()<CR>
+nnoremap <silent><leader>cn :call CoqNext()<CR>
+nnoremap <silent><leader>ce :call CoqCancel()<CR>
+nnoremap <silent><leader>cj :call CoqToCursor()<CR>
+nnoremap <silent><leader>cu :call CoqUndo()<CR>
+nnoremap <silent><leader>cv :call CoqVersion()<CR>
+nnoremap <silent><leader>cb :call CoqBuild()<CR>
+nnoremap <silent><leader>cq :call CoqQuery()<CR>
+nnoremap <silent><leader>cc :call CoqCheck()<CR>
+nnoremap <silent><leader>cl :call CoqLocate()<CR>
+nnoremap <silent><leader>cp :call CoqPrint()<CR>
+nnoremap <silent><leader>cs :call CoqSearch()<CR>
+nnoremap <silent><leader>ca :call CoqSearchAbout()<CR>
