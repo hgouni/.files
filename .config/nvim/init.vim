@@ -312,6 +312,9 @@ let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
 
 " coq setup
+hi default CheckedByCoq ctermbg=2 guibg=DarkGreen
+hi default SentToCoq ctermbg=8 guibg=DarkGray
+hi default CoqErrorCommand ctermbg=4 guibg=DarkRed
 nnoremap <silent><leader>cL :call CoqLaunch()<CR>
 nnoremap <silent><leader>cS :call CoqStop()<CR>
 nnoremap <silent><leader>cn :call CoqNext()<CR>
@@ -320,9 +323,9 @@ nnoremap <silent><leader>cj :call CoqToCursor()<CR>
 nnoremap <silent><leader>cu :call CoqUndo()<CR>
 nnoremap <silent><leader>cv :call CoqVersion()<CR>
 nnoremap <silent><leader>cb :call CoqBuild()<CR>
-nnoremap <silent><leader>cq :call CoqQuery()<CR>
-nnoremap <silent><leader>cc :call CoqCheck()<CR>
-nnoremap <silent><leader>cl :call CoqLocate()<CR>
-nnoremap <silent><leader>cp :call CoqPrint()<CR>
-nnoremap <silent><leader>cs :call CoqSearch()<CR>
-nnoremap <silent><leader>ca :call CoqSearchAbout()<CR>
+nnoremap <silent><leader>cq :call CoqQuery(input('Query: '))<CR>
+nnoremap <silent><leader>cc :call CoqCheck(input('Check: '))<CR>
+nnoremap <silent><leader>cl :call CoqLocate(input('Locate: '))<CR>
+nnoremap <silent><leader>cp :call CoqPrint(input('Print: '))<CR>
+nnoremap <silent><leader>cs :call CoqSearch(input('Search: '))<CR>
+nnoremap <silent><leader>ca :call CoqSearchAbout(input('Search About: '))<CR>
