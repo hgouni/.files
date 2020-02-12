@@ -311,10 +311,10 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
 
-" coq setup
+" coq config
 autocmd FileType coq setlocal commentstring=(*%s*) tabstop=2 shiftwidth=2
-hi default CheckedByCoq ctermbg=2 guibg=DarkGreen
 hi default SentToCoq ctermbg=8 guibg=DarkGray
+hi default CheckedByCoq ctermbg=2 guibg=DarkGreen
 hi default CoqErrorCommand ctermbg=4 guibg=DarkRed
 nnoremap <silent><leader>cL :call CoqLaunch()<CR>
 nnoremap <silent><leader>cS :call CoqStop()<CR>
