@@ -182,6 +182,7 @@ colorscheme gruvbox
 
 " persistent undo and undo tree config (not necessary to specify undodir)
 set undofile
+set undolevels=100000
 let g:undotree_WindowLayout = 3
 let g:undotree_ShortIndicators = 1
 let g:undotree_HighlightChangedText = 0
