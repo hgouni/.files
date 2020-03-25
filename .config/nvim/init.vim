@@ -1,9 +1,3 @@
-" vim needs a more posix-compatible shell than fish
-if &shell =~# 'fish$'
-    " from vim-sensible
-    set shell=/usr/bin/env\ bash
-endif
-
 " autoinstall plug
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -169,7 +163,7 @@ set directory=/dev/shm/nvim_swap//
 
 " use async job control to sync swapfiles to non-volatile storage
 function! Fs_sync(timer_fs_sync)
-    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "/home/user/.local/share/nvim/swap"')
+    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "'.$HOME.'/.local/share/nvim/swap"')
 endfunction
 
 let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
@@ -264,7 +258,7 @@ nmap <leader>= <Plug>AirlineSelectNextTab
 nnoremap <silent><leader>t :TagbarToggle<CR>
 let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 let g:tagbar_type_rust = {
-  \ 'ctagsbin' : '/home/user/.local/bin/ctags',
+  \ 'ctagsbin' : $HOME.'/.local/bin/ctags',
   \ 'ctagstype' : 'rust',
   \ 'kinds' : [
       \ 'n:modules',
