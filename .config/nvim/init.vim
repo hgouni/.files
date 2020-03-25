@@ -163,7 +163,7 @@ set directory=/dev/shm/nvim_swap//
 
 " use async job control to sync swapfiles to non-volatile storage
 function! Fs_sync(timer_fs_sync)
-    call jobstart('rsync -avu --delete "/dev/shm/nvim_swap/" "'.$HOME.'/.local/share/nvim/swap"')
+    call jobstart('rsync -aq --delete "/dev/shm/nvim_swap/" "'.$HOME.'/.local/share/nvim/swap"')
 endfunction
 
 let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
