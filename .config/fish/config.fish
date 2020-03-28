@@ -162,7 +162,7 @@ function fish_mode_prompt
     set_color normal
 end
 
-# emulate sorin prompt
+# ps1 config
 function fish_prompt
     # save $status to $last_status to prevent overwriting
     set last_status $status
