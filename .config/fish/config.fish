@@ -75,7 +75,7 @@ function rm
     end
 end
 
-# function to post to 0x0.st
+# post to 0x0.st
 function post
     switch "$argv[1]"
     case -u
@@ -87,14 +87,14 @@ function post
     end
 end
 
-# git function to clone, change directory, and checkout a branch
+# clone, change directory, and checkout a branch
 function gitcpr -a repo branch
     command git clone "$repo";
     and cd (command ls -t | command sed -n 1p);
     and command git checkout -b "$branch"
 end
 
-# function to manage dotfiles
+# setup dotfiles repo
 function config
     switch "$argv[1]"
     case --reset
@@ -108,6 +108,24 @@ function config
         and config config --local status.showUntrackedFiles no
     case "*"
         command git --git-dir="$HOME/.files/" --work-tree="$HOME" $argv
+    end
+end
+
+# manage tmux sessions
+function tkill
+    switch "$argv[1]"
+    case -d
+        for line in (tmux list-sessions | grep -Ev '\(attached\)$' | cut -d : -f 1)
+            tmux kill-session -t $line
+        end
+    case '*'
+        read -l -P 'Are you sure? (y/n) ' reply
+        switch $reply
+        case y yes Y
+            tmux kill-server
+        case '*'
+            printf '%s\n' 'Aborting.'
+        end
     end
 end
 
