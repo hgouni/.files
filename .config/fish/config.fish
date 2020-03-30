@@ -5,9 +5,8 @@
 # configure bash to replace itself with fish process while preserving login scripts
 # allow 'bash -c' to be used without passing --norc
 # grep works faster on longer strings, so we might as well search for the whole line
-if string match '*bash*' "$SHELL" >/dev/null 2>&1
-    and not command grep -Fqsx 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish -c tmux; fi' "$HOME/.bashrc"
-    printf '%s\n' 'if [ -z "$BASH_EXECUTION_STRING" ]; then exec fish -c tmux; fi' >> "$HOME/.bashrc"
+if string match '*bash' "$SHELL" >/dev/null 2>&1
+    printf '%s\n' 'if [ -z "$TMUX" ]; then export SHELL=$(command -v fish) && exec tmux; fi' >> "$HOME/.bashrc"
 end
 
 # setup ssh permissions
@@ -119,7 +118,7 @@ function tkill
             tmux kill-session -t $line
         end
     case '*'
-        read -l -P 'Are you sure? (y/n) ' reply
+        read -lP 'Are you sure? (y/n) ' reply
         switch $reply
         case y yes Y
             tmux kill-server
@@ -295,7 +294,3 @@ if command -sq nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
 end
-
-# for tmux; gets set to /bin/bash otherwise, because fish is exec'd by bash
-# can't use a universal variable here because it would get shadowed
-set -x SHELL (command -s fish)
