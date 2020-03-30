@@ -6,8 +6,12 @@
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
     and string match '*bash' "$SHELL" >/dev/null 2>&1
-    printf '%s\n' 'if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc";
-    and printf '%s\n' 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.profile"
+    printf '%s\n' 'if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc"
+end
+
+# ~/.local/bin must be added to path before bash executes
+if not contains "$HOME/.local/bin" $PATH
+    printf '%s\n' 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.profile"
 end
 
 # setup ssh permissions
@@ -256,14 +260,12 @@ end
 ### ENV VARS ###
 
 # add cargo bin dir to PATH
-if test -d "$HOME/.cargo/bin"
-    and not contains "$HOME/.cargo/bin" $PATH
+if not contains "$HOME/.cargo/bin" $PATH
     set PATH "$HOME/.cargo/bin" $PATH
 end
 
 # allows libraries to be installed locally in ~/.local/lib
-if test -d "$HOME/.local/lib"
-    and not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
+if not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
     set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
 end
 
