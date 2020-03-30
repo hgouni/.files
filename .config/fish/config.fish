@@ -4,8 +4,10 @@
 
 # configure bash to replace itself with fish process while preserving login scripts
 # allow bash to be used without passing --norc
-if string match '*bash' "$SHELL" >/dev/null 2>&1
-    printf '%s\n' 'if [ -z "$TMUX" ]; then export SHELL=$(command -v fish) && exec tmux; fi' >> "$HOME/.bashrc"
+if test -z "$TMUX"
+    and string match '*bash' "$SHELL" >/dev/null 2>&1
+    printf '%s\n' 'if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc";
+    and printf '%s\n' 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.profile"
 end
 
 # setup ssh permissions
@@ -30,9 +32,8 @@ set fish_cursor_replace_one underscore
 
 # General keybind function
 function fish_user_key_bindings
-    # note: change repaint to repaint-mode here once fish 3.1.0 releases
-    bind -M insert -m default \el accept-autosuggestion repaint
-    bind -M insert -m default \ew forward-word repaint
+    bind -M insert -m default \el accept-autosuggestion repaint-mode
+    bind -M insert -m default \ew forward-word repaint-mode
     bind -M default w forward-word
     bind -M insert ! bind_bang
     bind -M insert '$' bind_dollar
@@ -253,12 +254,6 @@ function fish_right_prompt
 end
 
 ### ENV VARS ###
-
-# add local dir to PATH
-if test -d "$HOME/.local/bin"
-    and not contains "$HOME/.local/bin" $PATH
-    set PATH "$HOME/.local/bin" $PATH
-end
 
 # add cargo bin dir to PATH
 if test -d "$HOME/.cargo/bin"
