@@ -3,8 +3,7 @@
 # Note: run fish_config to choose colorscheme
 
 # configure bash to replace itself with fish process while preserving login scripts
-# allow 'bash -c' to be used without passing --norc
-# grep works faster on longer strings, so we might as well search for the whole line
+# allow bash to be used without passing --norc
 if string match '*bash' "$SHELL" >/dev/null 2>&1
     printf '%s\n' 'if [ -z "$TMUX" ]; then export SHELL=$(command -v fish) && exec tmux; fi' >> "$HOME/.bashrc"
 end
@@ -118,8 +117,8 @@ function tkill
             tmux kill-session -t $line
         end
     case '*'
-        read -lP 'Are you sure? (y/n) ' reply
-        switch $reply
+        read -lP 'Are you sure? (y/n) ' confirm
+        switch $confirm
         case y yes Y
             tmux kill-server
         case '*'
@@ -184,11 +183,9 @@ function fish_prompt
     # save $status to $last_status to prevent overwriting
     set last_status $status
     if test "$last_status" -ne 0
-        printf '%s%s %s' (set_color purple) "$last_status" (set_color normal)
+        printf '%s%s %s' (set_color red) "$last_status" (set_color normal)
     end
 
-    # detect if running in a virtual terminal (note: figure out string escaping in
-    # fish command sub); can also use fgconsole here
     # show username and hostname if ssh or vt
     if string match '*tty*' (tty) >/dev/null 2>&1
         or test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
@@ -203,7 +200,7 @@ function fish_prompt
     if command sudo -n true >/dev/null 2>&1
         printf '%s%s %s' (set_color red) (prompt_pwd) (set_color normal)
     else
-        printf '%s%s %s' (set_color cyan) (prompt_pwd) (set_color normal)
+        printf '%s%s %s' (set_color green) (prompt_pwd) (set_color normal)
     end
 
     # prompt end
@@ -217,7 +214,22 @@ set __fish_git_prompt_showuntrackedfiles 'yes'
 set __fish_git_prompt_showstashstate 'yes'
 set __fish_git_prompt_showupstream auto
 set __fish_git_prompt_describe_style branch
-set __fish_git_prompt_showcolorhints
+
+# git prompt colors
+set __fish_git_prompt_color 'green'
+set __fish_git_prompt_color_bare 'yellow'
+set __fish_git_prompt_color_merging 'yellow'
+set __fish_git_prompt_color_flags 'red'
+set __fish_git_prompt_color_branch 'green'
+set __fish_git_prompt_color_branch_detached 'red'
+set __fish_git_prompt_color_stashstate 'yellow'
+set __fish_git_prompt_color_stagedstate 'yellow'
+set __fish_git_prompt_color_invalidstate 'red'
+set __fish_git_prompt_color_untrackedfiles 'yellow'
+set __fish_git_prompt_char_upstream_equal (set_color green)'='(set_color normal)
+set __fish_git_prompt_char_upstream_ahead (set_color yellow)'>'(set_color normal)
+set __fish_git_prompt_char_upstream_behind (set_color yellow)'<'(set_color normal)
+set __fish_git_prompt_char_upstream_diverged (set_color yellow)'<>'(set_color normal)
 
 # set right prompt to show command execution time and git status
 function fish_right_prompt
