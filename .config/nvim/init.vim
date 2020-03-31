@@ -83,6 +83,9 @@ let mapleader = " "
 " localleader key; '\\' must be used because '\' functions as escape char
 let maplocalleader = "\\"
 
+" line numbers
+set number
+
 " scroll context (note that for set <var>=<mode>, there must be not be spaces on
 " either side of the equal sign)
 set scrolloff=5
@@ -117,11 +120,6 @@ inoremap \equiv ≡
 " esc returns to normal in terminal
 " note: use alt + j or something similar to switch to normal mode in fish
 tnoremap <Esc> <C-\><C-n>
-
-" line numbers
-set number
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
 
 " last position jump
 au BufReadPost *
