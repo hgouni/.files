@@ -136,27 +136,27 @@ end
 
 # general abbreviation function
 if status --is-interactive
-    abbr --add --global mv command mv -b
-    abbr --add --global cp command cp -b
-    abbr --add --global ln command ln -b
-    abbr --add --global chown command chown --preserve-root
-    abbr --add --global chmod command chmod --preserve-root
-    abbr --add --global chgrp command chgrp --preserve-root
-    abbr --add --global c command clear
-    abbr --add --global rb command bash -c
-    abbr --add --global bl command tput bel
+    abbr --add --global mv mv -b
+    abbr --add --global cp cp -b
+    abbr --add --global ln ln -b
+    abbr --add --global chown chown --preserve-root
+    abbr --add --global chmod chmod --preserve-root
+    abbr --add --global chgrp chgrp --preserve-root
+    abbr --add --global c clear
+    abbr --add --global rb bash -c
+    abbr --add --global bl tput bel
     abbr --add --global l ls -ahlt
-    abbr --add --global cv command cat -nvET
-    abbr --add --global untar command tar -xvf
-    abbr --add --global rmls command trash-list
-    abbr --add --global unrm command trash-restore
-    abbr --add --global rmrm command trash-rm
-    abbr --add --global rmempty command trash-empty
-    abbr --add --global gpgq command qubes-gpg-client
-    abbr --add --global sewebfile command chcon -t httpd_sys_content_t
-    abbr --add --global sewebdir command chcon -Rt httpd_sys_content_t
-    abbr --add --global fwmod command firewall-cmd --zone=public --permanent
-    abbr --add --global gitls command git ls-tree -r master --name-only
+    abbr --add --global cv cat -nvET
+    abbr --add --global untar tar -xvf
+    abbr --add --global rmls trash-list
+    abbr --add --global unrm trash-restore
+    abbr --add --global rmrm trash-rm
+    abbr --add --global rmempty trash-empty
+    abbr --add --global gpgq qubes-gpg-client
+    abbr --add --global sewebfile chcon -t httpd_sys_content_t
+    abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
+    abbr --add --global fwmod firewall-cmd --zone=public --permanent
+    abbr --add --global gitls git ls-tree -r master --name-only
 end
 
 ### PROMPT ###
