@@ -66,8 +66,6 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'neovimhaskell/haskell-vim'
 
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'https://framagit.org/tyreunom/coquille.git', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
@@ -84,9 +82,6 @@ let mapleader = " "
 
 " localleader key; '\\' must be used because '\' functions as escape char
 let maplocalleader = "\\"
-
-" line numbers
-set number
 
 " scroll context (note that for set <var>=<mode>, there must be not be spaces on
 " either side of the equal sign)
@@ -122,6 +117,11 @@ inoremap \equiv ≡
 " esc returns to normal in terminal
 " note: use alt + j or something similar to switch to normal mode in fish
 tnoremap <Esc> <C-\><C-n>
+
+" line numbers
+set number
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
 
 " last position jump
 au BufReadPost *
