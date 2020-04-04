@@ -38,7 +38,7 @@ Plug 'ervandew/supertab'
 
 Plug 'mbbill/undotree'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'junegunn/fzf.vim'
 
@@ -202,20 +202,11 @@ let g:ale_haskell_hie_executable = 'hie-wrapper'
 nnoremap <silent><leader>d :ALEDetail<CR>
 
 " fzf config
-nnoremap <silent><leader>ff :Files<CR>
-nnoremap <silent><leader>fb :BLines<CR>
-nnoremap <silent><leader>fl :Lines<CR>
-nnoremap <silent><leader>ft :BTags<CR>
-nnoremap <silent><leader>fp :Tags<CR>
-nnoremap <silent><leader>fm :Marks<CR>
-nnoremap <silent><leader>fc :Commands<CR>
-nnoremap <silent><leader>fo :Buffers<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --hidden --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+  \   fzf#vim#with_preview(), <bang>0)
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1 } }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -230,6 +221,14 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>fb :BLines<CR>
+nnoremap <silent><leader>fl :Lines<CR>
+nnoremap <silent><leader>ft :BTags<CR>
+nnoremap <silent><leader>fp :Tags<CR>
+nnoremap <silent><leader>fm :Marks<CR>
+nnoremap <silent><leader>fc :Commands<CR>
+nnoremap <silent><leader>fo :Buffers<CR>
 
 " airline configuration
 if !exists('g:airline_symbols')
