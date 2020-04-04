@@ -6,7 +6,7 @@
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
     and string match '*bash' "$SHELL" >/dev/null 2>&1
-    printf '%s\n' 'if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc"
+    printf '%s\n' 'if [[ $- == *i* && -z "$TMUX" ]]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc"
 end
 
 # ~/.local/bin must be added to path before bash executes
