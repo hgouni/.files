@@ -529,7 +529,7 @@ index 0e01717..2e6c3f4 100644
  /*
 diff --git a/config.h b/config.h
 new file mode 100644
-index 0000000..01c60b3
+index 0000000..357d6fa
 --- /dev/null
 +++ b/config.h
 @@ -0,0 +1,468 @@
@@ -610,7 +610,7 @@ index 0000000..01c60b3
 +static int bellvolume = 0;
 +
 +/* default TERM value */
-+char *termname = "xterm-256color";
++char *termname = "st-256color";
 +
 +/*
 + * spaces per tab
