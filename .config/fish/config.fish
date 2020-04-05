@@ -123,7 +123,7 @@ function tkill
         end
     case '*'
         read -lP 'Are you sure? (y/n) ' confirm
-        switch $confirm
+        switch "$confirm"
         case y yes Y
             tmux kill-server
         case '*'
@@ -163,7 +163,7 @@ end
 
 # print the vi mode indicator
 function fish_mode_prompt
-    switch $fish_bind_mode
+    switch "$fish_bind_mode"
         case default
             set_color --bold red
             printf '%s ' '[N]'
