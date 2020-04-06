@@ -20,12 +20,6 @@ if test -z "$TMUX"
     printf '%s\n' 'source $ENV' >> "$HOME/.bashrc"
 end
 
-# setup ssh permissions
-if test -e "$HOME/.ssh/config"
-    and test (command stat -c "%a" "$HOME/.ssh/config") -ne 600
-    command chmod 600 "$HOME/.ssh/config"
-end
-
 # Suppress greeting
 set fish_greeting
 
