@@ -2,16 +2,21 @@
 
 # Note: run fish_config to choose colorscheme
 
+# make sure sh knows where to look for init file
+if test -z "$ENV"
+    printf '%s\n' 'ENV="$HOME/.shrc"; export ENV' >> "$HOME/.profile"
+    set -x ENV "$HOME/.shrc"
+end
+
+# ~/.local/bin must be added to path before fish executes
+if not contains "$HOME/.local/bin" $PATH
+    printf '%s\n' 'PATH="$HOME/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
+end
+
 # configure bash to replace itself with fish process while preserving login scripts
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
-    and string match '*bash' "$SHELL" >/dev/null 2>&1
-    printf '%s\n' 'if [[ $- == *i* && -z "$TMUX" ]]; then SHELL=$(command -v fish) exec tmux; fi' >> "$HOME/.bashrc"
-end
-
-# ~/.local/bin must be added to path before bash executes
-if not contains "$HOME/.local/bin" $PATH
-    printf '%s\n' 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.profile"
+    printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi;; esac' >> "$ENV"
 end
 
 # setup ssh permissions
