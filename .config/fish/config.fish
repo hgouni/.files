@@ -39,6 +39,8 @@ function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
     bind -M insert -m default \ew forward-word repaint-mode
     bind -M default w forward-word
+    bind -m default u undo
+    bind -m default \cR redo
     bind -M insert ! bind_bang
     bind -M insert '$' bind_dollar
 end
