@@ -17,6 +17,7 @@ end
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
     printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi;; esac' >> "$ENV"
+    printf '%s\n' 'source $ENV' >> "$HOME/.bashrc"
 end
 
 # setup ssh permissions
