@@ -241,7 +241,7 @@ set __fish_git_prompt_char_upstream_diverged (set_color yellow)'<>'(set_color no
 # set right prompt to show command execution time and git status
 function fish_right_prompt
     # git status
-    __fish_git_prompt
+    fish_git_prompt
     printf '%s '
 
     # execution time; posix-compliant test statement ensures $CMD_DURATION is not null
