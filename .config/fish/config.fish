@@ -32,6 +32,8 @@ set -g fish_escape_delay_ms 10
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_cursor_default block
 set fish_cursor_insert line
+set fish_cursor_visual block
+set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
 # General keybind function
@@ -172,12 +174,15 @@ function fish_mode_prompt
         case insert
             set_color --bold green
             printf '%s ' '[I]'
-        case replace_one
-            set_color --bold green
-            printf '%s ' '[R]'
         case visual
             set_color --bold yellow
             printf '%s ' '[V]'
+        case replace
+            set_color --bold green
+            printf '%s ' '[R]'
+        case replace_one
+            set_color --bold red
+            printf '%s ' '[N]'
         case '*'
             set_color --bold red
             printf '%s ' '[?]'
