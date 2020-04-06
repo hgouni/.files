@@ -13,7 +13,7 @@ if not contains "$HOME/.local/bin" $PATH
     printf '%s\n' 'PATH="$HOME/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
 end
 
-# configure bash to replace itself with fish process while preserving login scripts
+# configure sh/bash to replace itself with fish process while preserving login scripts
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
     printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi;; esac' >> "$ENV"
