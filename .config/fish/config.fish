@@ -4,20 +4,20 @@
 
 # make sure sh knows where to look for init file
 if test -z "$ENV"
-    printf '%s\n' 'ENV="$HOME/.shrc"; export ENV' >> "$HOME/.profile"
+    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
     set -x ENV "$HOME/.shrc"
 end
 
 # ~/.local/bin must be added to path before fish executes
 if not contains "$HOME/.local/bin" $PATH
-    printf '%s\n' 'PATH="$HOME/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
+    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
 end
 
 # configure sh/bash to replace itself with fish process while preserving login scripts
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
     printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then SHELL=$(command -v fish) exec tmux; fi;; esac' >> "$ENV"
-    printf '%s\n' 'source $ENV' >> "$HOME/.bashrc"
+    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
 end
 
 # Suppress greeting
