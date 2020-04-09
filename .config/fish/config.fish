@@ -292,6 +292,8 @@ set -x QUBES_GPG_DOMAIN gpg-vault
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ and Trash/ folders)
 if command -sq rg
     set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!Trash"'
+else
+    set -x FZF_DEFAULT_COMMAND 'find -L -type f'
 end
 
 # faster than having completion tools etc autodetect it
