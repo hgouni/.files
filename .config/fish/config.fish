@@ -198,14 +198,16 @@ function fish_prompt
         printf '%s%s %s' (set_color red) "$last_status" (set_color normal)
     end
 
-    # show username and hostname if ssh or vt
-    if string match '*tty*' (tty) >/dev/null 2>&1
-        or test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
-        printf '%s%s%s@%s%s %s' (set_color red) "$USER" (set_color yellow) (set_color green) "$hostname" (set_color normal)
-        set prompt_end '>'
-    else
-        # set normal prompt ending character
+    # turn off unicode prompt if tty
+    if string match '*p*' (tty) >/dev/null 2>&1
         set prompt_end '❯'
+    else
+        set prompt_end '>'
+    end
+
+    # show username and hostname if ssh
+    if test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
+        printf '%s%s%s@%s%s %s' (set_color red) "$USER" (set_color yellow) (set_color green) "$hostname" (set_color normal)
     end
 
     # indicate sudo status
