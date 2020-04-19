@@ -124,6 +124,9 @@ inoremap \equiv ≡
 " note: use alt + j or something similar to switch to normal mode in fish
 tnoremap <Esc> <C-\><C-n>
 
+" write files opened without sufficient permission
+cnoremap w!! w !sudo tee > /dev/null %
+
 " last position jump
 au BufReadPost *
   \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -238,7 +241,6 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.notexists = '!'
-let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
