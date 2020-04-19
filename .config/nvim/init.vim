@@ -105,6 +105,9 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+" toggle paste mode
+nnoremap <silent><leader>p :set paste!<CR>
+
 " toggle highlighting for searches
 set hlsearch!
 nnoremap <silent><leader>/ :set hlsearch!<CR>
