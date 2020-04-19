@@ -40,31 +40,10 @@ set fish_cursor_replace_one underscore
 function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
     bind -M insert -m default \ew forward-word repaint-mode
+    bind -M insert -m default \er 'commandline $history[1]; __fish_prepend_sudo'
     bind -M default w forward-word
     bind -M default u undo
     bind -M default \cR redo
-    bind -M insert ! bind_bang
-    bind -M insert '$' bind_dollar
-end
-
-# These two functions enable history substitution functionality
-function bind_bang
-    switch (commandline -t)
-    case "!"
-        commandline -t $history[1]; commandline -f repaint
-    case "*"
-        commandline -i !
-    end
-end
-
-function bind_dollar
-    switch (commandline -t)
-    case "!"
-        commandline -t ""
-        commandline -f history-token-search-backward
-    case "*"
-        commandline -i '$'
-    end
 end
 
 ### FUNCTIONS ###
@@ -198,13 +177,6 @@ function fish_prompt
         printf '%s%s %s' (set_color red) "$last_status" (set_color normal)
     end
 
-    # turn off unicode prompt if tty
-    if string match '*p*' (tty) >/dev/null 2>&1
-        set prompt_end '❯'
-    else
-        set prompt_end '>'
-    end
-
     # show username and hostname if ssh
     if test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
         printf '%s%s%s@%s%s %s' (set_color red) "$USER" (set_color yellow) (set_color green) "$hostname" (set_color normal)
@@ -215,6 +187,13 @@ function fish_prompt
         printf '%s%s %s' (set_color red) (prompt_pwd) (set_color normal)
     else
         printf '%s%s %s' (set_color green) (prompt_pwd) (set_color normal)
+    end
+
+    # turn off unicode prompt if tty
+    if string match '*p*' (tty) >/dev/null 2>&1
+        set prompt_end '❯'
+    else
+        set prompt_end '>'
     end
 
     # prompt end
