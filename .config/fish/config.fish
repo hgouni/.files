@@ -40,7 +40,7 @@ set fish_cursor_replace_one underscore
 function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
     bind -M insert -m default \ew forward-word repaint-mode
-    bind -M insert -m default \er 'commandline $history[1]; __fish_prepend_sudo'
+    bind -M insert -m default \er 'commandline $history[1]; __fish_prepend_sudo; commandline -f repaint-mode'
     bind -M default w forward-word
     bind -M default u undo
     bind -M default \cR redo
