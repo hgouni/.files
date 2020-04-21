@@ -109,7 +109,6 @@ set shiftwidth=4
 nnoremap <silent><leader>p :set paste!<CR>
 
 " toggle highlighting for searches
-set hlsearch!
 nnoremap <silent><leader>/ :set hlsearch!<CR>
 
 " special symbols
