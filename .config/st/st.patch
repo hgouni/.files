@@ -529,7 +529,7 @@ index 0e01717..2e6c3f4 100644
  /*
 diff --git a/config.h b/config.h
 new file mode 100644
-index 0000000..357d6fa
+index 0000000..e459d1f
 --- /dev/null
 +++ b/config.h
 @@ -0,0 +1,468 @@
@@ -601,7 +601,7 @@ index 0000000..357d6fa
 +const int boxdraw_bold = 1;
 +
 +/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
-+const int boxdraw_braille = 1;
++const int boxdraw_braille = 0;
 +
 +/*
 + * bell volume. It must be a value between -100 and 100. Use 0 for disabling
