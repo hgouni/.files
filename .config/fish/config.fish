@@ -1,6 +1,6 @@
-### SHELL SETUP ###
+### shell setup ###
 
-# Note: run fish_config to choose colorscheme
+# note: run fish_config to choose colorscheme
 
 # make sure sh knows where to look for init file
 if test -z "$ENV"
@@ -20,13 +20,13 @@ if test -z "$TMUX"
     printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
 end
 
-# Suppress greeting
+# suppress greeting
 set fish_greeting
 
-# Minimize escape delay (for vi mode)
+# minimize escape delay (for vi mode)
 set -g fish_escape_delay_ms 10
 
-### KEYBINDS ###
+### keybinds/aliases/completions ###
 
 # Turn on vi mode and set cursors
 set -g fish_key_bindings fish_vi_key_bindings
@@ -36,17 +36,44 @@ set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
-# General keybind function
+# general keybind function
 function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
     bind -M insert -m default \ew forward-word repaint-mode
-    bind -M insert -m default \er 'commandline $history[1]; __fish_prepend_sudo; commandline -f repaint-mode'
+    bind -M insert -m default \er 'commandline $history[1]; and __fish_prepend_sudo; and commandline -f repaint-mode'
     bind -M default w forward-word
     bind -M default u undo
     bind -M default \cR redo
 end
 
-### FUNCTIONS ###
+# general abbreviation function
+if status --is-interactive
+    abbr --add --global mv mv -b
+    abbr --add --global cp cp -b
+    abbr --add --global ln ln -b
+    abbr --add --global chown chown --preserve-root
+    abbr --add --global chmod chmod --preserve-root
+    abbr --add --global chgrp chgrp --preserve-root
+    abbr --add --global c clear
+    abbr --add --global rb bash -c
+    abbr --add --global bl tput bel
+    abbr --add --global l ls -ahlt
+    abbr --add --global cv cat -nvET
+    abbr --add --global untar tar -xvf
+    abbr --add --global rmls trash-list
+    abbr --add --global unrm trash-restore
+    abbr --add --global rmrm trash-rm
+    abbr --add --global rmempty trash-empty
+    abbr --add --global gpgq qubes-gpg-client
+    abbr --add --global sewebfile chcon -t httpd_sys_content_t
+    abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
+    abbr --add --global fwmod firewall-cmd --zone=public --permanent
+    abbr --add --global gitls git ls-tree -r master --name-only
+end
+
+complete -c config -w git
+
+### functions ###
 
 # function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
 # must manually invoke /bin/rm for destructive actions
@@ -115,34 +142,7 @@ function tkill
     end
 end
 
-### ALIASES ###
-
-# general abbreviation function
-if status --is-interactive
-    abbr --add --global mv mv -b
-    abbr --add --global cp cp -b
-    abbr --add --global ln ln -b
-    abbr --add --global chown chown --preserve-root
-    abbr --add --global chmod chmod --preserve-root
-    abbr --add --global chgrp chgrp --preserve-root
-    abbr --add --global c clear
-    abbr --add --global rb bash -c
-    abbr --add --global bl tput bel
-    abbr --add --global l ls -ahlt
-    abbr --add --global cv cat -nvET
-    abbr --add --global untar tar -xvf
-    abbr --add --global rmls trash-list
-    abbr --add --global unrm trash-restore
-    abbr --add --global rmrm trash-rm
-    abbr --add --global rmempty trash-empty
-    abbr --add --global gpgq qubes-gpg-client
-    abbr --add --global sewebfile chcon -t httpd_sys_content_t
-    abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
-    abbr --add --global fwmod firewall-cmd --zone=public --permanent
-    abbr --add --global gitls git ls-tree -r master --name-only
-end
-
-### PROMPT ###
+### prompt ###
 
 # print the vi mode indicator
 function fish_mode_prompt
@@ -245,7 +245,7 @@ function fish_right_prompt
     end
 end
 
-### ENV VARS ###
+### env vars ###
 
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
