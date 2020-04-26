@@ -39,8 +39,8 @@ set fish_cursor_replace_one underscore
 # general keybind function
 function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
-    bind -M insert -m default \ew forward-word repaint-mode
     bind -M insert -m default \er 'commandline $history[1]; and __fish_prepend_sudo; and commandline -f repaint-mode'
+    bind -M insert \ew forward-word
     bind -M default w forward-word
     bind -M default u undo
     bind -M default \cR redo
@@ -297,7 +297,7 @@ end
 
 # make sure excmds can sudo
 if not command -sq pw_prompt_gui
-    printf '%s\n' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
+    printf '%s\n%s\n' '#!/bin/sh' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
     chmod 700 "$HOME/.local/bin/pw_prompt_gui"
 end
 
