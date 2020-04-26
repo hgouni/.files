@@ -124,7 +124,7 @@ inoremap \equiv ≡
 tnoremap <Esc> <C-\><C-n>
 
 " write files opened without sufficient permission
-cnoremap w!! w !sudo tee > /dev/null %
+cnoreabbrev w!! w !sudo tee > /dev/null %
 
 " last position jump
 au BufReadPost *

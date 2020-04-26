@@ -71,6 +71,7 @@ if status --is-interactive
     abbr --add --global gitls git ls-tree -r master --name-only
 end
 
+# inherit completions for 'config' function from git
 complete -c config -w git
 
 ### functions ###
@@ -245,7 +246,7 @@ function fish_right_prompt
     end
 end
 
-### env vars ###
+### env ###
 
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
@@ -293,3 +294,11 @@ if command -sq nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
 end
+
+# make sure excmds can sudo
+if not command -sq pw_prompt_gui
+    printf '%s\n' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
+    chmod 700 "$HOME/.local/bin/pw_prompt_gui"
+end
+
+set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
