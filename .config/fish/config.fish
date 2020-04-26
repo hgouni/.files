@@ -78,12 +78,12 @@ complete -c config -w git
 
 # directory navigation
 function d
-    pushd $argv;
+    pushd $argv
     and printf '%s\n' "$dirstack"
 end
 
 function b
-    popd;
+    popd
     and printf '%s\n' "$dirstack"
 end
 
@@ -95,7 +95,7 @@ function rm
     else if command -sq trash-put
         command trash-put $argv
     else
-        command mkdir -p "$HOME/.trash";
+        command mkdir -p "$HOME/.trash"
         and command mv -b $argv "$HOME/.trash"
     end
 end
@@ -114,8 +114,8 @@ end
 
 # clone, change directory, and checkout a branch
 function gitcpr -a repo branch
-    command git clone "$repo";
-    and cd (command ls -t | command sed -n 1p);
+    command git clone "$repo"
+    and cd (command ls -t | command sed -n 1p)
     and command git checkout -b "$branch"
 end
 
@@ -126,10 +126,10 @@ function config
         cd "$HOME";
         and for file in (config ls-tree -r master --name-only)
                 rm $file
-            end;
-        and rm "$HOME/.files";
-        and command git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files";
-        and config checkout;
+            end
+        and rm "$HOME/.files"
+        and command git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files"
+        and config checkout
         and config config --local status.showUntrackedFiles no
     case "*"
         command git --git-dir="$HOME/.files/" --work-tree="$HOME" $argv
@@ -308,8 +308,9 @@ end
 
 # make sure excmds can sudo
 if not command -sq pw_prompt_gui
+    and test -d "$HOME/.local/bin"
     printf '%s\n%s\n' '#!/bin/sh' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
-    chmod 700 "$HOME/.local/bin/pw_prompt_gui"
+    and chmod 700 "$HOME/.local/bin/pw_prompt_gui"
 end
 
 set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
