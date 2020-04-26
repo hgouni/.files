@@ -87,14 +87,6 @@ function b
     and printf '%s\n' "$dirstack"
 end
 
-# swaps the dirs atop the stack
-function flip
-    set -l dircurr "$PWD";
-    and cd "$dirstack[1]";
-    and set dirstack[1] "$dircurr";
-    and printf '%s\n' "$dirstack"
-end
-
 # function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
 # must manually invoke /bin/rm for destructive actions
 function rm
