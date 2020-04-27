@@ -2,24 +2,6 @@
 
 # note: run fish_config to choose colorscheme
 
-# make sure sh knows where to look for init file
-if test -z "$ENV"
-    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
-    set -x ENV "$HOME/.shrc"
-end
-
-# ~/.local/bin must be added to path before fish executes
-if not contains "$HOME/.local/bin" $PATH
-    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
-end
-
-# configure sh/bash to replace itself with fish process while preserving login scripts
-# allow bash to be used without passing --norc
-if test -z "$TMUX"
-    printf '%s\n' 'SHELL=$(command -v fish); case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then exec tmux new-session -As init; else exec tmux; fi; fi;; esac' >> "$ENV"
-    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
-end
-
 # suppress greeting
 set fish_greeting
 
@@ -314,3 +296,26 @@ if not command -sq pw_prompt_gui
 end
 
 set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
+
+# set i3-sensible-terminal to st; must be set before i3 launches
+if not test "$TERMINAL" = st
+    printf '%s\n' 'TERMINAL=st; export TERMINAL' >> "$HOME/.profile"
+end
+
+# make sure sh knows where to look for init file
+if test -z "$ENV"
+    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
+    set -x ENV "$HOME/.shrc"
+end
+
+# ~/.local/bin must be added to path before fish executes
+if not contains "$HOME/.local/bin" $PATH
+    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
+end
+
+# configure sh/bash to replace itself with fish process while preserving login scripts
+# allow bash to be used without passing --norc
+if test -z "$TMUX"
+    printf '%s\n' 'SHELL=$(command -v fish); case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then exec tmux new-session -As init; else exec tmux; fi; fi;; esac' >> "$ENV"
+    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
+end
