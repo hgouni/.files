@@ -256,7 +256,7 @@ end
 # configure sh/bash to replace itself with fish process while preserving login scripts
 # allow bash to be used without passing --norc
 if test -z "$TMUX"
-    printf '%s\n' 'SHELL=$(command -v fish); case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then exec tmux new-session -As init; else exec tmux; fi; fi;; esac' >> "$ENV"
+    printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then SHELL=$(command -v fish) exec tmux new-session -As init; else SHELL=$(command -v fish) exec tmux; fi; fi;; esac' >> "$ENV"
     printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
 end
 
