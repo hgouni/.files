@@ -8,8 +8,6 @@ set fish_greeting
 # minimize escape delay (for vi mode)
 set -g fish_escape_delay_ms 10
 
-### keybinds/aliases/completions ###
-
 # Turn on vi mode and set cursors
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_cursor_default block
@@ -17,6 +15,8 @@ set fish_cursor_insert line
 set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
+
+### keybinds/aliases/completions ###
 
 # general keybind function
 function fish_user_key_bindings
@@ -241,6 +241,25 @@ end
 
 ### env ###
 
+# make sure sh knows where to look for init file
+if test -z "$ENV"
+    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
+    set -x ENV "$HOME/.shrc"
+end
+
+# ~/.local/bin must be added to path before fish executes
+if not contains "$HOME/.local/bin" $PATH
+    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
+    set PATH "$HOME/.local/bin" $PATH
+end
+
+# configure sh/bash to replace itself with fish process while preserving login scripts
+# allow bash to be used without passing --norc
+if test -z "$TMUX"
+    printf '%s\n' 'SHELL=$(command -v fish); case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then exec tmux new-session -As init; else exec tmux; fi; fi;; esac' >> "$ENV"
+    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
+end
+
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
     set PATH "$HOME/.cargo/bin" $PATH
@@ -300,22 +319,4 @@ set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
 # set i3-sensible-terminal to st; must be set before i3 launches
 if not test "$TERMINAL" = st
     printf '%s\n' 'TERMINAL=st; export TERMINAL' >> "$HOME/.profile"
-end
-
-# make sure sh knows where to look for init file
-if test -z "$ENV"
-    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
-    set -x ENV "$HOME/.shrc"
-end
-
-# ~/.local/bin must be added to path before fish executes
-if not contains "$HOME/.local/bin" $PATH
-    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
-end
-
-# configure sh/bash to replace itself with fish process while preserving login scripts
-# allow bash to be used without passing --norc
-if test -z "$TMUX"
-    printf '%s\n' 'SHELL=$(command -v fish); case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then exec tmux new-session -As init; else exec tmux; fi; fi;; esac' >> "$ENV"
-    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
 end
