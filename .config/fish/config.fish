@@ -241,24 +241,7 @@ end
 
 ### env ###
 
-# make sure sh knows where to look for init file
-if test -z "$ENV"
-    printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
-    set -x ENV "$HOME/.shrc"
-end
-
-# ~/.local/bin must be added to path before fish executes
-if not contains "$HOME/.local/bin" $PATH
-    printf '%s\n' 'PATH="'"$HOME"'/.local/bin:$PATH"; export PATH' >> "$HOME/.profile"
-    set PATH "$HOME/.local/bin" $PATH
-end
-
-# configure sh/bash to replace itself with fish process while preserving login scripts
-# allow bash to be used without passing --norc
-if test -z "$TMUX"
-    printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then SHELL=$(command -v fish) exec tmux new-session -As init; else SHELL=$(command -v fish) exec tmux; fi; fi;; esac' >> "$ENV"
-    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
-end
+set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
 
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
@@ -305,18 +288,4 @@ end
 if command -sq nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
-end
-
-# make sure excmds can sudo
-if not command -sq pw_prompt_gui
-    and test -d "$HOME/.local/bin"
-    printf '%s\n%s\n' '#!/bin/sh' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
-    and chmod 700 "$HOME/.local/bin/pw_prompt_gui"
-end
-
-set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
-
-# set i3-sensible-terminal to st; must be set before i3 launches
-if not test "$TERMINAL" = st
-    printf '%s\n' 'TERMINAL=st; export TERMINAL' >> "$HOME/.profile"
 end
