@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ -z "$ENV" ]; then
     printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
     ENV="$HOME/.shrc"

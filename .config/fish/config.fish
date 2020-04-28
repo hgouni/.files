@@ -241,16 +241,14 @@ end
 
 ### env ###
 
-set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
+# allows libraries to be installed locally in ~/.local/lib
+if not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
+    set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
+end
 
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
     set PATH "$HOME/.cargo/bin" $PATH
-end
-
-# allows libraries to be installed locally in ~/.local/lib
-if not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
-    set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
 end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
@@ -289,3 +287,5 @@ if command -sq nvim
     set -x VISUAL nvim
     set -x EDITOR "$VISUAL"
 end
+
+set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
