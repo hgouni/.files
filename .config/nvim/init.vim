@@ -162,7 +162,7 @@ inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
 tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
 
 " make vim functions that depend on CursorHoldI extremely responsive
-" without destroying ssd with writes
+" without constantly writing to disk
 set updatetime=0
 set directory=/dev/shm/nvim_swap//
 

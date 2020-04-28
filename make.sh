@@ -11,7 +11,7 @@ if [ -z "$TMUX" ]; then
 fi
 
 case :$PATH: in
-    *:/home/.local/bin:*)
+    *:$HOME/.local/bin:*)
         mkdir -p "$HOME/.local/bin"
         ;;
     *)
