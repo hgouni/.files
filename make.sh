@@ -5,8 +5,14 @@ if [ -z "$ENV" ]; then
     ENV="$HOME/.shrc"
 fi
 
+if [ -z "$TMUX" ]; then
+    printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then SHELL=$(command -v fish) exec tmux new-session -As init; else SHELL=$(command -v fish) exec tmux; fi; fi;; esac' >> "$ENV"
+    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
+fi
+
 case :$PATH: in
     *:/home/.local/bin:*)
+        mkdir -p "$HOME/.local/bin"
         ;;
     *)
         mkdir -p "$HOME/.local/bin"
@@ -21,9 +27,4 @@ fi
 
 if ! [ "$TERMINAL" = 'st' ]; then
     printf '%s\n' 'TERMINAL=st; export TERMINAL' >> "$HOME/.profile"
-fi
-
-if [ -z "$TMUX" ]; then
-    printf '%s\n' 'case "$-" in *i*) if [ -z "$TMUX" ]; then if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then SHELL=$(command -v fish) exec tmux new-session -As init; else SHELL=$(command -v fish) exec tmux; fi; fi;; esac' >> "$ENV"
-    printf '%s\n' "source $ENV" >> "$HOME/.bashrc"
 fi
