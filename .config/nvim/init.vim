@@ -1,3 +1,4 @@
+" make sure :! doesn't have to launch fish
 set shell=sh
 
 " autoinstall plug
@@ -88,10 +89,6 @@ let maplocalleader = "\\"
 " line numbers
 set number
 
-" scroll context (note that for set <var>=<mode>, there must be not be spaces on
-" either side of the equal sign)
-set scrolloff=5
-
 " move preview window to bottom (less intrusive)
 set splitbelow
 
@@ -106,6 +103,11 @@ set autowriteall
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+" scroll context (note that for set <var>=<mode>, there must be not be spaces on
+" either side of the equal sign)
+set scrolloff=5
+autocmd TermOpen * setlocal scrolloff=0
 
 " toggle paste mode
 nnoremap <silent><leader>p :set paste!<CR>
