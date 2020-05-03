@@ -1,6 +1,6 @@
 ### shell setup ###
 
-# note: run fish_config to choose colorscheme
+# note: run fish_config to set colorscheme
 
 # suppress greeting
 set fish_greeting
@@ -21,8 +21,9 @@ set fish_cursor_replace_one underscore
 # general keybind function
 function fish_user_key_bindings
     bind -M insert -m default \el accept-autosuggestion repaint-mode
+    bind -M insert -m default \ew forward-word repaint-mode
     bind -M insert -m default \er 'commandline $history[1]; and __fish_prepend_sudo; and commandline -f repaint-mode'
-    bind -M insert \ew forward-word
+    bind -M default -m insert a 'commandline -C (math (commandline -C) + 1); and commandline -f repaint-mode'
     bind -M default w forward-word
     bind -M default u undo
     bind -M default \cR redo
@@ -166,7 +167,7 @@ end
 # ps1 config
 function fish_prompt
     # save $status to $last_status to prevent overwriting
-    set last_status $status
+    set -l last_status $status
     if test "$last_status" -ne 0
         printf '%s%s %s' (set_color red) "$last_status" (set_color normal)
     end
@@ -227,7 +228,7 @@ function fish_right_prompt
     # execution time; posix-compliant test statement ensures $CMD_DURATION is not null
     if test "$CMD_DURATION"
         # divide command duration by 1000 and print to three decimal places
-        set duration (printf '%s\n' "$CMD_DURATION 1000" | awk '{printf "%.3f", $1 / $2}')
+        set -l duration (printf '%s\n' "$CMD_DURATION 1000" | awk '{printf "%.3f", $1 / $2}')
         # change time color based on execution time
         if test "$CMD_DURATION" -lt 5000
             printf '%s%s%s' (set_color green) "$duration" (set_color normal)
