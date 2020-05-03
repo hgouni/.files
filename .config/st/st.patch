@@ -440,10 +440,10 @@ index 0000000..7890500
 +	/* U+2571 - U+2573: unsupported (diagonals) */
 +};
 diff --git a/config.def.h b/config.def.h
-index 0e01717..2e6c3f4 100644
+index 0895a1f..a51c4ee 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -56,6 +56,18 @@ static unsigned int blinktimeout = 800;
+@@ -58,6 +58,18 @@ static unsigned int blinktimeout = 800;
   */
  static unsigned int cursorthickness = 2;
  
@@ -462,7 +462,7 @@ index 0e01717..2e6c3f4 100644
  /*
   * bell volume. It must be a value between -100 and 100. Use 0 for disabling
   * it
-@@ -84,41 +96,35 @@ unsigned int tabspaces = 8;
+@@ -86,41 +98,35 @@ unsigned int tabspaces = 8;
  
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
@@ -529,10 +529,10 @@ index 0e01717..2e6c3f4 100644
  /*
 diff --git a/config.h b/config.h
 new file mode 100644
-index 0000000..e459d1f
+index 0000000..bd92ba1
 --- /dev/null
 +++ b/config.h
-@@ -0,0 +1,468 @@
+@@ -0,0 +1,467 @@
 +/* See LICENSE file for copyright and license details. */
 +
 +/*
@@ -546,13 +546,15 @@ index 0000000..e459d1f
 +/*
 + * What program is execed by st depends of these precedence rules:
 + * 1: program passed with -e
-+ * 2: utmp option
++ * 2: scroll and/or utmp
 + * 3: SHELL environment variable
 + * 4: value of shell in /etc/passwd
 + * 5: value of shell in config.h
 + */
 +static char *shell = "/bin/sh";
 +char *utmp = NULL;
++/* scroll program: to enable use a string like "scroll" */
++char *scroll = NULL;
 +char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 +
 +/* identification sequence returned in DA and DECID */
@@ -565,9 +567,9 @@ index 0000000..e459d1f
 +/*
 + * word delimiter string
 + *
-+ * More advanced example: " `'\"()[]{}"
++ * More advanced example: L" `'\"()[]{}"
 + */
-+char *worddelimiters = " ";
++wchar_t *worddelimiters = L" ";
 +
 +/* selection timeouts (in milliseconds) */
 +static unsigned int doubleclicktimeout = 300;
@@ -692,13 +694,21 @@ index 0000000..e459d1f
 +static unsigned int defaultattr = 11;
 +
 +/*
++ * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
++ * Note that if you want to use ShiftMask with selmasks, set this to an other
++ * modifier, set to 0 to not use it.
++ */
++static uint forcemousemod = ShiftMask;
++
++/*
 + * Internal mouse shortcuts.
 + * Beware that overloading Button1 will disable the selection.
 + */
 +static MouseShortcut mshortcuts[] = {
-+	/* button               mask            string */
-+	{ Button4,              XK_ANY_MOD,     "\031" },
-+	{ Button5,              XK_ANY_MOD,     "\005" },
++	/* mask                 button   function        argument       release */
++	{ XK_ANY_MOD,           Button2, clippaste,      {.i = 0},      1 },
++	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
++	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 +};
 +
 +/* Internal keyboard shortcuts. */
@@ -736,10 +746,6 @@ index 0000000..e459d1f
 + * * 0: no value
 + * * > 0: cursor application mode enabled
 + * * < 0: cursor application mode disabled
-+ * crlf value
-+ * * 0: no value
-+ * * > 0: crlf mode is enabled
-+ * * < 0: crlf mode is disabled
 + *
 + * Be careful with the order of the definitions because st searches in
 + * this table sequentially, so any XK_ANY_MOD must be in the last
@@ -757,13 +763,6 @@ index 0000000..e459d1f
 + * numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are ignored.
 + */
 +static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
-+
-+/*
-+ * Override mouse-select while mask is active (when MODE_MOUSE is set).
-+ * Note that if you want to use ShiftMask with selmasks, set this to an other
-+ * modifier, set to 0 to not use it.
-+ */
-+static uint forceselmod = ShiftMask;
 +
 +/*
 + * This is the huge key array which defines all compatibility to the Linux
@@ -1002,7 +1001,7 @@ index 0000000..e459d1f
 +	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 +	"`abcdefghijklmnopqrstuvwxyz{|}~";
 diff --git a/st.c b/st.c
-index b8e6077..d65f722 100644
+index 0ce6ac2..c035e19 100644
 --- a/st.c
 +++ b/st.c
 @@ -1230,6 +1230,9 @@ tsetchar(Rune u, Glyph *attr, int x, int y)
@@ -1016,7 +1015,7 @@ index b8e6077..d65f722 100644
  
  void
 diff --git a/st.h b/st.h
-index 38c61c4..9275632 100644
+index d978458..a6c382a 100644
 --- a/st.h
 +++ b/st.h
 @@ -33,6 +33,7 @@ enum glyph_attribute {
@@ -1027,7 +1026,7 @@ index 38c61c4..9275632 100644
  	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
  };
  
-@@ -110,6 +111,14 @@ void *xmalloc(size_t);
+@@ -111,6 +112,14 @@ void *xmalloc(size_t);
  void *xrealloc(void *, size_t);
  char *xstrdup(char *);
  
@@ -1041,35 +1040,25 @@ index 38c61c4..9275632 100644
 +
  /* config.h globals */
  extern char *utmp;
- extern char *stty_args;
-@@ -120,3 +129,4 @@ extern char *termname;
+ extern char *scroll;
+@@ -122,3 +131,4 @@ extern char *termname;
  extern unsigned int tabspaces;
  extern unsigned int defaultfg;
  extern unsigned int defaultbg;
 +extern const int boxdraw, boxdraw_bold, boxdraw_braille;
 diff --git a/x.c b/x.c
-index 0422421..d2800e1 100644
+index e5f1737..5433d41 100644
 --- a/x.c
 +++ b/x.c
-@@ -627,6 +627,8 @@ setsel(char *str, Time t)
+@@ -673,6 +673,7 @@ setsel(char *str, Time t)
  	XSetSelectionOwner(xw.dpy, XA_PRIMARY, xw.win, t);
  	if (XGetSelectionOwner(xw.dpy, XA_PRIMARY) != xw.win)
  		selclear();
-+
 +	clipcopy(NULL);
  }
  
  void
-@@ -644,7 +646,7 @@ brelease(XEvent *e)
- 	}
- 
- 	if (e->xbutton.button == Button2)
--		selpaste(NULL);
-+		clippaste(NULL);
- 	else if (e->xbutton.button == Button1)
- 		mousesel(e, 1);
- }
-@@ -1118,6 +1120,8 @@ xinit(int cols, int rows)
+@@ -1205,6 +1206,8 @@ xinit(int cols, int rows)
  	xsel.xtarget = XInternAtom(xw.dpy, "UTF8_STRING", 0);
  	if (xsel.xtarget == None)
  		xsel.xtarget = XA_STRING;
@@ -1078,7 +1067,7 @@ index 0422421..d2800e1 100644
  }
  
  int
-@@ -1164,8 +1168,13 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
+@@ -1251,8 +1254,13 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
  			yp = winy + font->ascent;
  		}
  
@@ -1094,7 +1083,7 @@ index 0422421..d2800e1 100644
  		if (glyphidx) {
  			specs[numspecs].font = font->match;
  			specs[numspecs].glyph = glyphidx;
-@@ -1296,10 +1305,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1380,10 +1388,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  		bg = &dc.col[base.bg];
  	}
  
@@ -1105,7 +1094,7 @@ index 0422421..d2800e1 100644
  	if (IS_SET(MODE_REVERSE)) {
  		if (fg == &dc.col[defaultfg]) {
  			fg = &dc.col[defaultbg];
-@@ -1372,8 +1377,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+@@ -1456,8 +1460,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
  	r.width = width;
  	XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
  
@@ -1120,7 +1109,7 @@ index 0422421..d2800e1 100644
  
  	/* Render underline and strikethrough. */
  	if (base.mode & ATTR_UNDERLINE) {
-@@ -1416,7 +1425,7 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
+@@ -1500,7 +1508,7 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
  	/*
  	 * Select the right color for the right mode.
  	 */
