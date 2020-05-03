@@ -16,6 +16,8 @@ set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
+set fish_vi_force_cursor 1
+
 ### keybinds/aliases/completions ###
 
 # general keybind function
@@ -185,6 +187,7 @@ function fish_prompt
     end
 
     # turn off unicode prompt if tty
+    set -l prompt_end
     if string match '*p*' (tty) >/dev/null 2>&1
         set prompt_end '❯'
     else
