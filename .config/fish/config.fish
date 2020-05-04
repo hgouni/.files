@@ -6,17 +6,19 @@
 set fish_greeting
 
 # minimize escape delay (for vi mode)
-set -g fish_escape_delay_ms 10
+set fish_escape_delay_ms 10
 
 # Turn on vi mode and set cursors
-set -g fish_key_bindings fish_vi_key_bindings
+set fish_key_bindings fish_vi_key_bindings
 set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
-set fish_vi_force_cursor 1
+if test "$TERM" = 'tmux-256color'
+    set fish_vi_force_cursor 1
+end
 
 ### keybinds/aliases/completions ###
 
@@ -274,6 +276,8 @@ if command -sq rg
 else
     set -x FZF_DEFAULT_COMMAND 'find -L -type f'
 end
+
+set -x FZF_DEFAULT_OPTS '--bind alt-j:down,alt-k:up'
 
 # faster than having completion tools etc autodetect it
 if command -sq rustc
