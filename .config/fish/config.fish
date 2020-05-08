@@ -1,7 +1,5 @@
 ### shell setup ###
 
-# note: run fish_config to set colorscheme
-
 # suppress greeting
 set fish_greeting
 
@@ -16,9 +14,56 @@ set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
+# if correct term, set vi mode cursors
 if test "$TERM" = 'tmux-256color'
     set fish_vi_force_cursor 1
 end
+
+# set syntax highlighting
+set fish_color_normal normal
+set fish_color_command green
+set fish_color_quote cyan
+set fish_color_redirection magenta
+set fish_color_end magenta
+set fish_color_error red
+set fish_color_param yellow
+set fish_color_comment brblack
+set fish_color_match brblack
+set fish_color_selection --background=brblack
+set fish_color_search_match --background=brblack
+set fish_color_operator blue
+set fish_color_escape magenta
+set fish_color_autosuggestion brblack
+set fish_color_cancel red
+set fish_pager_color_progress black --background=yellow
+set fish_pager_color_background black
+set fish_pager_color_prefix yellow
+set fish_pager_color_completion yellow
+set fish_pager_color_description green
+
+# create git prompt
+# showdirtystate is slow
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showuntrackedfiles 'yes'
+set __fish_git_prompt_showstashstate 'yes'
+set __fish_git_prompt_showupstream auto
+set __fish_git_prompt_describe_style branch
+
+# git prompt symbols
+set __fish_git_prompt_color 'green'
+set __fish_git_prompt_color_bare 'yellow'
+set __fish_git_prompt_color_merging 'yellow'
+set __fish_git_prompt_color_flags 'red'
+set __fish_git_prompt_color_branch 'green'
+set __fish_git_prompt_color_branch_detached 'red'
+set __fish_git_prompt_color_stashstate 'yellow'
+set __fish_git_prompt_color_stagedstate 'yellow'
+set __fish_git_prompt_color_invalidstate 'red'
+set __fish_git_prompt_color_untrackedfiles 'yellow'
+set __fish_git_prompt_char_upstream_equal (set_color green)'='(set_color normal)
+set __fish_git_prompt_char_upstream_ahead (set_color yellow)'>'(set_color normal)
+set __fish_git_prompt_char_upstream_behind (set_color yellow)'<'(set_color normal)
+set __fish_git_prompt_char_upstream_diverged (set_color yellow)'<>'(set_color normal)
 
 ### keybinds/aliases/completions ###
 
@@ -199,30 +244,6 @@ function fish_prompt
     # prompt end
     printf '%s%s%s%s%s%s %s' (set_color red) "$prompt_end" (set_color yellow) "$prompt_end" (set_color green) "$prompt_end" (set_color normal)
 end
-
-# create git prompt
-# showdirtystate is slow
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showupstream auto
-set __fish_git_prompt_describe_style branch
-
-# git prompt colors
-set __fish_git_prompt_color 'green'
-set __fish_git_prompt_color_bare 'yellow'
-set __fish_git_prompt_color_merging 'yellow'
-set __fish_git_prompt_color_flags 'red'
-set __fish_git_prompt_color_branch 'green'
-set __fish_git_prompt_color_branch_detached 'red'
-set __fish_git_prompt_color_stashstate 'yellow'
-set __fish_git_prompt_color_stagedstate 'yellow'
-set __fish_git_prompt_color_invalidstate 'red'
-set __fish_git_prompt_color_untrackedfiles 'yellow'
-set __fish_git_prompt_char_upstream_equal (set_color green)'='(set_color normal)
-set __fish_git_prompt_char_upstream_ahead (set_color yellow)'>'(set_color normal)
-set __fish_git_prompt_char_upstream_behind (set_color yellow)'<'(set_color normal)
-set __fish_git_prompt_char_upstream_diverged (set_color yellow)'<>'(set_color normal)
 
 # set right prompt to show command execution time and git status
 function fish_right_prompt
