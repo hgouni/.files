@@ -79,7 +79,7 @@ function fish_user_key_bindings
 end
 
 # general abbreviation function
-if status --is-interactive
+if status is-interactive
     abbr --add --global mv mv -b
     abbr --add --global cp cp -b
     abbr --add --global ln ln -b
@@ -102,9 +102,6 @@ if status --is-interactive
     abbr --add --global fwmod firewall-cmd --zone=public --permanent
     abbr --add --global gitls git ls-tree -r master --name-only
 end
-
-# inherit completions for 'config' function from git
-complete -c config -w git
 
 ### functions ###
 
@@ -152,7 +149,7 @@ function gitcpr -a repo branch
 end
 
 # setup dotfiles repo
-function config
+function config --wraps git
     switch "$argv[1]"
     case --reset
         cd "$HOME";
@@ -275,7 +272,11 @@ end
 
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
-    set PATH "$HOME/.cargo/bin" $PATH
+    set -x PATH "$HOME/.cargo/bin" $PATH
+end
+
+if command -sq manpath
+    set -x MANPATH (string join : -- $HOME/.local/share/man (manpath -g))
 end
 
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
