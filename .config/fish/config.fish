@@ -275,6 +275,7 @@ if not contains "$HOME/.cargo/bin" $PATH
     set -x PATH "$HOME/.cargo/bin" $PATH
 end
 
+# user-specific manpages
 if command -sq manpath
     set -x MANPATH (string join : -- $HOME/.local/share/man (manpath -g))
 end
@@ -299,6 +300,7 @@ else
     set -x FZF_DEFAULT_COMMAND 'find -L -type f'
 end
 
+# alt-k/j select up/down
 set -x FZF_DEFAULT_OPTS '--bind alt-j:down,alt-k:up'
 
 # faster than having completion tools etc autodetect it
@@ -318,4 +320,5 @@ if command -sq nvim
     set -x EDITOR "$VISUAL"
 end
 
+# sudo auth without remote pty allocated (allows excmds to sudo)
 set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
