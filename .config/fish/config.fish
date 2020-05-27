@@ -287,6 +287,8 @@ if command -sq stack
     set -U fish_user_paths (command stack path --compiler-bin) $fish_user_paths
 end
 
+set -x GNUPGHOME "$HOME/.config/gnupg"
+
 # set gpg domain for qubes
 set -x QUBES_GPG_DOMAIN gpg-vault
 

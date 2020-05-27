@@ -1,3 +1,6 @@
+cursor:
+  thickness: 0.2
+
 # 1px window border (weird rendering otherwise)
 window:
   padding:

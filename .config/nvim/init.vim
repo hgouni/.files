@@ -99,6 +99,9 @@ set cursorline
 " among others)
 set autowriteall
 
+" make macros execute faster
+set lazyredraw
+
 " tab settings
 set expandtab
 set tabstop=4
@@ -196,7 +199,6 @@ let g:sneak#label = 1
 
 " ALE config
 let g:ale_completion_enabled = 1
-let g:ale_fix_on_save = 1
 let g:ale_linters = {
     \ 'rust': ['rls'],
     \ 'haskell': ['hie'],
@@ -313,7 +315,7 @@ let g:haskell_backpack = 1
 
 " coq config
 autocmd FileType coq setlocal commentstring=(*%s*) tabstop=2 shiftwidth=2
-hi default SentToCoq ctermbg=8 guibg=DarkGray
+hi default SentToCoq ctermbg=8 guibg=DarkBlue
 hi default CheckedByCoq ctermbg=2 guibg=DarkGreen
 hi default CoqErrorCommand ctermbg=4 guibg=DarkRed
 nnoremap <silent><leader>cL :call CoqLaunch()<CR>
