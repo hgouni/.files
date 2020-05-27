@@ -1,5 +1,12 @@
 #!/bin/sh
 
+chmod 700 "$HOME/.ssh"
+chmod 700 "$HOME/.config/gnupg"
+
+for i in $(git --git-dir="$HOME/.files/" --work-tree="$HOME" ls-tree -r master --name-only); do
+    chmod go-rwx "$i"
+done
+
 if [ -z "$ENV" ]; then
     printf '%s\n' "ENV=$HOME/.shrc; export ENV" >> "$HOME/.profile"
     ENV="$HOME/.shrc"
@@ -19,11 +26,6 @@ case :$PATH: in
         printf '%s\n' 'PATH='"$HOME"'/.local/bin:$PATH; export PATH' >> "$HOME/.profile"
         ;;
 esac
-
-if ! [ -x "$(command -v pw_prompt_gui)" ]; then
-    printf '%s\n%s\n' '#!/bin/sh' 'zenity --password --title=auth' > "$HOME/.local/bin/pw_prompt_gui"
-    chmod 700 "$HOME/.local/bin/pw_prompt_gui"
-fi
 
 if ! [ "$TERMINAL" = 'st' ]; then
     printf '%s\n' 'TERMINAL=st; export TERMINAL' >> "$HOME/.profile"
