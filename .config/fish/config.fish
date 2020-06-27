@@ -14,11 +14,6 @@ set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
 
-# if correct term, set vi mode cursors
-if test "$TERM" = 'tmux-256color'
-    set fish_vi_force_cursor 1
-end
-
 # set syntax highlighting
 set fish_color_normal normal
 set fish_color_command green
@@ -64,6 +59,11 @@ set __fish_git_prompt_char_upstream_equal (set_color green)'='(set_color normal)
 set __fish_git_prompt_char_upstream_ahead (set_color yellow)'>'(set_color normal)
 set __fish_git_prompt_char_upstream_behind (set_color yellow)'<'(set_color normal)
 set __fish_git_prompt_char_upstream_diverged (set_color yellow)'<>'(set_color normal)
+
+# if correct term, set vi mode cursors
+if test "$TERM" = 'tmux-256color'
+    set fish_vi_force_cursor 1
+end
 
 ### keybinds/aliases/completions ###
 
@@ -265,11 +265,6 @@ end
 
 ### env ###
 
-# allows libraries to be installed locally in ~/.local/lib
-if not contains "$HOME/.local/lib" $LD_LIBRARY_PATH
-    set -x LD_LIBRARY_PATH "$HOME/.local/lib" $LD_LIBRARY_PATH
-end
-
 # add cargo bin dir to PATH
 if not contains "$HOME/.cargo/bin" $PATH
     set -x PATH "$HOME/.cargo/bin" $PATH
@@ -313,7 +308,7 @@ end
 
 # set up ocaml env
 if command -sq opam
-    source "$HOME/.opam/opam-init/init.fish" >/dev/null 2>&1; or true
+    source "$HOME/.opam/opam-init/init.fish" >/dev/null 2>&1
 end
 
 # set editor env vars
