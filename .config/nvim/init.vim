@@ -110,7 +110,6 @@ set shiftwidth=4
 " scroll context (note that for set <var>=<mode>, there must be not be spaces on
 " either side of the equal sign)
 set scrolloff=5
-autocmd TermOpen * setlocal scrolloff=0
 
 " toggle paste mode
 nnoremap <silent><leader>p :set paste!<CR>
