@@ -136,7 +136,7 @@ function post
         command curl -F url="$argv[2]" https://0x0.st
     case -s
         command curl -F shorten="$argv[2]" https://0x0.st
-    case "*"
+    case '*'
         command curl -F file=@"$argv[1]" https://0x0.st
     end
 end
@@ -152,7 +152,7 @@ end
 function config --wraps git
     switch "$argv[1]"
     case --reset
-        cd "$HOME";
+        cd "$HOME"
         and for file in (config ls-tree -r master --name-only)
                 rm $file
             end
@@ -166,8 +166,10 @@ function config --wraps git
 end
 
 # manage tmux sessions
-function tkill
+function tmgmt
     switch "$argv[1]"
+    case -s
+        nohup st ssh $argv[2..-1] &
     case -d
         for line in (tmux list-sessions | grep -Ev '\(attached\)$' | cut -d : -f 1)
             tmux kill-session -t $line
