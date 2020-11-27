@@ -69,7 +69,7 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'neovimhaskell/haskell-vim'
 
-Plug 'https://framagit.org/tyreunom/coquille.git', { 'do': ':UpdateRemotePlugins' }
+Plug 'whonore/Coqtail'
 
 call plug#end()
 
@@ -110,6 +110,9 @@ set shiftwidth=4
 " scroll context (note that for set <var>=<mode>, there must be not be spaces on
 " either side of the equal sign)
 set scrolloff=5
+
+" consistent behavior
+nnoremap Y y$
 
 " toggle paste mode
 nnoremap <silent><leader>p :set paste!<CR>
@@ -199,7 +202,7 @@ let g:sneak#label = 1
 " ALE config
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
-    \ 'rust': ['rls'],
+    \ 'rust': ['analyzer'],
     \ 'haskell': ['hie'],
     \ }
 let g:ale_fixers = {
@@ -312,22 +315,7 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
 
-" coq config
-autocmd FileType coq setlocal commentstring=(*%s*) tabstop=2 shiftwidth=2
-hi default SentToCoq ctermbg=8 guibg=DarkBlue
-hi default CheckedByCoq ctermbg=2 guibg=DarkGreen
-hi default CoqErrorCommand ctermbg=4 guibg=DarkRed
-nnoremap <silent><leader>cL :call CoqLaunch()<CR>
-nnoremap <silent><leader>cS :call CoqStop()<CR>
-nnoremap <silent><leader>cn :call CoqNext()<CR>
-nnoremap <silent><leader>ce :call CoqCancel()<CR>
-nnoremap <silent><leader>cj :call CoqToCursor()<CR>
-nnoremap <silent><leader>cu :call CoqUndo()<CR>
-nnoremap <silent><leader>cv :call CoqVersion()<CR>
-nnoremap <silent><leader>cb :call CoqBuild()<CR>
-nnoremap <silent><leader>cq :call CoqQuery(input('Query: '))<CR>
-nnoremap <silent><leader>cc :call CoqCheck(input('Check: '))<CR>
-nnoremap <silent><leader>cl :call CoqLocate(input('Locate: '))<CR>
-nnoremap <silent><leader>cp :call CoqPrint(input('Print: '))<CR>
-nnoremap <silent><leader>cs :call CoqSearch(input('Search: '))<CR>
-nnoremap <silent><leader>ca :call CoqSearchAbout(input('Search About: '))<CR>
+function! g:CoqtailHighlight()
+    hi def CoqtailSent ctermbg=8 guibg=DarkBlue
+    hi def CoqtailChecked ctermbg=2 guibg=DarkGreen
+endfunction

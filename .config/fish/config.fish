@@ -218,10 +218,7 @@ end
 # ps1 config
 function fish_prompt
     # save $status to $last_status to prevent overwriting
-    set -l last_status $status
-    if test "$last_status" -ne 0
-        printf '%s%s %s' (set_color red) "$last_status" (set_color normal)
-    end
+    set -l last_pipestatus $pipestatus
 
     # show username and hostname if ssh
     if test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
@@ -242,6 +239,8 @@ function fish_prompt
     else
         set prompt_end '>'
     end
+
+    printf "%s" (__fish_print_pipestatus "[" "] " "|" (set_color red) (set_color --bold red) $last_pipestatus)
 
     # prompt end
     printf '%s%s%s%s%s%s %s' (set_color red) "$prompt_end" (set_color yellow) "$prompt_end" (set_color green) "$prompt_end" (set_color normal)
@@ -271,7 +270,7 @@ end
 ### env ###
 
 # add cargo bin dir to PATH
-if not contains "$HOME/.cargo/bin" $PATH
+if not contains -- "$HOME/.cargo/bin" $PATH
     set -x PATH "$HOME/.cargo/bin" $PATH
 end
 
@@ -305,12 +304,14 @@ end
 # alt-k/j select up/down
 set -x FZF_DEFAULT_OPTS '--bind alt-j:down,alt-k:up'
 
+# this is now incorrect, and racer is unnecessary, anyway (use rust-analyzer instead of rls)
 # faster than having completion tools etc autodetect it
-if command -sq rustc
-    and test -z "$RUST_SRC_PATH"
-    set -Ux RUST_SRC_PATH (command rustc --print sysroot)/lib/rustlib/src/rust/src
-end
+# if command -sq rustc
+#     and test -z "$RUST_SRC_PATH"
+#     set -Ux RUST_SRC_PATH (command rustc --print sysroot)/lib/rustlib/src/rust/src
+# end
 
+# causes issues with PATH-- update opam to 2.10.0 to fix? (#4078 on ocaml/opam github)
 # set up ocaml env
 if command -sq opam
     source "$HOME/.opam/opam-init/init.fish" >/dev/null 2>&1
