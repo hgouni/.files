@@ -111,6 +111,15 @@ set shiftwidth=4
 " either side of the equal sign)
 set scrolloff=5
 
+set foldmethod=syntax
+set foldlevel=1
+set nofoldenable
+
+augroup autofold_conf
+    autocmd!
+    autocmd FileType git set foldenable
+augroup END
+
 " consistent behavior
 nnoremap Y y$
 
