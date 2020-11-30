@@ -167,7 +167,7 @@ function config --wraps git
 end
 
 # manage tmux sessions
-function tmgmt
+function tkill
     switch "$argv[1]"
     case -s
         nohup st ssh $argv[2..-1] > /dev/null 2>&1 &
