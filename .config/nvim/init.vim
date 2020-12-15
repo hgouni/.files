@@ -117,7 +117,7 @@ set nofoldenable
 
 augroup autofold_conf
     autocmd!
-    autocmd FileType git set foldenable
+    autocmd FileType git set foldenable foldlevel=0
 augroup END
 
 " consistent behavior
