@@ -65,209 +65,7 @@ if test "$TERM" = 'tmux-256color'
     set fish_vi_force_cursor 1
 end
 
-### keybinds/aliases/completions ###
-
-# general keybind function
-function fish_user_key_bindings
-    bind -M insert -m default \el accept-autosuggestion repaint-mode
-    bind -M insert -m default \ew forward-word repaint-mode
-    bind -M insert -m default \es 'commandline $history[1]; and __fish_prepend_sudo; and commandline -f repaint-mode'
-    bind -M insert -m default \er 'commandline -t ""; and commandline -f history-token-search-backward; and commandline -f repaint-mode'
-    bind -M default -m insert a 'commandline -C (math (commandline -C) + 1); and commandline -f repaint-mode'
-    bind -M default w forward-word
-    bind -M default u undo
-    bind -M default \cR redo
-end
-
-# general abbreviation function
-if status is-interactive
-    abbr --add --global mv mv -b
-    abbr --add --global cp cp -b
-    abbr --add --global ln ln -b
-    abbr --add --global chown chown --preserve-root
-    abbr --add --global chmod chmod --preserve-root
-    abbr --add --global chgrp chgrp --preserve-root
-    abbr --add --global c clear
-    abbr --add --global rb bash -c
-    abbr --add --global bl tput bel
-    abbr --add --global l ls -ahlt
-    abbr --add --global cv cat -nvET
-    abbr --add --global untar tar -xvf
-    abbr --add --global rmls trash-list
-    abbr --add --global unrm trash-restore
-    abbr --add --global rmrm trash-rm
-    abbr --add --global rmempty trash-empty
-    abbr --add --global gpgq qubes-gpg-client
-    abbr --add --global sewebfile chcon -t httpd_sys_content_t
-    abbr --add --global sewebdir chcon -Rt httpd_sys_content_t
-    abbr --add --global fwmod firewall-cmd --zone=public --permanent
-    abbr --add --global gitls git ls-tree -r master --name-only
-end
-
-### functions ###
-
-# directory navigation
-function d
-    pushd $argv
-    and printf '%s\n' "$dirstack"
-end
-
-function b
-    popd
-    and printf '%s\n' "$dirstack"
-end
-
-# function for safe rm and secure deletion; moves files to xdg trash using trash-cli or moves removed files to ~/.trash; can shred file(s) by passing -s
-# must manually invoke /bin/rm for destructive actions
-function rm
-    if test "$argv[1]" = '-s'
-        command shred -uz $argv[2..-1]
-    else if command -sq trash-put
-        command trash-put $argv
-    else
-        command mkdir -p "$HOME/.trash"
-        and command mv -b $argv "$HOME/.trash"
-    end
-end
-
-# post to 0x0.st
-function post
-    switch "$argv[1]"
-    case -u
-        command curl -F url="$argv[2]" https://0x0.st
-    case -s
-        command curl -F shorten="$argv[2]" https://0x0.st
-    case '*'
-        command curl -F file=@"$argv[1]" https://0x0.st
-    end
-end
-
-# clone, change directory, and checkout a branch
-function gitcpr -a repo branch
-    command git clone "$repo"
-    and cd (command ls -t | command sed -n 1p)
-    and command git checkout -b "$branch"
-end
-
-# setup dotfiles repo
-function config --wraps git
-    switch "$argv[1]"
-    case --reset
-        cd "$HOME"
-        and for file in (config ls-tree -r master --name-only)
-                rm $file
-            end
-        and rm "$HOME/.files"
-        and command git clone --bare https://github.com/lawabidingcactus/.files.git "$HOME/.files"
-        and config checkout
-        and config config --local status.showUntrackedFiles no
-    case "*"
-        command git --git-dir="$HOME/.files/" --work-tree="$HOME" $argv
-    end
-end
-
-# manage tmux sessions
-function tkill
-    switch "$argv[1]"
-    case -s
-        nohup st ssh $argv[2..-1] > /dev/null 2>&1 &
-    case -m
-        nohup st mosh $argv[2..-1] > /dev/null 2>&1 &
-    case -d
-        for line in (tmux list-sessions | grep -Ev '\(attached\)$' | cut -d : -f 1)
-            tmux kill-session -t $line
-        end
-    case '*'
-        read -lP 'Are you sure? (y/n) ' confirm
-        switch "$confirm"
-        case y yes Y
-            tmux kill-server
-        case '*'
-            printf '%s\n' 'Aborting.'
-        end
-    end
-end
-
-### prompt ###
-
-# print the vi mode indicator
-function fish_mode_prompt
-    switch "$fish_bind_mode"
-        case default
-            set_color --bold red
-            printf '%s ' '[N]'
-        case insert
-            set_color --bold green
-            printf '%s ' '[I]'
-        case visual
-            set_color --bold yellow
-            printf '%s ' '[V]'
-        case replace
-            set_color --bold green
-            printf '%s ' '[R]'
-        case replace_one
-            set_color --bold red
-            printf '%s ' '[N]'
-        case '*'
-            set_color --bold red
-            printf '%s ' '[?]'
-    end
-    set_color normal
-end
-
-# ps1 config
-function fish_prompt
-    # save $status to $last_status to prevent overwriting
-    set -l last_pipestatus $pipestatus
-
-    # show username and hostname if ssh
-    if test -n "$SSH_TTY" -o -n "$SSH_CLIENT"
-        printf '%s%s%s@%s%s %s' (set_color red) "$USER" (set_color yellow) (set_color green) "$hostname" (set_color normal)
-    end
-
-    # indicate sudo status
-    if command sudo -n true >/dev/null 2>&1
-        printf '%s%s %s' (set_color red) (prompt_pwd) (set_color normal)
-    else
-        printf '%s%s %s' (set_color green) (prompt_pwd) (set_color normal)
-    end
-
-    # turn off unicode prompt if tty
-    set -l prompt_end
-    if string match '*p*' (tty) >/dev/null 2>&1
-        set prompt_end '❯'
-    else
-        set prompt_end '>'
-    end
-
-    printf "%s" (__fish_print_pipestatus "[" "] " "|" (set_color red) (set_color --bold red) $last_pipestatus)
-
-    # prompt end
-    printf '%s%s%s%s%s%s %s' (set_color red) "$prompt_end" (set_color yellow) "$prompt_end" (set_color green) "$prompt_end" (set_color normal)
-end
-
-# set right prompt to show command execution time and git status
-function fish_right_prompt
-    # git status
-    fish_git_prompt
-    printf '%s '
-
-    # execution time; posix-compliant test statement ensures $CMD_DURATION is not null
-    if test "$CMD_DURATION"
-        # divide command duration by 1000 and print to three decimal places
-        set -l duration (printf '%s\n' "$CMD_DURATION 1000" | awk '{printf "%.3f", $1 / $2}')
-        # change time color based on execution time
-        if test "$CMD_DURATION" -lt 5000
-            printf '%s%s%s' (set_color green) "$duration" (set_color normal)
-        else if test "$CMD_DURATION" -ge 5000; and test "$CMD_DURATION" -lt 60000
-            printf '%s%s%s' (set_color yellow) "$duration" (set_color normal)
-        else
-            printf '%s%s%s' (set_color red) "$duration" (set_color normal)
-        end
-    end
-end
-
-### env ###
+### env setup ###
 
 # add cargo bin dir to PATH
 if not contains -- "$HOME/.cargo/bin" $PATH
@@ -296,7 +94,7 @@ else
     set -x FZF_DEFAULT_COMMAND 'find -L -type f'
 end
 
-# alt-k/j select up/down
+# alt-k/j selects up/down
 set -x FZF_DEFAULT_OPTS '--bind alt-j:down,alt-k:up'
 
 # this is now incorrect, and racer is unnecessary, anyway (use rust-analyzer instead of rls)
@@ -322,12 +120,10 @@ end
 set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
 
 # less/man colors
-# prevent less from displaying control chars
+# prevent less from displaying color control chars
 set -x LESS "--RAW-CONTROL-CHARS"
 # translate termcaps to colors
-# see man terminfo for termcap mappings
-# (ie, search for ' so ', which begins
-# standout mode)
+# see `man terminfo` for termcap mappings (ie, search for ' so ', which begins standout mode)
 set -x LESS_TERMCAP_mb (set_color --bold red)
 set -x LESS_TERMCAP_md (set_color --bold green)
 set -x LESS_TERMCAP_me (set_color normal)
