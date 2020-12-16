@@ -320,3 +320,20 @@ end
 
 # sudo auth without remote pty allocated (allows excmds to sudo)
 set -x SUDO_ASKPASS "$HOME/.local/bin/pw_prompt_gui"
+
+# less/man colors
+# prevent less from displaying control chars
+set -x LESS "--RAW-CONTROL-CHARS"
+# translate termcaps to colors
+# see man terminfo for termcap mappings
+# (ie, search for ' so ', which begins
+# standout mode)
+set -x LESS_TERMCAP_mb (set_color --bold red)
+set -x LESS_TERMCAP_md (set_color --bold green)
+set -x LESS_TERMCAP_me (set_color normal)
+set -x LESS_TERMCAP_so (set_color --bold black --background red)
+set -x LESS_TERMCAP_se (set_color normal)
+set -x LESS_TERMCAP_us (set_color --bold --underline yellow) # blue
+set -x LESS_TERMCAP_ue (set_color normal)
+# needed to display colors on certain terminals
+set -x GROFF_NO_SGR 1
