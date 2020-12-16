@@ -274,11 +274,6 @@ if not contains -- "$HOME/.cargo/bin" $PATH
     set -x PATH "$HOME/.cargo/bin" $PATH
 end
 
-# user-specific manpages
-if command -sq manpath
-    set -x MANPATH (string join : -- $HOME/.local/share/man (manpath -g))
-end
-
 # add ghc and friends to path (needed for hie to function correctly); using universal var for speed
 # we're not going to use contains here because that would require invoking stack, which is slow
 if command -sq stack
