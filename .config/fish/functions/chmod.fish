@@ -1,4 +1,4 @@
 function chmod
-    chmod --preserve-root $argv
+    command chmod --preserve-root $argv
 end
 

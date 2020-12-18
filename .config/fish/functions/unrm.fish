@@ -1,4 +1,4 @@
 function unrm
-    trash-restore
+    command trash-restore
 end
 

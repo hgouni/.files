@@ -1,4 +1,4 @@
 function rmls
-    trash-list
+    command trash-list
 end
 

@@ -1,4 +1,4 @@
 function cv
-    cat -nvET $argv
+    command cat -nvET $argv
 end
 

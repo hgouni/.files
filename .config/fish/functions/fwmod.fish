@@ -1,4 +1,4 @@
 function fwmod
-    firewall-cmd --zone=public --permanent $argv
+    command firewall-cmd --zone=public --permanent $argv
 end
 

@@ -1,4 +1,4 @@
 function untar
-    tar -xvf $argv
+    command tar -xvf $argv
 end
 

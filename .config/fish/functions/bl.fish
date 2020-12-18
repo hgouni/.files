@@ -1,4 +1,4 @@
 function bl
-    tput bel
+    command tput bel
 end
 

@@ -1,3 +1,3 @@
 function cp
-    cp -b $argv
+    command cp -b $argv
 end

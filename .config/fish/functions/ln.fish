@@ -1,4 +1,4 @@
 function ln
-    ln -b $argv
+    command ln -b $argv
 end
 

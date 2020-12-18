@@ -1,3 +1,3 @@
 function chown
-    chown --preserve-root $argv
+    command chown --preserve-root $argv
 end

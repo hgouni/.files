@@ -1,4 +1,4 @@
 function rmrm
-    trash-rm $argv
+    command trash-rm $argv
 end
 

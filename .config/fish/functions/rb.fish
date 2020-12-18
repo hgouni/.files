@@ -1,4 +1,4 @@
 function rb
-    bash -c $argv
+    command bash -c $argv
 end
 

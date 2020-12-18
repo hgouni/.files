@@ -1,4 +1,4 @@
 function chgrp
-    chgrp --preserve-root $argv
+    command chgrp --preserve-root $argv
 end
 

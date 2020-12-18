@@ -1,4 +1,4 @@
 function l
-    ls -ahlt $argv
+    command ls -ahlt $argv
 end
 

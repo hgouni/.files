@@ -1,4 +1,4 @@
 function gpgq
-    qubes-gpg-client $argv
+    command qubes-gpg-client $argv
 end
 

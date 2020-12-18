@@ -1,4 +1,4 @@
 function c
-    clear
+    command clear
 end
 

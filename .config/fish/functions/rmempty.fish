@@ -1,4 +1,4 @@
 function rmempty
-    trash-empty
+    command trash-empty
 end
 
