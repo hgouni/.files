@@ -1,5 +1,3 @@
 { pkgs, ... }:
 
-{
-    home.packages = with pkgs; [ fldigi ];
-}
+{ home.packages = with pkgs; [ fldigi ]; }

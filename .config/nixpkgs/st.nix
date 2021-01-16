@@ -35,7 +35,6 @@
 				})
             ];
 			configFile = writeText "config.def.h" (builtins.readFile ./files/st/config.def.h);
-            # how does this work???
             postPatch = ''
                         ${oldAttrs.postPatch}
                         cp ${configFile} config.def.h
