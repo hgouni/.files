@@ -133,7 +133,7 @@
 				body =
 				''
 				command git clone "$repo"
-				and cd (command ls -t | command sed -n 1p)
+				and cd (command ls -t | command sed '1q;d')
 				and command git checkout -b "$branch"
 				'';
 			};
@@ -142,11 +142,11 @@
 			''
 			switch "$argv[1]"
 				case -u
-					command curl -F url="$argv[2]" https://0x0.st
+					command curl -sS -F url="$argv[2]" https://0x0.st
 				case -s
-					command curl -F shorten="$argv[2]" https://0x0.st
+					command curl -sS -F shorten="$argv[2]" https://0x0.st
 				case '*'
-					command curl -F file=@"$argv[1]" https://0x0.st
+					command curl -sS -F file=@"$argv[1]" https://0x0.st
 				end
 			'';
 

@@ -9,7 +9,6 @@
             idris-vim
             vim-sneak
             gruvbox
-            ale
             vim-airline
             supertab
             undotree
@@ -26,8 +25,9 @@
             rust-vim
             haskell-vim
             vim-nix
-            # Coqtail
-            # vim-racket
+            nvim-lspconfig
+            Coqtail
+            vim-racket
         ];
 
         extraPackages = with pkgs; [ fzf ctags shellcheck ];

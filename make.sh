@@ -1,11 +1,10 @@
 #!/bin/sh
 
-rm "$HOME/.bash_profile"
-rm "$HOME/.bash_login"
+if command -v nix > /dev/null 2>&1; then
+	curl -L https://nixos.org/nix/install | sh
+fi
 
-chmod 600 "$HOME/.ssh"
-chmod 600 "$HOME/.config/gnupg"
-
-for file in $(git --git-dir="$HOME/.files/" --work-tree="$HOME" ls-tree -r master --name-only); do
-    chmod go-rwx "$file"
-done
+if command -v home-manager > /dev/null 2>&1; then
+    nix-channel --add https://github.com/nix-community/home-manager/archive/release-"$(nixos-version | cut -c -5)".tar.gz home-manager
+    nix-channel --update
+fi

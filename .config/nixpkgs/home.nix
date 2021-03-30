@@ -21,8 +21,10 @@
 
   imports = [
     ./bash.nix
-    ./environment.nix
+    ./cmus.nix
+    ./dc.nix
     ./direnv.nix
+    ./environment.nix
     ./firefox.nix
     ./fish.nix
     ./fldigi.nix
@@ -31,10 +33,14 @@
     ./gpg.nix
     ./htop.nix
     ./init.nix
+    ./jq.nix
     ./keepassxc.nix
     ./kitty.nix
+    ./lsof.nix
     ./mosh.nix
+    ./mpv.nix
     ./nvim.nix
+    ./pandoc.nix
     ./ripgrep.nix
     ./ssh.nix
     ./st.nix

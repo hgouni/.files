@@ -36,6 +36,10 @@
                 hostname = "160.94.179.147";
             };
 
+            "acm.mh-chatserver" = lib.hm.dag.entryAfter [ "acm.*" ] {
+                hostname = "160.94.179.143";
+            };
+
             "github" = {
                 hostname = "github.com";
                 user = "git";
@@ -45,7 +49,7 @@
             "umn.git" = {
                 hostname = "github.umn.edu";
                 user = "git";
-                identityFile = "~/.ssh/gitumn";
+                identityFile = "~/.ssh/umn";
             };
 
             "unipassau" = {

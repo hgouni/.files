@@ -1,3 +1,3 @@
 { config, pkgs, ... }:
 
-{ home.packages = with pkgs.texlive.combined; [ scheme-basic ]; }
+{ home.packages = with pkgs.texlive.combined; [ scheme-full ]; }

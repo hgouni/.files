@@ -20,6 +20,7 @@
                         "${modifier}+Shift+s" = ''exec "swaylock --daemonize && systemctl suspend"'';
                         "${modifier}+Shift+d" = "exec brightnessctl set 1%-";
                         "${modifier}+Shift+b" = "exec brightnessctl set +1%";
+                        "${modifier}+Shift+p" = "exec sh -c 'grimshot save area - | curl -F file=@- https://0x0.st | wl-copy'";
                     };
         };
 
@@ -29,6 +30,8 @@
             input "type:keyboard" {
                 xkb_options ctrl:nocaps
             }
+
+            exec systemctl --user import-environment
             '';
 
         wrapperFeatures.gtk = true;
@@ -37,10 +40,10 @@
     home.packages = with pkgs; [
         swaylock
         swayidle
-        wl-clipboard
         mako
         dmenu
         brightnessctl
+        wl-clipboard
         sway-contrib.grimshot
     ];
 
