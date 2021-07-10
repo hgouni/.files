@@ -45,23 +45,27 @@
     services.pipewire.enable = true;
 
     # enable wayland screen snooping
-    xdg = {
-      portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-wlr
-        ];
-        gtkUsePortal = true;
-      };
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
+      gtkUsePortal = true;
     };
 
     virtualisation.docker.enable = true;
+    virtualisation.libvirtd.enable = true;
 
     users.users = {
         lawabidingcactus = {
             isNormalUser = true;
             createHome = true;
-            extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "docker" ];
+            extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "docker" "libvirtd" "kvm" ];
+            # generated using `mkpasswd -m sha-512`; useful for generated vms
+            #
+            # users are not managed declaratively by default, so this is just
+            # the password used when no other has been imperatively set
+            hashedPassword = "$6$F46H/ztvPrV$MLSusS19KMV561oIdoplAY84W4a8RhZNhdfrofI17LYH3uTU97NbwF4emqfF1lFTxv6F3uWcsOfWkp61tzdTq.";
         };
     };
 

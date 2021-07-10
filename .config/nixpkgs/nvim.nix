@@ -1,6 +1,30 @@
 { config, pkgs, ... }:
 
-{ 
+let
+
+  slimv = pkgs.vimUtils.buildVimPlugin {
+    name = "slimv";
+    src = pkgs.fetchFromGitHub {
+      owner = "kovisoft";
+      repo = "slimv";
+      rev = "de657dd6e124189143589a725ae85113c09eb053";
+      sha256 = "18dg626m5iy5w2zz60qxvw06fxx7ridn8ibcy6k9yyqa01w1ybxs";
+    };
+  };
+
+  nvim-metals = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-metals";
+    src = pkgs.fetchFromGitHub {
+      owner = "scalameta";
+      repo = "nvim-metals";
+      rev = "6773f9e8f7c8a105fc1abaa8979e5fd2ad5e6b27";
+      sha256 = "0pch8c8psnly7pvpn8jd599p9zmxd5pa03fkghnzs3zggyilmxfv";
+    };
+
+    dontBuild = true;
+};
+
+in { 
     programs.neovim = {
 
         enable = true; 
@@ -18,8 +42,6 @@
             vim-repeat
             vim-fish
             vimwiki
-            rainbow_parentheses-vim
-            vim-gitgutter
             tagbar
             vim-fugitive
             rust-vim
@@ -28,6 +50,8 @@
             nvim-lspconfig
             Coqtail
             vim-racket
+            slimv
+            nvim-metals
         ];
 
         extraPackages = with pkgs; [ fzf ctags shellcheck ];

@@ -104,18 +104,6 @@ nnoremap <silent><M-t> :call Term_toggle(10)<CR>
 inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
 tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
 
-" make vim functions that depend on CursorHoldI extremely responsive
-" without constantly writing to disk
-set updatetime=0
-set directory=/dev/shm/nvim_swap//
-
-" use async job control to sync swapfiles to non-volatile storage
-function! Fs_sync(timer_fs_sync)
-    call jobstart(['rsync', '-aq', '--delete', '/dev/shm/nvim_swap/', ''.$HOME.'/.local/share/nvim/swap'])
-endfunction
-
-let timer_fs_sync = timer_start(1000, 'Fs_sync', {'repeat': -1})
-
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
@@ -166,11 +154,23 @@ end
 
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { "hls", "r_language_server" }
+local servers = { "hls", "r_language_server", "metals" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 EOF
+
+" lua<<EOF
+" vim.opt_global.shortmess:remove("F")
+
+" metals_config = require("metals").bare_config
+
+" vim.cmd [[augroup metals]]
+"     vim.cmd [[autocmd!]]
+"     vim.cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
+"     vim.cmd [[autocmd Filetype scala,sbt lua require("metals").initialize_or_attach(metals_config)]]
+" vim.cmd [[augroup end]]
+" EOF
 
 " theming
 set termguicolors
@@ -277,11 +277,7 @@ let g:tagbar_type_rust = {
   \ },
 \ }
 
-" rainbow parenthesis config (for lisp)
-augroup rainbow_lisp
-    autocmd!
-    autocmd FileType lisp,clojure,scheme RainbowParentheses
-augroup END
+let g:lisp_rainbow = 1
 
 " haskell-vim configuration
 let g:haskell_enable_quantification = 1
