@@ -39,6 +39,7 @@
     ./lsof.nix
     ./mosh.nix
     ./mpv.nix
+    ./nitrokey.nix
     ./nvim.nix
     ./pandoc.nix
     ./ripgrep.nix

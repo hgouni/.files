@@ -19,6 +19,7 @@
 
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.configurationLimit = 10;
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Set your time zone.
@@ -30,6 +31,7 @@
     networking.useDHCP = false;
     networking.interfaces.enp0s31f6.useDHCP = true;
     networking.interfaces.wlp2s0.useDHCP = true;
+    networking.enableIPv6 = false;
 
     # don't need to manually enable wpa_supplicant
     # use networkmanager instead
@@ -60,7 +62,7 @@
         lawabidingcactus = {
             isNormalUser = true;
             createHome = true;
-            extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "docker" "libvirtd" "kvm" ];
+            extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "docker" "libvirtd" "kvm" "nitrokey" ];
             # generated using `mkpasswd -m sha-512`; useful for generated vms
             #
             # users are not managed declaratively by default, so this is just
@@ -73,6 +75,10 @@
     programs.sway.enable = true;
 
     programs.gnupg.agent.enable = true;
+
+    # allow for nitrokey usage
+    # hardware.nitrokey.enable = true;
+    services.pcscd.enable = true;
 
     fonts.fonts = with pkgs; [ cm_unicode ];
 
