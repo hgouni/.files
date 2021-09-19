@@ -3,65 +3,52 @@
 { 
   programs.ssh = {
     enable = true;
-    controlMaster = "auto";
-    controlPersist = "600";
     serverAliveInterval = 60;
 
-    extraOptionOverrides = {
-      IdentitiesOnly = "yes";
-    };
-
     matchBlocks = {
-      "acm.*" = {
-      identityFile = "~/.ssh/acm";
-      };
 
-      "acm.argo" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.argo" = {
         hostname = "argo.acm.umn.edu";
       };
 
-      "acm.cerberus" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.cerberus" = {
         hostname = "cerberus.acm.umn.edu";
       };
 
-      "acm.garlic" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.garlic" = {
         hostname = "garlic.acm.umn.edu";
       };
 
-      "acm.jotunn" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.jotunn" = {
         hostname = "jotunn.acm.umn.edu";
       };
 
-      "acm.wopr" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.wopr" = {
         hostname = "160.94.179.147";
       };
 
-      "acm.mh-chatserver" = lib.hm.dag.entryAfter [ "acm.*" ] {
+      "acm.mh-chatserver" = {
         hostname = "160.94.179.143";
       };
 
-      "github" = {
-        hostname = "github.com";
+      "git.*" = {
         user = "git";
-        identityFile = "~/.ssh/github";
       };
 
-      "github.work" = {
+      "git.github" = lib.hm.dag.entryAfter [ "git.*"] {
         hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/github_work";
       };
 
-      "umn.git" = {
+      "git.github.work" = lib.hm.dag.entryAfter [ "git.*" ] {
+        hostname = "github.com";
+      };
+
+      "git.umn" = lib.hm.dag.entryAfter [ "git.*"] {
         hostname = "github.umn.edu";
-        user = "git";
-        identityFile = "~/.ssh/umn";
       };
 
-      "unipassau" = {
+      "git.unipassau" = lib.hm.dag.entryAfter [ "git.*"] {
         hostname = "gitlab.infosun.fim.uni-passau.de";
-        user = "git";
-        identityFile = "~/.ssh/unipassau";
       };
     };
   };

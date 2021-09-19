@@ -22,7 +22,7 @@ let
     };
 
     dontBuild = true;
-};
+  };
 
 in { 
     programs.neovim = {
@@ -60,4 +60,6 @@ in {
 
         extraConfig = builtins.readFile ./files/nvim/init.vim;
     };
+
+    home.packages = [ neovide ];
 }
