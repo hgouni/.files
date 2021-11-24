@@ -10,11 +10,8 @@ set nomodeline
 " leader key
 let mapleader = " "
 
-" localleader key; '\\' must be used because '\' functions as escape char
-let maplocalleader = "\\"
-
-" line numbers
-set number
+" localleader key
+let maplocalleader = ","
 
 " move preview window to bottom (less intrusive)
 set splitbelow
@@ -54,6 +51,7 @@ nnoremap Y y$
 nnoremap <silent><leader>p :set paste!<CR>
 
 " toggle highlighting for searches
+set hlsearch!
 nnoremap <silent><leader>/ :set hlsearch!<CR>
 
 " special symbols
@@ -78,31 +76,27 @@ au BufReadPost *
   \ | endif
 
 " toggle terminal
-let s:term_buf = 0
-let s:term_win = 0
+let g:term_buffer = -1
 
-function! Term_toggle(height)
-    if win_gotoid(s:term_win)
+function! Term_toggle()
+    if g:term_buffer == -1
+        new
+        call termopen($SHELL)
+        setlocal nocursorline " signcolumn=no
+        let g:term_buffer = bufnr()
+        startinsert!
+    elseif g:term_buffer == bufnr()
         hide
     else
-        new terminal
-        exec "resize ".a:height
-        try
-            exec "buffer ".s:term_buf
-            exec "bd terminal"
-        catch
-            call termopen($SHELL, {"detach": 0})
-            let s:term_buf = bufnr("")
-            setlocal nocursorline " signcolumn=no
-        endtry
+        new
+        execute "buffer ".g:term_buffer
         startinsert!
-        let s:term_win = win_getid()
     endif
 endfunction
 
-nnoremap <silent><M-t> :call Term_toggle(10)<CR>
-inoremap <silent><M-t> <ESC>:call Term_toggle(10)<CR>
-tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle(10)<CR>
+nnoremap <silent><M-t> :call Term_toggle()<CR>
+inoremap <silent><M-t> <ESC>:call Term_toggle()<CR>
+tnoremap <silent><M-t> <C-\><C-n>:call Term_toggle()<CR>
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -160,18 +154,6 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
-" lua<<EOF
-" vim.opt_global.shortmess:remove("F")
-
-" metals_config = require("metals").bare_config
-
-" vim.cmd [[augroup metals]]
-"     vim.cmd [[autocmd!]]
-"     vim.cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-"     vim.cmd [[autocmd Filetype scala,sbt lua require("metals").initialize_or_attach(metals_config)]]
-" vim.cmd [[augroup end]]
-" EOF
-
 " theming
 set termguicolors
 set background=dark
@@ -219,74 +201,7 @@ nnoremap <silent><leader>fm :Marks<CR>
 nnoremap <silent><leader>fc :Commands<CR>
 nnoremap <silent><leader>fo :Buffers<CR>
 
-" airline configuration
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.notexists = '!'
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>= <Plug>AirlineSelectNextTab
-
-" tagbar config
-nnoremap <silent><leader>t :TagbarToggle<CR>
-let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
-let g:tagbar_type_rust = {
-  \ 'ctagsbin' : $HOME.'/.local/bin/ctags',
-  \ 'ctagstype' : 'rust',
-  \ 'kinds' : [
-      \ 'n:modules',
-      \ 's:structures:1',
-      \ 'i:interfaces',
-      \ 'c:implementations',
-      \ 'f:functions:1',
-      \ 'g:enumerations:1',
-      \ 't:type aliases:1:0',
-      \ 'v:constants:1:0',
-      \ 'M:macros:1',
-      \ 'm:fields:1:0',
-      \ 'e:enum variants:1:0',
-      \ 'P:methods:1',
-  \ ],
-  \ 'sro': '::',
-  \ 'kind2scope' : {
-      \ 'n': 'module',
-      \ 's': 'struct',
-      \ 'i': 'interface',
-      \ 'c': 'implementation',
-      \ 'f': 'function',
-      \ 'g': 'enum',
-      \ 't': 'typedef',
-      \ 'v': 'variable',
-      \ 'M': 'macro',
-      \ 'm': 'field',
-      \ 'e': 'enumerator',
-      \ 'P': 'method',
-  \ },
-\ }
-
 let g:lisp_rainbow = 1
-
-" haskell-vim configuration
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
-let g:haskell_backpack = 1
 
 function! g:CoqtailHighlight()
     hi def CoqtailSent ctermbg=8 guibg=DarkBlue
