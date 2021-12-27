@@ -19,8 +19,8 @@
           home-manager.users.lawabidingcactus = import ./home.nix;
         }
         ({
-	  home-manager.users.lawabidingcactus.programs.neovim.package = neovim.defaultPackage.x86_64-linux;
-	})
+          home-manager.users.lawabidingcactus.programs.neovim.package = neovim.defaultPackage.x86_64-linux;
+        })
       ];
     };
   };

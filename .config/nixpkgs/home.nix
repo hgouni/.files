@@ -37,12 +37,14 @@
     ./keepassxc.nix
     ./kitty.nix
     ./lsof.nix
+    ./man.nix
     ./mosh.nix
     ./mpv.nix
     ./nitrokey.nix
     ./nvim.nix
     ./pandoc.nix
     ./ripgrep.nix
+    ./sbcl.nix
     ./ssh.nix
     ./st.nix
     ./sway.nix

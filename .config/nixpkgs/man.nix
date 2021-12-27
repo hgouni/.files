@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.man-pages pkgs.man-pages-posix ]
+  home.packages = with pkgs; [ man-pages man-pages-posix ];
 }

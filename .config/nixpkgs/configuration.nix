@@ -31,13 +31,16 @@
     networking.useDHCP = false;
     networking.interfaces.enp0s31f6.useDHCP = true;
     networking.interfaces.wlp2s0.useDHCP = true;
-    networking.enableIPv6 = false;
+    # networking.enableIPv6 = false;
 
     # don't need to manually enable wpa_supplicant
     # use networkmanager instead
     networking.networkmanager.enable = true;
     networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
     networking.hostName = "casper";
+    
+    # enable additional manual pages
+    # documentation.dev.enable = true;
 
     # sound config
     hardware.pulseaudio.enable = true;
@@ -67,7 +70,7 @@
             #
             # users are not managed declaratively by default, so this is just
             # the password used when no other has been imperatively set
-            hashedPassword = "$6$F46H/ztvPrV$MLSusS19KMV561oIdoplAY84W4a8RhZNhdfrofI17LYH3uTU97NbwF4emqfF1lFTxv6F3uWcsOfWkp61tzdTq.";
+            # hashedPassword = "$6$F46H/ztvPrV$MLSusS19KMV561oIdoplAY84W4a8RhZNhdfrofI17LYH3uTU97NbwF4emqfF1lFTxv6F3uWcsOfWkp61tzdTq.";
         };
     };
 
@@ -77,6 +80,7 @@
     programs.gnupg.agent.enable = true;
 
     # allow for nitrokey usage
+    # we don't need this?
     # hardware.nitrokey.enable = true;
     services.pcscd.enable = true;
 

@@ -77,19 +77,40 @@ au BufReadPost *
 
 " toggle terminal
 let g:term_buffer = -1
+let g:term_window = -1
 
 function! Term_toggle()
-    if g:term_buffer == -1
-        new
-        call termopen($SHELL)
-        setlocal nocursorline " signcolumn=no
-        let g:term_buffer = bufnr()
-        startinsert!
-    elseif g:term_buffer == bufnr()
+    " if a window containing the terminal buffer
+    " exists, remove it
+    if win_gotoid(g:term_window)
+        " hide does not 'hide' the window; it
+        " quits it without deleting the buffer
         hide
     else
-        new
-        execute "buffer ".g:term_buffer
+        " make a new split window, and a new buffer in it
+        " analogous to `split <bar> enew`
+        "
+        " this buffer is named so we can remove it later,
+        " and avoid leaking buffers (shown in :buffers! or
+        " ls!)
+        new terminal
+        " attempt to switch to the terminal buffer
+        " inside the split
+        try
+            " switch to the terminal buffer,
+            " if there is one
+            execute "buffer ".g:term_buffer
+            " remove the unneeded buffer here
+            bd terminal
+        " if it does not exist, make a new terminal buffer
+        catch
+            let g:term_buffer = bufnr()
+            call termopen($SHELL)
+            setlocal nocursorline
+        endtry
+        " record the new window identifier
+        let g:term_window = win_getid()
+        " enter insert mode
         startinsert!
     endif
 endfunction

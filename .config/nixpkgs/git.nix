@@ -3,8 +3,8 @@
 { 
     programs.git = {
         enable = true; 
-        userEmail = "lawabidingcactus@lawabidingcactus.com";
-        userName = "LawAbidingCactus";
+        userEmail = "hemant@hemantgouni.com";
+        userName = "Hemant Sai Gouni";
 
         signing = {
             key = "${config.programs.gpg.settings.default-key}";
