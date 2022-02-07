@@ -29,6 +29,7 @@
     ./fish.nix
     ./fldigi.nix
     ./fonts.nix
+    ./foot.nix
     ./git.nix
     ./gpg.nix
     ./htop.nix
@@ -43,10 +44,10 @@
     ./nitrokey.nix
     ./nvim.nix
     ./pandoc.nix
+    ./rash.nix
     ./ripgrep.nix
-    ./sbcl.nix
+    ./rofi.nix
     ./ssh.nix
-    ./st.nix
     ./sway.nix
     ./texlive.nix
     ./tmux.nix

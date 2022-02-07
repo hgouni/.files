@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "github:neovim/neovim?dir=contrib&ref=stable";
+    neovim.url = "github:neovim/neovim?dir=contrib&ref=nightly";
   };
 
   outputs = { home-manager, nixpkgs, neovim, ... }: {

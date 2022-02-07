@@ -36,7 +36,13 @@
     # don't need to manually enable wpa_supplicant
     # use networkmanager instead
     networking.networkmanager.enable = true;
+
+    # DNS settings
     networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    # networking.resolvconf.enable = false;
+    networking.networkmanager.dns = "none";
+    services.resolved.enable = false;
+
     networking.hostName = "casper";
     
     # enable additional manual pages
