@@ -24,6 +24,7 @@
     ./cmus.nix
     ./dc.nix
     ./direnv.nix
+    # ./emacs.nix
     ./environment.nix
     ./firefox.nix
     ./fish.nix
@@ -31,8 +32,10 @@
     ./fonts.nix
     ./foot.nix
     ./git.nix
+    ./gnuradio.nix
     ./gpg.nix
     ./htop.nix
+    ./icons.nix
     ./init.nix
     ./jq.nix
     ./keepassxc.nix

@@ -8,12 +8,9 @@
     case "$-" in *i*)
         if [ "$(tty)" = "/dev/tty1" ]; then
             exec sway
-        elif [ -z "$TMUX" ]; then
-            if [ -n "$SSH_TTY" ] || [ -n "$SSH_CLIENT" ]; then
-                SHELL=rash exec tmux new-session -As init
-            else
-                SHELL=rash exec tmux
-            fi
+        # figure out how to make this work with nix-shells
+        # elif test -z $VIM; then
+        #   exec nvim
         fi
         ;;
     esac

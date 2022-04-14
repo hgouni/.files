@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  programs.rofi.extraConfig = {
-    modi = "drun";
+  programs.rofi = {
+    extraConfig = {
+      modi = "drun";
+    };
   };
 }

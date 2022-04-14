@@ -4,23 +4,30 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "github:neovim/neovim?dir=contrib&ref=nightly";
+    neovim.url = "github:neovim/neovim?dir=contrib&ref=master";
   };
 
-  outputs = { home-manager, nixpkgs, neovim, ... }: {
+  outputs = { self, nixpkgs, home-manager, neovim, ... }: {
     nixosConfigurations.casper = nixpkgs.lib.nixosSystem {
+
       system = "x86_64-linux";
+
       modules = [
+        ({config, pkgs, ...}: {
+          nixpkgs.overlays = [
+            # Here's how to import a 'classic' overlay (with no flake support?)
+            # (import self.inputs.pkg-overlay)
+            # prev here refers to nixpkgs before our overlay
+            (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
+          ];
+        })
         ./configuration.nix
         home-manager.nixosModules.home-manager {
-          # no longer needed after stateversion 20.09
-          # home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+          # Use the system nixpkgs, not home-manager's own
+          # This causes it to use our overlays
+          home-manager.useGlobalPkgs = true;
           home-manager.users.lawabidingcactus = import ./home.nix;
         }
-        ({
-          home-manager.users.lawabidingcactus.programs.neovim.package = neovim.defaultPackage.x86_64-linux;
-        })
       ];
     };
   };

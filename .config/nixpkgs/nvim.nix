@@ -16,6 +16,8 @@ in {
 
   programs.neovim = {
 
+    package = pkgs.myNeovim;
+
     enable = true; 
 
     plugins = [
@@ -29,7 +31,6 @@ in {
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-repeat
       pkgs.vimPlugins.vim-fish
-      pkgs.vimPlugins.vimwiki
       pkgs.vimPlugins.vim-fugitive
       pkgs.vimPlugins.rust-vim
       pkgs.vimPlugins.vim-nix
@@ -37,13 +38,16 @@ in {
       pkgs.vimPlugins.Coqtail
       pkgs.vimPlugins.slimv
       pkgs.vimPlugins.vim-racket
+      pkgs.vimPlugins.conjure
 	  repl
     ];
 
-    extraPackages = with pkgs; [ fzf ctags shellcheck ];
+    extraPackages = [ pkgs.fzf pkgs.ctags pkgs.shellcheck ];
 
     withPython3 = true;
 
     extraConfig = builtins.readFile ./files/nvim/init.vim;
   };
+
+  home.packages = [ pkgs.fennel ];
 }
