@@ -28,8 +28,6 @@
         extraConfig = 
             # see `man sway-input`
             ''
-            xwayland disable
-
             input "type:keyboard" {
                 xkb_options ctrl:nocaps
             }

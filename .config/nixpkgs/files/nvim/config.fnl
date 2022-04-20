@@ -24,23 +24,18 @@
 
 (local a (compute-lookup-table-for-api))
 
-; these don't have to be macros, i think
-; in fact, it's probably preferable for them not to be?
-(macro set-options [options]
- (let [tbl ['do]]
-  (icollect [key value (pairs options) :into tbl]
-   `(tset vim.opt ,key ,value))))
+(fn set-options [options]
+ (each [key value (pairs options)]
+   (tset vim.opt key value)))
 
-(macro set-global-vars [vars]
- (let [tbl ['do]]
-  (icollect [key value (pairs vars) :into tbl]
-   `(vim.api.nvim_set_var ,key ,value))))
+(fn set-global-vars [vars]
+ (each [key value (pairs vars)]
+  (a.nvim-set-var key value)))
 
-(macro make-leader-maps [maps]
- (let [tbl ['do]]
-  (icollect [key value (pairs maps) :into tbl]
-   `(vim.api.nvim_set_keymap "n" ,(.. "<Leader>" key) (.. ,value "<CR>")
-     { "noremap" true "silent" true }))))
+(fn set-leader-maps [maps]
+ (each [key value (pairs maps)]
+  (a.nvim-set-keymap "n" (.. "<Leader>" key) (.. value "<CR>")
+   { "noremap" true "silent" true })))
 
 (set-options {
   "shell" "sh"
@@ -60,7 +55,7 @@
   "maplocalleader" "," })
 
 ; <leader> does not work?
-(make-leader-maps { "p" "<Cmd>set paste!" })
+(set-leader-maps { "p" "<Cmd>set paste!" })
 
 ; we have to escape the string here...
 ; this lets us press "ESC" to exit to normal mode in a terminal
@@ -84,11 +79,11 @@
   "undotree_HelpLine" 0
   "undotree_SetFocusWhenToggle" 1 })
 
-(make-leader-maps { "u" "<Cmd>UndotreeToggle" })
+(set-leader-maps { "u" "<Cmd>UndotreeToggle" })
 
 (set-global-vars { "sneak#label" 1 })
 
-(make-leader-maps {
+(set-leader-maps {
   "ff" "<Cmd>Files"
   "fb" "<Cmd>BLines"
   "fl" "<Cmd>Lines"
@@ -119,7 +114,7 @@
       (a.nvim-buf-set-option current-buffer-identifier "buflisted" false)   
       (a.nvim-buf-delete current-buffer-identifier { "force" true "unload" true }))))
 
-(make-leader-maps {
+(set-leader-maps {
   "dh" "<Cmd>tabclose"
   "dj" "<Cmd>tabprev"
   "dk" "<Cmd>tabnext"
@@ -127,6 +122,11 @@
   "dx" "<Cmd>lua _G.delete_current_buffer()"
   "dd" "<Cmd>b#"
   "d;" "<Cmd>tabnew<bar>terminal" })
+
+(set-global-vars {
+  "conjure#client#scheme#stdio#command" "scheme"
+  "conjure#client#scheme#stdio#prompt_pattern" "> $"
+  "conjure#client#scheme#stdio#value_prefix_pattern" false })
 
 (lua
 "
@@ -163,7 +163,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'metals', 'racket_langserver' }
+local servers = { 'metals' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -173,4 +173,9 @@ for _, lsp in pairs(servers) do
     }
   }
 end
+
+require('lspconfig').racket_langserver.setup {
+  on_attach = on_attach,
+  filetypes = { 'racket' }
+}
 ")

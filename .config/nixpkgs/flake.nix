@@ -5,9 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "github:neovim/neovim?dir=contrib&ref=master";
+    foot-src.url = "https://codeberg.org/dnkl/foot/archive/master.tar.gz";
+    foot-src.flake = false;
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim, ... }: {
+  outputs = { self, nixpkgs, home-manager, neovim, foot-src, ... }: {
     nixosConfigurations.casper = nixpkgs.lib.nixosSystem {
 
       system = "x86_64-linux";
@@ -19,6 +21,7 @@
             # (import self.inputs.pkg-overlay)
             # prev here refers to nixpkgs before our overlay
             (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
+            (_: prev: { foot = prev.foot.overrideAttrs (_: { src = foot-src; }); } )
           ];
         })
         ./configuration.nix

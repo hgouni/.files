@@ -36,10 +36,10 @@ in {
       pkgs.vimPlugins.vim-nix
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.Coqtail
-      pkgs.vimPlugins.slimv
       pkgs.vimPlugins.vim-racket
+      pkgs.vimPlugins.slimv
       pkgs.vimPlugins.conjure
-	  repl
+      repl
     ];
 
     extraPackages = [ pkgs.fzf pkgs.ctags pkgs.shellcheck ];

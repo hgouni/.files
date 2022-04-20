@@ -15,6 +15,18 @@
         "type": "github"
       }
     },
+    "foot-src": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-/Gs08WZUPMFvsgJ/PnC0oRLK+FOxHIVqFmBKmXJbVDs=",
+        "type": "tarball",
+        "url": "https://codeberg.org/dnkl/foot/archive/master.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/dnkl/foot/archive/master.tar.gz"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -40,11 +52,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1650333806,
-        "narHash": "sha256-ZrnN9ssclGTChvomcqL4Uact8L9+yToywNwrjyUULgI=",
+        "lastModified": 1650483922,
+        "narHash": "sha256-P71bS+Hc8zhsQHCph8ZRGLUz9820Asks0Picsw1BlWo=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "147cc60d24f093b5154824889f2151489774ef33",
+        "rev": "bfd6eb4404d7250d1b59fc24f08a9392fba0c043",
         "type": "github"
       },
       "original": {
@@ -103,6 +115,7 @@
     },
     "root": {
       "inputs": {
+        "foot-src": "foot-src",
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixpkgs": "nixpkgs_3"

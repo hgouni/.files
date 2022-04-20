@@ -8,8 +8,8 @@
     case "$-" in *i*)
         if [ "$(tty)" = "/dev/tty1" ]; then
             exec sway
-        else
-            exec fish
+        # else
+        #    exec fish
         fi
         ;;
     esac
