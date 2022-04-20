@@ -21,13 +21,15 @@
                         "${modifier}+Shift+d" = "exec brightnessctl set 1%-";
                         "${modifier}+Shift+b" = "exec brightnessctl set +1%";
                         "${modifier}+Shift+p" = "exec grimshot copy area";
-                        "${modifier}+d" = "exec rofi -show drun";
+                        "${modifier}+d" = "exec fuzzel";
                     };
         };
 
         extraConfig = 
             # see `man sway-input`
             ''
+            xwayland disable
+
             input "type:keyboard" {
                 xkb_options ctrl:nocaps
             }
@@ -45,6 +47,6 @@
         brightnessctl
         wl-clipboard
         sway-contrib.grimshot
-        rofi
+        fuzzel
     ];
   }

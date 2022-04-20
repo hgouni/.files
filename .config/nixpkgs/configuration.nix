@@ -29,20 +29,39 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     networking.useDHCP = false;
-    networking.interfaces.enp0s31f6.useDHCP = true;
-    networking.interfaces.wlp2s0.useDHCP = true;
-    # networking.enableIPv6 = false;
 
-    # don't need to manually enable wpa_supplicant
-    # use networkmanager instead
-    networking.networkmanager.enable = true;
+    # Manual dhcp for wired networks?
+    # dhcpcd <interface> should do it
+    environment.systemPackages = [ pkgs.dhcpcd ];
 
     # DNS settings
-    networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
-    # networking.resolvconf.enable = false;
-    networking.networkmanager.dns = "none";
-    services.resolved.enable = false;
-
+    services.resolved.enable = true;
+    # Forcing DNSSEC breaks certain domains, like the UMN one
+    # services.resolved.dnssec = "true";
+    # We set domains here to prevent other links from overriding our DNS
+    # settings (this says to use the system dns server for all domains)
+    services.resolved.domains = [ "~." ];
+    # Quad9 resolvers
+    services.resolved.fallbackDns = [ "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
+    services.resolved.llmnr = "false";
+    services.resolved.extraConfig = ''
+      DNS=1.1.1.1 1.0.0.1
+      DNSOverTLS=yes
+      MulticastDNS=no
+      '';
+    networking.wireless.iwd.enable = true;
+    networking.wireless.iwd.settings = {
+      General = {
+        # enable automatic dhcp for wireless networks
+        EnableNetworkConfiguration = true;
+      };
+      Network = { 
+        EnableIPv6 = true;
+        # default behavior, not actually necessary?
+        NameResolvingService = "systemd";
+      };
+    };
+    
     networking.hostName = "casper";
     
     # enable additional manual pages
@@ -72,7 +91,7 @@
         lawabidingcactus = {
             isNormalUser = true;
             createHome = true;
-            extraGroups = [ "wheel" "networkmanager" "dialout" "audio" "docker" "libvirtd" "kvm" "nitrokey" ];
+            extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" "nitrokey" ];
             # generated using `mkpasswd -m sha-512`; useful for generated vms
             #
             # users are not managed declaratively by default, so this is just
@@ -147,6 +166,20 @@
 
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # networking.firewall.enable = false;
+
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "20.09"; # Did you read the comment?
+}
+
+TCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;

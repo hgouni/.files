@@ -47,9 +47,10 @@
     ./nitrokey.nix
     ./nvim.nix
     ./pandoc.nix
+    ./pass.nix
     ./rash.nix
     ./ripgrep.nix
-    ./rofi.nix
+    # ./rofi.nix
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
