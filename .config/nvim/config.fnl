@@ -85,7 +85,8 @@
 
 (std.set-global-vars {
   "lisp_rainbow" 1
-  "paredit_mode" 0 })
+  "slimv_disable_scheme" 1
+  "slimv_disable_clojure" 1 })
 
 (std.set-global-vars {
   "conjure#client#scheme#stdio#command" "scheme"
@@ -97,10 +98,10 @@
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<LocalLeader>e', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<LocalLeader>q', '<Cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -110,19 +111,22 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>D', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LocalLeader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<LocalLeader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<LocalLeader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<LocalLeader>f', vim.lsp.buf.formatting, bufopts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -131,10 +135,6 @@ local servers = { 'metals', 'ocamllsp', 'rust_analyzer' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
   }
 end
 
