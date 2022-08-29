@@ -1,18 +1,6 @@
 { config, pkgs, ... }:
 
-let
-
-  repl = pkgs.vimUtils.buildVimPlugin {
-    name = "repl.vim";
-    src = pkgs.fetchFromGitHub {
-      owner = "hemantgouni";
-      repo = "repl.vim";
-      rev = "883a112f61d68848f58ebfc36bd61d53cac700ff";
-      sha256 = "12y7dc1n3hfmbnsb5g0p6mkxy3jn0pv5n38gc1smq7n7ilm449kr";
-    };
-  };
-
-in {
+{
 
   programs.neovim = {
 
@@ -21,7 +9,6 @@ in {
     enable = true; 
 
     plugins = [
-      repl
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-sneak
       pkgs.vimPlugins.vim-repeat
