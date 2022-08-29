@@ -40,7 +40,7 @@
     ./init.nix
     ./jq.nix
     ./keepassxc.nix
-    ./kitty.nix
+    # ./kitty.nix
     ./lsof.nix
     ./man.nix
     ./mosh.nix

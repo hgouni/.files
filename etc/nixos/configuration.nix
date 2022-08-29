@@ -32,7 +32,6 @@
 
     # Manual dhcp for wired networks?
     # dhcpcd <interface> should do it
-    environment.systemPackages = [ pkgs.dhcpcd ];
 
     # DNS settings
     services.resolved.enable = true;
@@ -69,23 +68,34 @@
     # documentation.dev.enable = true;
 
     # sound config
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.package = pkgs.pulseaudioFull;
+    # hardware.pulseaudio.enable = true;
+    # hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
     # wayland audio/video
     services.pipewire.enable = true;
+    services.pipewire.alsa.enable = true;
+
+    # services.pipewire.wireplumber.enable = true;
+
+    # This might be buggy
+    services.pipewire.pulse.enable = true;
+    # services.pipewire.config.pipewire-pulse = {
+    #   "context.exec" = [{ 
+    #     path = "pactl";
+    #     args = "load-module module-udev-detect tsched=0";
+    #   }];
+    # };
 
     # enable wayland screen snooping
     xdg.portal = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
+      wlr.enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
       ];
-      gtkUsePortal = true;
     };
 
-    virtualisation.docker.enable = true;
+    virtualisation.podman.enable = true;
     virtualisation.libvirtd.enable = true;
 
     users.users = {
@@ -97,7 +107,7 @@
             #
             # users are not managed declaratively by default, so this is just
             # the password used when no other has been imperatively set
-            # hashedPassword = "$6$F46H/ztvPrV$MLSusS19KMV561oIdoplAY84W4a8RhZNhdfrofI17LYH3uTU97NbwF4emqfF1lFTxv6F3uWcsOfWkp61tzdTq.";
+            initialPassword = "password";
         };
     };
 
@@ -108,7 +118,7 @@
 
     # allow for nitrokey usage
     # we don't need this?
-    # hardware.nitrokey.enable = true;
+    hardware.nitrokey.enable = true;
     services.pcscd.enable = true;
 
     fonts.fonts = with pkgs; [ cm_unicode ];
@@ -170,6 +180,20 @@
     # networking.firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
+
+    services.printing.enable = true;
+    services.printing.drivers = [ pkgs.gutenprint ];
+
+    environment.systemPackages = [
+      # for configuring wired dhcp
+      pkgs.dhcpcd
+      # for alsa volume ctr
+      pkgs.alsaUtils
+      # for selecting output device
+      pkgs.pavucontrol
+      # for configurating printers
+      pkgs.system-config-printer
+    ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

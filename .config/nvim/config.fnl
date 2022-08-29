@@ -128,7 +128,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'metals' }
+local servers = { 'metals', 'ocamllsp', 'rust_analyzer' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -145,7 +145,7 @@ require('lspconfig').racket_langserver.setup {
   filetypes = { 'racket' }
 }
 
-require ('lspconfig').texlab.setup {
+require('lspconfig').texlab.setup {
     on_attach = on_attach,
     settings = {
         texlab = {
@@ -154,7 +154,6 @@ require ('lspconfig').texlab.setup {
                 onSave = true
             },
             chktex = {
-                onEdit = true,
                 onOpenAndSave = true
             }
         }
