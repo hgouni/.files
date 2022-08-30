@@ -9,6 +9,9 @@
     enable = true; 
 
     plugins = [
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: [
+        plugins.tree-sitter-fennel
+      ]))
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-sneak
       pkgs.vimPlugins.vim-repeat

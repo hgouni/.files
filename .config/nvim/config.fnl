@@ -1,6 +1,18 @@
 (local std (require :std))
 
+(local tree-sitter (require :nvim-treesitter.configs))
+
 ; TENTATIVE editor config in fennel
+
+; note that vim.filetype.add can be used to replace ftdetect
+; (and also ftplugin actually)
+
+((. (require :nvim-treesitter.configs) :setup) {
+    :highlight {
+        :enable true
+        :additional_vim_regex_highlighting false
+    }
+})
 
 (std.set-options {
   "shell" "sh"
@@ -89,6 +101,8 @@
   "slimv_disable_clojure" 1 })
 
 (std.set-global-vars {
+  "conjure#mapping#prefix" "\\"
+  "conjure#mapping#doc_word" false
   "conjure#client#scheme#stdio#command" "scheme"
   "conjure#client#scheme#stdio#prompt_pattern" "> $"
   "conjure#client#scheme#stdio#value_prefix_pattern" false })
