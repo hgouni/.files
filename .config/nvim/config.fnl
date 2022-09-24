@@ -10,9 +10,7 @@
 ((. (require :nvim-treesitter.configs) :setup) {
     :highlight {
         :enable true
-        :additional_vim_regex_highlighting false
-    }
-})
+        :additional_vim_regex_highlighting false }})
 
 (std.set-options {
   "shell" "sh"
@@ -108,6 +106,7 @@
   "conjure#client#scheme#stdio#prompt_pattern" "> $"
   "conjure#client#scheme#stdio#value_prefix_pattern" false })
 
+; we haven't translated this to fennel yet because they keep updating it
 (lua
 "
 -- Mappings.
