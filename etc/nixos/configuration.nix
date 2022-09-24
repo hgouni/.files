@@ -47,7 +47,7 @@
       DNS=1.1.1.1 1.0.0.1
       # This breaks umn wireless
       # DNSOverTLS=yes
-      MulticastDNS=no
+      # MulticastDNS=no
       '';
     networking.wireless.iwd.enable = true;
     networking.wireless.iwd.settings = {
@@ -63,9 +63,6 @@
     };
     
     networking.hostName = "casper";
-    
-    # enable additional manual pages
-    # documentation.dev.enable = true;
 
     # sound config
     # hardware.pulseaudio.enable = true;
@@ -181,8 +178,10 @@
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
 
-    services.printing.enable = true;
-    services.printing.drivers = [ pkgs.gutenprint ];
+    # Disable this when not in use because it starts a web server
+    #
+    # services.printing.enable = true;
+    # services.printing.drivers = [ pkgs.gutenprint ];
 
     environment.systemPackages = [
       # for configuring wired dhcp

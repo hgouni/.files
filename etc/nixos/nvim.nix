@@ -11,6 +11,8 @@
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: [
         plugins.tree-sitter-fennel
+        plugins.tree-sitter-haskell
+        plugins.tree-sitter-rust
       ]))
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-sneak

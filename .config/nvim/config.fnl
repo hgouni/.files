@@ -103,6 +103,7 @@
 (std.set-global-vars {
   "conjure#mapping#prefix" "\\"
   "conjure#mapping#doc_word" false
+  "conjure#filetypes" [ "fennel" "racket" "scheme" ]
   "conjure#client#scheme#stdio#command" "scheme"
   "conjure#client#scheme#stdio#prompt_pattern" "> $"
   "conjure#client#scheme#stdio#value_prefix_pattern" false })
@@ -145,7 +146,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'metals', 'ocamllsp', 'rust_analyzer' }
+local servers = { 'metals', 'ocamllsp', 'rust_analyzer', 'hls' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
