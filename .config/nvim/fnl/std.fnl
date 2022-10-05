@@ -30,15 +30,22 @@
  (each [key value (pairs vars)]
   (a.nvim-set-var key value)))
 
-(fn set-leader-maps [maps]
+(fn set-key-maps [mode maps]
  (each [key value (pairs maps)]
-  (vim.keymap.set "n" (.. "<Leader>" key)
-   (if (~= (type value) "function")
-    (.. value "<CR>")
-    value)
+  (vim.keymap.set mode key
+   (if (and (~= (type value) "function")
+            (= mode :n))
+    (.. value "<CR>") ; then 
+    value) ; else 
    { "silent" true })))
+
+(fn set-leader-maps [maps]
+ (set-key-maps :n
+  (collect [key value (pairs maps)]
+   (.. "<Leader>" key) value)))
 
 { :v v :a a
   :set-options set-options
   :set-global-vars set-global-vars
-  :set-leader-maps set-leader-maps }
+  :set-leader-maps set-leader-maps
+  :set-key-maps set-key-maps }

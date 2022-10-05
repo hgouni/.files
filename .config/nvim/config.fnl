@@ -36,6 +36,9 @@
 ; this lets us press "ESC" to exit to normal mode in a terminal
 ; (vim.api.nvim_set_keymap "t" "<Esc>" "<C-\\><C-n>" { "noremap" true })
 
+; insert the lozenge character, for pollen
+(std.set-key-maps :i { "\\loz" "<C-v>u25ca" })
+
 (std.set-options {
   "termguicolors" true
   "background" "dark" })
@@ -165,9 +168,6 @@ require('lspconfig').texlab.setup {
             build = {
                 args = {},
                 onSave = true
-            },
-            chktex = {
-                onOpenAndSave = true
             }
         }
     }
