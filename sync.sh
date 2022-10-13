@@ -8,6 +8,7 @@ rsync -av --delete --exclude 'secure' /etc/nixos/ ./etc/nixos
 # nvim one. do not include empty directories
 rsync -av --delete --prune-empty-dirs \
       --include '*.fnl' \
+      --include 'syntax/*.vim' \
       --include "*/" \
       --exclude "*" \
       "$HOME/.config/nvim/" '.config/nvim'

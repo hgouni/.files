@@ -7,6 +7,8 @@
 ; note that vim.filetype.add can be used to replace ftdetect
 ; (and also ftplugin actually)
 
+(vim.filetype.add { :extension { "sv" "silver" }})
+
 ((. (require :nvim-treesitter.configs) :setup) {
     :highlight {
         :enable true
@@ -143,7 +145,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<LocalLeader>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<LocalLeader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<LocalLeader>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<LocalLeader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
