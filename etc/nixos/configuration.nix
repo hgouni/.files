@@ -10,13 +10,8 @@
           ./hardware-configuration.nix
         ];
 
-    nix = {
-      package = pkgs.nixFlakes;
-      extraOptions = ''
-                     experimental-features = nix-command flakes
-                     '';
-    };
-
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.systemd-boot.configurationLimit = 10;
@@ -187,7 +182,7 @@
       # for configuring wired dhcp
       pkgs.dhcpcd
       # for alsa volume ctr
-      pkgs.alsaUtils
+      pkgs.alsa-utils
       # for selecting output device
       pkgs.pavucontrol
       # for configurating printers
