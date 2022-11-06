@@ -32,6 +32,7 @@
     ./fldigi.nix
     ./fonts.nix
     ./foot.nix
+    ./gammastep.nix
     ./git.nix
     ./gnuradio.nix
     ./gpg.nix

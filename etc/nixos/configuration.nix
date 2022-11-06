@@ -115,6 +115,9 @@
 
     fonts.fonts = with pkgs; [ cm_unicode ];
 
+    # services.mysql.enable = true;
+    # services.mysql.package = pkgs.mariadb;
+
     # Configure network proxy if necessary
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -188,6 +191,9 @@
       # for configurating printers
       pkgs.system-config-printer
     ];
+
+    # services.opaque.enable = true;
+    # services.opaque.database = ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
