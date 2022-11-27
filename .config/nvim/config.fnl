@@ -15,7 +15,6 @@
         :additional_vim_regex_highlighting false }})
 
 (std.set-options {
-  "shell" "sh"
   "modeline" false
   "splitbelow" true
   "cursorline" true

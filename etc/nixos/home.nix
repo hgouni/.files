@@ -38,7 +38,6 @@
     ./gpg.nix
     ./htop.nix
     ./icons.nix
-    ./init.nix
     ./jq.nix
     ./keepassxc.nix
     # ./kitty.nix
@@ -51,6 +50,7 @@
     ./pandoc.nix
     ./pass.nix
     ./rash.nix
+    ./readline.nix
     ./ripgrep.nix
     # ./rofi.nix
     ./ssh.nix
@@ -58,6 +58,7 @@
     ./texlive.nix
     ./tmux.nix
     ./trash-cli.nix
+    ./tree.nix
     ./virt-manager.nix
     ./wget.nix
     ./xdg-utils.nix
