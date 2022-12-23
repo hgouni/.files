@@ -1,5 +1,4 @@
 (local std (require :std))
-
 (local tree-sitter (require :nvim-treesitter.configs))
 
 ; TENTATIVE editor config in fennel
@@ -32,10 +31,6 @@
 
 ; <leader> does not work?
 (std.set-leader-maps { "p" "<Cmd>set paste!" })
-
-; we have to escape the string here...
-; this lets us press "ESC" to exit to normal mode in a terminal
-; (vim.api.nvim_set_keymap "t" "<Esc>" "<C-\\><C-n>" { "noremap" true })
 
 ; insert the lozenge character, for pollen
 (std.set-key-maps :i { "\\loz" "<C-v>u25ca" })
@@ -73,7 +68,7 @@
     
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
-(set _G.delete_current_buffer
+(local delete-current-buffer
   (fn []
     ; vim.fn.<vimscript_function> invokes that vimscript function
     (let [current-buffer-identifier (std.a.nvim-get-current-buf)
@@ -93,9 +88,12 @@
   "dj" "<Cmd>tabprev"
   "dk" "<Cmd>tabnext"
   "dl" "<Cmd>tabnew" 
-  "dx" _G.delete_current_buffer
+  "dx" delete-current-buffer
   "dd" "<Cmd>b#"
   "d;" "<Cmd>tabnew<bar>terminal" })
+
+; put this behind vim.filetype.add!
+(std.set-leader-maps { "c" (fn [] (vim.cmd "!shellcheck %")) })
 
 (std.set-global-vars {
   "lisp_rainbow" 1

@@ -17,6 +17,10 @@
     boot.loader.systemd-boot.configurationLimit = 10;
     boot.loader.efi.canTouchEfiVariables = true;
 
+    # prevent processes running as the same user from reading each others'
+    # memory
+    boot.kernel.sysctl."kernel.yama.ptrace_scope" = 1;
+
     # Set your time zone.
     time.timeZone = "Etc/GMT";
 
@@ -24,26 +28,13 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     networking.useDHCP = false;
+    networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
 
     # Manual dhcp for wired networks?
     # dhcpcd <interface> should do it
 
     # DNS settings
     services.resolved.enable = true;
-    # Forcing DNSSEC breaks certain domains, like the UMN one
-    # services.resolved.dnssec = "true";
-    # We set domains here to prevent other links from overriding our DNS
-    # settings (this says to use the system dns server for all domains)
-    services.resolved.domains = [ "~." ];
-    # Quad9 resolvers
-    services.resolved.fallbackDns = [ "9.9.9.9" "149.112.112.112" "2620:fe::fe" "2620:fe::9" ];
-    services.resolved.llmnr = "false";
-    services.resolved.extraConfig = ''
-      DNS=1.1.1.1 1.0.0.1
-      # This breaks umn wireless
-      # DNSOverTLS=yes
-      # MulticastDNS=no
-      '';
     networking.wireless.iwd.enable = true;
     networking.wireless.iwd.settings = {
       General = {

@@ -14,6 +14,7 @@
         plugins.tree-sitter-haskell
         plugins.tree-sitter-latex
         plugins.tree-sitter-rust
+        plugins.tree-sitter-gleam
       ]))
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-sneak

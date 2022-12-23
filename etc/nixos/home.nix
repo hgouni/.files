@@ -21,6 +21,7 @@
 
   imports = [
     ./bash.nix
+    ./bind.nix
     ./chez.nix
     ./cmus.nix
     ./dc.nix
