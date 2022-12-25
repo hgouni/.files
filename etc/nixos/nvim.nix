@@ -16,6 +16,7 @@
         plugins.tree-sitter-rust
         plugins.tree-sitter-gleam
       ]))
+      pkgs.vimPlugins.parinfer-rust
       pkgs.vimPlugins.vim-surround
       pkgs.vimPlugins.vim-sneak
       pkgs.vimPlugins.vim-repeat

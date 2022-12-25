@@ -98,7 +98,8 @@
 (std.set-global-vars {
   "lisp_rainbow" 1
   "slimv_disable_scheme" 1
-  "slimv_disable_clojure" 1 })
+  "slimv_disable_clojure" 1
+  "paredit_mode" 0 })
 
 (std.set-global-vars {
   "conjure#mapping#prefix" "\\"

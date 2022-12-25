@@ -6,6 +6,7 @@
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "github:neovim/neovim?dir=contrib";
     opaque.url = "path:/home/lawabidingcactus/acm/Opaque";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = { self, nixpkgs, home-manager, neovim, opaque, ... }: {
@@ -21,7 +22,7 @@
             # ==== Here's how to override a package
             # (_: prev: { foot = prev.foot.overrideAttrs (_: { src = foot-src; }); } )
             # ==== Here's how to import a 'classic' overlay (with no flake support?)
-            # (import self.inputs.pkg-overlay)
+            # (import self.inputs.emacs-overlay)
           ];
         })
         ./configuration.nix
