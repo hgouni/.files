@@ -7,8 +7,8 @@
 
 (vim.filetype.add {:extension {:sv :silver}})
 
-((. (require :nvim-treesitter.configs) :setup) {:highlight {:enable true
-                                                            :additional_vim_regex_highlighting false}})
+(tree-sitter.setup {:highlight {:enable true
+                                :additional_vim_regex_highlighting false}})
 
 (std.set-options {:modeline false
                   :splitbelow true
@@ -23,7 +23,6 @@
 ; attempt setting leader keys
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
-
 ; <leader> does not work?
 
 (std.set-leader-maps {:p "<Cmd>set paste!"})
@@ -33,7 +32,7 @@
 
 (std.set-options {:termguicolors true :background :dark})
 
-(vim.cmd "colorscheme gruvbox")
+(vim.cmd.colorscheme :gruvbox)
 ; undo config
 
 (std.set-options {:undofile true :undolevels 10000})
@@ -85,10 +84,19 @@
                       :dd "<Cmd>b#"
                       "d;" :<Cmd>tabnew<bar>terminal})
 
-; put this behind vim.filetype.add!
+; put this behind an autocmd?
 
-(std.set-leader-maps {:c (fn []
-                           (vim.cmd "!shellcheck %"))})
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.sh]
+                            :callback (fn []
+                                        (std.set-localleader-maps {:c (fn []
+                                                                        (vim.cmd "!shellcheck %"))}))})
+
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.fnl]
+                            :callback (fn []
+                                        (std.set-localleader-maps {:f (fn []
+                                                                        (vim.cmd "silent !fnlfmt --fix %"))}))})
 
 (std.set-global-vars {:lisp_rainbow 1
                       :slimv_disable_scheme 1
