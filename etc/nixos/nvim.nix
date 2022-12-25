@@ -49,5 +49,5 @@
     extraConfig = builtins.readFile ./files/nvim/init.vim;
   };
 
-  home.packages = [ pkgs.fennel ];
+  home.packages = [ pkgs.fennel pkgs.fnlfmt ];
 }

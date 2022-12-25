@@ -1,117 +1,110 @@
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
-
 ; TENTATIVE editor config in fennel
 
 ; note that vim.filetype.add can be used to replace ftdetect
 ; (and also ftplugin actually)
 
-(vim.filetype.add { :extension { "sv" "silver" }})
+(vim.filetype.add {:extension {:sv :silver}})
 
-((. (require :nvim-treesitter.configs) :setup) {
-    :highlight {
-        :enable true
-        :additional_vim_regex_highlighting false }})
+((. (require :nvim-treesitter.configs) :setup) {:highlight {:enable true
+                                                            :additional_vim_regex_highlighting false}})
 
-(std.set-options {
-  "modeline" false
-  "splitbelow" true
-  "cursorline" true
-  "autowriteall" true
-  "expandtab" true
-  "tabstop" 4
-  "shiftwidth" 4
-  "scrolloff" 5
-  "hlsearch" false })
+(std.set-options {:modeline false
+                  :splitbelow true
+                  :cursorline true
+                  :autowriteall true
+                  :expandtab true
+                  :tabstop 4
+                  :shiftwidth 4
+                  :scrolloff 5
+                  :hlsearch false})
 
 ; attempt setting leader keys
-(std.set-global-vars {
-  "mapleader" " "
-  "maplocalleader" "," })
+
+(std.set-global-vars {:mapleader " " :maplocalleader ","})
 
 ; <leader> does not work?
-(std.set-leader-maps { "p" "<Cmd>set paste!" })
 
+(std.set-leader-maps {:p "<Cmd>set paste!"})
 ; insert the lozenge character, for pollen
-(std.set-key-maps :i { "\\loz" "<C-v>u25ca" })
 
-(std.set-options {
-  "termguicolors" true
-  "background" "dark" })
+(std.set-key-maps :i {"\\loz" :<C-v>u25ca})
+
+(std.set-options {:termguicolors true :background :dark})
+
 (vim.cmd "colorscheme gruvbox")
-
 ; undo config
-(std.set-options {
-  "undofile" true
-  "undolevels" 10000 })
 
-(std.set-global-vars { 
-  "undotree_WindowLayout" 3
-  "undotree_ShortIndicators" 1
-  "undotree_HighlightChangedText" 0
-  "undotree_HelpLine" 0
-  "undotree_SetFocusWhenToggle" 1 })
+(std.set-options {:undofile true :undolevels 10000})
 
-(std.set-leader-maps { "u" "<Cmd>UndotreeToggle" })
+(std.set-global-vars {:undotree_WindowLayout 3
+                      :undotree_ShortIndicators 1
+                      :undotree_HighlightChangedText 0
+                      :undotree_HelpLine 0
+                      :undotree_SetFocusWhenToggle 1})
 
-(std.set-global-vars { "sneak#label" 1 })
+(std.set-leader-maps {:u :<Cmd>UndotreeToggle})
 
-(std.set-leader-maps {
-  "ff" "<Cmd>Files"
-  "fb" "<Cmd>BLines"
-  "fl" "<Cmd>Lines"
-  "ft" "<Cmd>BTags"
-  "fp" "<Cmd>Tags"
-  "fm" "<Cmd>Marks"
-  "fc" "<Cmd>Commands"
-  "fo" "<Cmd>Buffers" })
-    
+(std.set-global-vars {"sneak#label" 1})
+
+(std.set-leader-maps {:ff :<Cmd>Files
+                      :fb :<Cmd>BLines
+                      :fl :<Cmd>Lines
+                      :ft :<Cmd>BTags
+                      :fp :<Cmd>Tags
+                      :fm :<Cmd>Marks
+                      :fc :<Cmd>Commands
+                      :fo :<Cmd>Buffers})
+
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
-(local delete-current-buffer
-  (fn []
-    ; vim.fn.<vimscript_function> invokes that vimscript function
-    (let [current-buffer-identifier (std.a.nvim-get-current-buf)
-          scratch-buffer-identifier (std.a.nvim-create-buf false true)
-          current-window-identifier (std.a.nvim-get-current-win)]
-      (std.a.nvim-command "silent! w")
-      (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
-      (std.a.nvim-buf-set-lines scratch-buffer-identifier
-                            ; the last parameter here is a lua array
-                            ; we may also be able to use [ "Edit another file!" ]?
-                            0 0 true { 1 "Edit another file!" })
-      (std.a.nvim-buf-set-option current-buffer-identifier "buflisted" false)   
-      (std.a.nvim-buf-delete current-buffer-identifier { "force" true "unload" true }))))
 
-(std.set-leader-maps {
-  "dh" "<Cmd>tabclose"
-  "dj" "<Cmd>tabprev"
-  "dk" "<Cmd>tabnext"
-  "dl" "<Cmd>tabnew" 
-  "dx" delete-current-buffer
-  "dd" "<Cmd>b#"
-  "d;" "<Cmd>tabnew<bar>terminal" })
+(local delete-current-buffer
+       (fn [] ; vim.fn.<vimscript_function> invokes that vimscript function
+         (let [current-buffer-identifier (std.a.nvim-get-current-buf)
+               scratch-buffer-identifier (std.a.nvim-create-buf false true)
+               current-window-identifier (std.a.nvim-get-current-win)]
+           (std.a.nvim-command "silent! w")
+           (std.a.nvim-win-set-buf current-window-identifier
+                                   scratch-buffer-identifier)
+           (std.a.nvim-buf-set-lines scratch-buffer-identifier
+                                     ; the last parameter here is a lua array
+                                     ; we may also be able to use [ "Edit another file!" ]?
+                                     0 0 true {1 "Edit another file!"})
+           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted
+                                      false)
+           (std.a.nvim-buf-delete current-buffer-identifier
+                                  {:force true :unload true}))))
+
+(std.set-leader-maps {:dh :<Cmd>tabclose
+                      :dj :<Cmd>tabprev
+                      :dk :<Cmd>tabnext
+                      :dl :<Cmd>tabnew
+                      :dx delete-current-buffer
+                      :dd "<Cmd>b#"
+                      "d;" :<Cmd>tabnew<bar>terminal})
 
 ; put this behind vim.filetype.add!
-(std.set-leader-maps { "c" (fn [] (vim.cmd "!shellcheck %")) })
 
-(std.set-global-vars {
-  "lisp_rainbow" 1
-  "slimv_disable_scheme" 1
-  "slimv_disable_clojure" 1
-  "paredit_mode" 0 })
+(std.set-leader-maps {:c (fn []
+                           (vim.cmd "!shellcheck %"))})
 
-(std.set-global-vars {
-  "conjure#mapping#prefix" "\\"
-  "conjure#mapping#doc_word" false
-  "conjure#filetypes" [ "fennel" "racket" "scheme" ]
-  "conjure#client#scheme#stdio#command" "scheme"
-  "conjure#client#scheme#stdio#prompt_pattern" "> $"
-  "conjure#client#scheme#stdio#value_prefix_pattern" false })
+(std.set-global-vars {:lisp_rainbow 1
+                      :slimv_disable_scheme 1
+                      :slimv_disable_clojure 1
+                      :paredit_mode 0})
+
+(std.set-global-vars {"conjure#mapping#prefix" "\\"
+                      "conjure#mapping#doc_word" false
+                      "conjure#filetypes" [:fennel :racket :scheme]
+                      "conjure#client#scheme#stdio#command" :scheme
+                      "conjure#client#scheme#stdio#prompt_pattern" "> $"
+                      "conjure#client#scheme#stdio#value_prefix_pattern" false})
 
 ; we haven't translated this to fennel yet because they keep updating it
-(lua
-"
+
+(lua "
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
