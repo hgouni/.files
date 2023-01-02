@@ -28,6 +28,8 @@
         extraConfig = 
             # see `man sway-input`
             ''
+            output * bg /etc/nixos/files/sway/wallpaper.png fill
+
             input "type:keyboard" {
                 xkb_options ctrl:nocaps
             }

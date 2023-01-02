@@ -11,30 +11,32 @@
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: [
         plugins.tree-sitter-fennel
+        plugins.tree-sitter-gleam
         plugins.tree-sitter-haskell
         plugins.tree-sitter-latex
         plugins.tree-sitter-rust
-        plugins.tree-sitter-gleam
+        plugins.tree-sitter-racket
+        plugins.tree-sitter-python
       ]))
-      pkgs.vimPlugins.parinfer-rust
-      pkgs.vimPlugins.vim-surround
-      pkgs.vimPlugins.vim-sneak
-      pkgs.vimPlugins.vim-repeat
-      pkgs.vimPlugins.vim-racket
-      pkgs.vimPlugins.vim-nix
-      pkgs.vimPlugins.vim-fugitive
-      pkgs.vimPlugins.vim-fish
-      pkgs.vimPlugins.vim-commentary
-      pkgs.vimPlugins.undotree
-      pkgs.vimPlugins.supertab
-      pkgs.vimPlugins.slimv
-      pkgs.vimPlugins.rust-vim
-      pkgs.vimPlugins.nvim-lspconfig
-      pkgs.vimPlugins.idris-vim
-      pkgs.vimPlugins.gruvbox
-      pkgs.vimPlugins.fzf-vim
-      pkgs.vimPlugins.Coqtail
       pkgs.vimPlugins.conjure
+      pkgs.vimPlugins.Coqtail
+      pkgs.vimPlugins.fzf-vim
+      pkgs.vimPlugins.gruvbox-nvim
+      pkgs.vimPlugins.lean-nvim
+      pkgs.vimPlugins.nvim-lspconfig
+      pkgs.vimPlugins.parinfer-rust
+      pkgs.vimPlugins.rust-vim
+      pkgs.vimPlugins.slimv
+      pkgs.vimPlugins.supertab
+      pkgs.vimPlugins.undotree
+      pkgs.vimPlugins.vim-commentary
+      pkgs.vimPlugins.vim-fish
+      pkgs.vimPlugins.vim-fugitive
+      pkgs.vimPlugins.vim-nix
+      pkgs.vimPlugins.vim-racket
+      pkgs.vimPlugins.vim-repeat
+      pkgs.vimPlugins.vim-sneak
+      pkgs.vimPlugins.vim-surround
     ];
 
     extraPackages = [

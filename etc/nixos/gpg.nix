@@ -9,7 +9,7 @@
         settings = {
             auto-key-locate = "local,wkd,dane,cert";
             require-secmem = true;
-            default-key = "8629B25BFA11A26204D26AA3E85A7E78DFFC7A6D";
+            default-key = "B5FD4599E4CEAEFEAE93C44F5DBDC4A0CDC714EF";
             default-recipient-self = true;
         };
     };
@@ -17,7 +17,7 @@
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      sshKeys = [ "A27FCD00DCB492A1EEB17641C36BF732757A8185" ];
+      sshKeys = [ "7747E7EA1B99F47C47FC00964840347D9B3DB009" ];
     };
 
     home.packages = with pkgs; [ pinentry ];

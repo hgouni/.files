@@ -7,6 +7,25 @@
 
 (vim.filetype.add {:extension {:sv :silver}})
 
+(vim.filetype.add {:extension {:mcr :macaroni}})
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.mcr]
+                            :callback (fn []
+                                        (std.set-options {:syntax :lisp})
+                                        (std.set-global-vars {:parinfer_enabled 1}))})
+
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.sh]
+                            :callback (fn []
+                                        (std.set-localleader-maps {:c (fn []
+                                                                        (vim.cmd "!shellcheck %"))}))})
+
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.fnl]
+                            :callback (fn []
+                                        (std.set-localleader-maps {:f (fn []
+                                                                        (vim.cmd "silent !fnlfmt --fix %"))}))})
+
 (tree-sitter.setup {:highlight {:enable true
                                 :additional_vim_regex_highlighting false}})
 
@@ -84,20 +103,6 @@
                       :dd "<Cmd>b#"
                       "d;" :<Cmd>tabnew<bar>terminal})
 
-; put this behind an autocmd?
-
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.sh]
-                            :callback (fn []
-                                        (std.set-localleader-maps {:c (fn []
-                                                                        (vim.cmd "!shellcheck %"))}))})
-
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.fnl]
-                            :callback (fn []
-                                        (std.set-localleader-maps {:f (fn []
-                                                                        (vim.cmd "silent !fnlfmt --fix %"))}))})
-
 (std.set-global-vars {:lisp_rainbow 1
                       :slimv_disable_scheme 1
                       :slimv_disable_clojure 1
@@ -105,10 +110,14 @@
 
 (std.set-global-vars {"conjure#mapping#prefix" "\\"
                       "conjure#mapping#doc_word" false
-                      "conjure#filetypes" [:fennel :racket :scheme]
-                      "conjure#client#scheme#stdio#command" :scheme
-                      "conjure#client#scheme#stdio#prompt_pattern" "> $"
-                      "conjure#client#scheme#stdio#value_prefix_pattern" false})
+                      "conjure#mapping#def_word" false
+                      "conjure#highlight#enabled" true
+                      "conjure#filetypes" [:fennel :racket :scheme]})
+
+(std.a.nvim-create-autocmd [:BufNewFile]
+                           {:pattern [:conjure-log-*]
+                            :callback (fn []
+                                        (vim.diagnostic.disable 0))})
 
 ; we haven't translated this to fennel yet because they keep updating it
 
@@ -172,5 +181,11 @@ require('lspconfig').texlab.setup {
             }
         }
     }
+}
+
+require('lean').setup {
+    abbreviations = { builtin = true },
+    lsp = { on_attach = on_attach },
+    mappings = true,
 }
 ")
