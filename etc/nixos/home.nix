@@ -39,6 +39,7 @@
     ./gpg.nix
     ./htop.nix
     ./icons.nix
+    ./inetutils.nix
     ./jq.nix
     ./keepassxc.nix
     # ./kitty.nix
@@ -50,6 +51,7 @@
     ./nvim.nix
     ./pandoc.nix
     ./pass.nix
+    ./psmisc.nix
     ./rash.nix
     ./readline.nix
     ./ripgrep.nix

@@ -51,5 +51,5 @@
     extraConfig = builtins.readFile ./files/nvim/init.vim;
   };
 
-  home.packages = [ pkgs.fennel pkgs.fnlfmt ];
+  home.packages = [ pkgs.luajitPackages.fennel pkgs.fnlfmt ];
 }
