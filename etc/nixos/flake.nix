@@ -5,11 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "github:neovim/neovim?dir=contrib";
-    opaque.url = "path:/home/lawabidingcactus/acm/Opaque";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # opaque.url = "path:/home/lawabidingcactus/acm/Opaque";
+    # emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim, opaque, ... }: {
+  outputs = { self, nixpkgs, home-manager, neovim, ... }: {
     nixosConfigurations.casper = nixpkgs.lib.nixosSystem rec {
 
       system = "x86_64-linux";
@@ -32,12 +32,12 @@
           home-manager.useGlobalPkgs = true;
           home-manager.users.lawabidingcactus = import ./home.nix;
         }
-        opaque.nixosModules.${system}.default
-        ({ ... }: {
+        # opaque.nixosModules.${system}.default
+        # ({ ... }: {
           # services.opaque.enable = true;
-          services.opaque.database =
-            ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
-        })
+          # services.opaque.database =
+          #   ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
+        # })
       ];
     };
   };

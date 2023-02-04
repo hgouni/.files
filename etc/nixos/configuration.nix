@@ -103,8 +103,8 @@
 
     # allow for nitrokey usage
     # we don't need this?
-    hardware.nitrokey.enable = true;
-    services.pcscd.enable = true;
+    # hardware.nitrokey.enable = true;
+    # services.pcscd.enable = true;
 
     fonts.fonts = with pkgs; [ cm_unicode ];
 
