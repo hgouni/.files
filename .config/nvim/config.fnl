@@ -5,6 +5,8 @@
 ; note that vim.filetype.add can be used to replace ftdetect
 ; (and also ftplugin actually)
 
+; TODO: make these autocmds use augroups for hot reloadability!
+
 (vim.filetype.add {:extension {:sv :silver}})
 
 (vim.filetype.add {:extension {:mcr :macaroni}})
@@ -157,7 +159,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'metals', 'ocamllsp', 'rust_analyzer', 'hls' }
+local servers = { 'metals', 'rust_analyzer', 'hls' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
