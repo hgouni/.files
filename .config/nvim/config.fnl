@@ -44,9 +44,6 @@
 ; attempt setting leader keys
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
-; <leader> does not work?
-(std.set-leader-maps {:p "<Cmd>set paste!"})
-
 ; insert the lozenge character, for pollen
 (std.set-key-maps :i {"\\loz" :<C-v>u25ca})
 
