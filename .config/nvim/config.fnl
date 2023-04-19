@@ -96,7 +96,7 @@
 (std.set-leader-maps {:dh :<Cmd>tabclose
                       :dj :<Cmd>tabprev
                       :dk :<Cmd>tabnext
-                      :dl :<Cmd>tabnew
+                      :dl "<Cmd>tab split"
                       :dx delete-current-buffer
                       :dd "<Cmd>b#"
                       "d;" :<Cmd>tabnew<bar>terminal})
@@ -119,40 +119,36 @@
 
 ; we haven't translated this to fennel yet because they keep updating it
 
+; Mappings.
+; See `:help vim.diagnostic.*` for documentation on any of the below functions
+(vim.keymap.set :n :<LocalLeader>e vim.diagnostic.open_float)
+(vim.keymap.set :n "[d" vim.diagnostic.goto_prev)
+(vim.keymap.set :n "]d" vim.diagnostic.goto_next)
+(vim.keymap.set :n :<LocalLeader>q vim.diagnostic.setloclist)
+
+(std.a.nvim-create-autocmd :LspAttach
+    {:group (std.a.nvim-create-augroup :UserLspConfig {})
+     :callback (fn [ev]
+                (let [indexed (. vim.bo ev.buf)]
+                    (set indexed.omnifunc "v:lua.vim.lsp.omnifunc"))
+                (local opts {:buffer ev.buf})
+                (vim.keymap.set :n :gD vim.lsp.buf.declaration opts)
+                (vim.keymap.set :n :gd vim.lsp.buf.definition opts)
+                (vim.keymap.set :n :K vim.lsp.buf.hover opts)
+                (vim.keymap.set :n :gi vim.lsp.buf.implementation opts)
+                (vim.keymap.set :n :<C-k> vim.lsp.buf.signature_help opts)
+                (vim.keymap.set :n :<LocalLeader>wa vim.lsp.buf.add_workspace_folder opts)
+                (vim.keymap.set :n :<LocalLeader>wr vim.lsp.buf.remove_workspace_folder opts)
+                (vim.keymap.set :n :<LocalLeader>wl
+                    (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders))) opts))
+                (vim.keymap.set :n :<LocalLeader>D vim.lsp.buf.type_definition opts)
+                (vim.keymap.set :n :<LocalLeader>rn vim.lsp.buf.rename opts)
+                (vim.keymap.set :n :<LocalLeader>ca vim.lsp.buf.code_action opts)
+                (vim.keymap.set :n :gr vim.lsp.buf.references opts)
+                (vim.keymap.set :n :<LocalLeader>f
+                    (fn [] (vim.lsp.buf.format { :async true })) opts))})
+
 (lua "
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<LocalLeader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<LocalLeader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<LocalLeader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<LocalLeader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches

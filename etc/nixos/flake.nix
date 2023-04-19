@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.url = "github:neovim/neovim/stable?dir=contrib";
     # opaque.url = "path:/home/lawabidingcactus/acm/Opaque";
     # emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
@@ -18,7 +18,8 @@
         ({ config, pkgs, ... }: {
           nixpkgs.overlays = [
             # ==== Here's how to add a package
-            (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
+            # (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
+            (final: prev: { myNeovim = pkgs.neovim-unwrapped; })
             # ==== Here's how to override a package
             # (_: prev: { foot = prev.foot.overrideAttrs (_: { src = foot-src; }); } )
             # ==== Here's how to import a 'classic' overlay (with no flake support?)
