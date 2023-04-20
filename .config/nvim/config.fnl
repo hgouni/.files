@@ -12,24 +12,26 @@
 (vim.filetype.add {:extension {:mcr :macaroni}})
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.mcr]
-                            :callback (fn []
-                                        (std.set-options {:syntax :lisp})
-                                        (std.set-global-vars {:parinfer_enabled 1}))})
+                            :callback
+                              (fn []
+                                (std.set-options {:syntax :lisp})
+                                (std.set-global-vars {:parinfer_enabled 1}))})
 
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.sh]
-                            :callback (fn []
-                                        (std.set-localleader-maps {:c (fn []
-                                                                        (vim.cmd "!shellcheck %"))}))})
+                            :callback
+                              (fn []
+                                (std.set-localleader-maps
+                                  {:c (fn [] (vim.cmd "!shellcheck %"))}))})
 
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.fnl]
-                            :callback (fn []
-                                        (std.set-localleader-maps {:f (fn []
-                                                                        (vim.cmd "silent !fnlfmt --fix %"))}))})
+                            :callback
+                              (fn []
+                                (std.set-localleader-maps
+                                  {:f (fn [] (vim.cmd "silent !fnlfmt --fix %"))}))})
 
-(tree-sitter.setup {:highlight {:enable true
-                                :additional_vim_regex_highlighting false}})
+(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
 
 (std.set-options {:modeline false
                   :splitbelow true
@@ -82,16 +84,11 @@
                scratch-buffer-identifier (std.a.nvim-create-buf false true)
                current-window-identifier (std.a.nvim-get-current-win)]
            (std.a.nvim-command "silent! w")
-           (std.a.nvim-win-set-buf current-window-identifier
-                                   scratch-buffer-identifier)
-           (std.a.nvim-buf-set-lines scratch-buffer-identifier
-                                     ; the last parameter here is a lua array
-                                     ; we may also be able to use [ "Edit another file!" ]?
-                                     0 0 true {1 "Edit another file!"})
-           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted
-                                      false)
-           (std.a.nvim-buf-delete current-buffer-identifier
-                                  {:force true :unload true}))))
+           (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
+           ; final parameter here is a lua array
+           (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
+           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
+           (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
 (std.set-leader-maps {:dh :<Cmd>tabclose
                       :dj :<Cmd>tabprev
@@ -114,8 +111,7 @@
 
 (std.a.nvim-create-autocmd [:BufNewFile]
                            {:pattern [:conjure-log-*]
-                            :callback (fn []
-                                        (vim.diagnostic.disable 0))})
+                            :callback (fn [] (vim.diagnostic.disable 0))})
 
 ; we haven't translated this to fennel yet because they keep updating it
 
@@ -129,8 +125,7 @@
 (std.a.nvim-create-autocmd :LspAttach
     {:group (std.a.nvim-create-augroup :UserLspConfig {})
      :callback (fn [ev]
-                (let [indexed (. vim.bo ev.buf)]
-                    (set indexed.omnifunc "v:lua.vim.lsp.omnifunc"))
+                (tset (. vim.bo ev.buf) :omnifunc "v:lua.vim.lsp.omnifunc")
                 (local opts {:buffer ev.buf})
                 (vim.keymap.set :n :gD vim.lsp.buf.declaration opts)
                 (vim.keymap.set :n :gd vim.lsp.buf.definition opts)
@@ -183,3 +178,4 @@ require('lean').setup {
     mappings = true,
 }
 ")
+
