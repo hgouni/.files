@@ -54,6 +54,9 @@
 
 (std.set-options {:completeopt :menu})
 
+; why does this work? this has remaps turned off
+(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
+
 ; (std.set-global-vars {:SuperTabDefaultCompletionType :<C-x><C-o>})
 
 ; undo config
