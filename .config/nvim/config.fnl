@@ -1,6 +1,5 @@
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
-; TENTATIVE editor config in fennel
 
 ; note that vim.filetype.add can be used to replace ftdetect
 ; (and also ftplugin actually)
@@ -52,8 +51,12 @@
 (std.set-options {:termguicolors true :background :dark})
 
 (vim.cmd.colorscheme :gruvbox)
-; undo config
 
+(std.set-options {:completeopt :menu})
+
+; (std.set-global-vars {:SuperTabDefaultCompletionType :<C-x><C-o>})
+
+; undo config
 (std.set-options {:undofile true :undolevels 10000})
 
 (std.set-global-vars {:undotree_WindowLayout 3
