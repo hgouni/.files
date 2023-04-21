@@ -96,11 +96,11 @@
            (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
            (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
-(std.set-leader-maps {:dh :<Cmd>tabclose
-                      :dl "<Cmd>tab split"
+(std.set-leader-maps {:dj :<Cmd>tabclose
+                      :dk "<Cmd>tab split"
                       :dx delete-current-buffer
                       :dd "<Cmd>b#"
-                      "d;" :<Cmd>tabnew<bar>terminal})
+                      :dl :<Cmd>tabnew<bar>terminal})
 
 (std.set-key-maps :n {:<C-j> :<Cmd>tabprev
                       :<C-k> :<Cmd>tabnext})
