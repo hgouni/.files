@@ -97,12 +97,22 @@
            (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
 (std.set-leader-maps {:dh :<Cmd>tabclose
-                      :dj :<Cmd>tabprev
-                      :dk :<Cmd>tabnext
                       :dl "<Cmd>tab split"
                       :dx delete-current-buffer
                       :dd "<Cmd>b#"
                       "d;" :<Cmd>tabnew<bar>terminal})
+
+(std.set-key-maps :n {:<C-j> :<Cmd>tabprev
+                      :<C-k> :<Cmd>tabnext})
+
+; have to add <CR> explicitly here bc it's a terminal mode map,
+; and set-key-maps won't automatically take care of that here
+(std.set-key-maps :t {:<C-j> :<C-\><C-n><Cmd>tabprev<CR>
+                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>})
+
+; and here!
+(std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
+                      :<C-k> :<Esc><Cmd>tabnext<CR>})
 
 (std.set-global-vars {:lisp_rainbow 1
                       :slimv_disable_scheme 1
@@ -137,7 +147,7 @@
                 (vim.keymap.set :n :gd vim.lsp.buf.definition opts)
                 (vim.keymap.set :n :K vim.lsp.buf.hover opts)
                 (vim.keymap.set :n :gi vim.lsp.buf.implementation opts)
-                (vim.keymap.set :n :<C-k> vim.lsp.buf.signature_help opts)
+                (vim.keymap.set :n :gs vim.lsp.buf.signature_help opts)
                 (vim.keymap.set :n :<LocalLeader>wa vim.lsp.buf.add_workspace_folder opts)
                 (vim.keymap.set :n :<LocalLeader>wr vim.lsp.buf.remove_workspace_folder opts)
                 (vim.keymap.set :n :<LocalLeader>wl
