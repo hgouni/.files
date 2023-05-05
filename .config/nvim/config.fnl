@@ -1,5 +1,6 @@
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
+(local lspconfig (require :lspconfig))
 
 ; note that vim.filetype.add can be used to replace ftdetect
 ; (and also ftplugin actually)
@@ -129,7 +130,13 @@
                            {:pattern [:conjure-log-*]
                             :callback (fn [] (vim.diagnostic.disable 0))})
 
-; we haven't translated this to fennel yet because they keep updating it
+(local servers [:metals :rust_analyzer :hls])
+(each [_ lsp (pairs servers)]
+    ((. (. lspconfig lsp) :setup) {}))
+
+(lspconfig.racket_langserver.setup { :filetypes [:racket]})
+
+(lspconfig.texlab.setup {:settings {:texlab {:build {:args {} :onSave true}}}})
 
 ; Mappings.
 ; See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -158,40 +165,3 @@
                 (vim.keymap.set :n :gr vim.lsp.buf.references opts)
                 (vim.keymap.set :n :<LocalLeader>f
                     (fn [] (vim.lsp.buf.format { :async true })) opts))})
-
-(lua "
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'metals', 'rust_analyzer', 'hls' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-  }
-end
-
--- Stop racket langserver from triggering on scheme
-require('lspconfig').racket_langserver.setup {
-  on_attach = on_attach,
-  filetypes = { 'racket' }
-}
-
-require('lspconfig').texlab.setup {
-    on_attach = on_attach,
-    settings = {
-        texlab = {
-            build = {
-                args = {},
-                onSave = true
-            }
-        }
-    }
-}
-
-require('lean').setup {
-    abbreviations = { builtin = true },
-    lsp = { on_attach = on_attach },
-    mappings = true,
-}
-")
-
