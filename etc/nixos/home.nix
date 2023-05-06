@@ -20,6 +20,7 @@
   home.stateVersion = "21.03";
 
   imports = [
+    ./antifennel.nix
     ./bash.nix
     ./bind.nix
     ./chez.nix
