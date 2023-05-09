@@ -25,6 +25,7 @@
     ./bind.nix
     ./chez.nix
     ./cmus.nix
+    ./cubicsdr.nix
     ./dc.nix
     ./direnv.nix
     # ./emacs.nix

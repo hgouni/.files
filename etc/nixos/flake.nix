@@ -24,14 +24,14 @@
             # ==== Here's how to add a package
             # (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
             (final: prev: { myNeovim = pkgs.neovim-unwrapped; })
-            (final: prev: { myAntifennel =
-              pkgs.stdenv.mkDerivation {
+            (final: prev: {
+              myAntifennel = pkgs.stdenv.mkDerivation {
                 name = "antifennel";
                 src = antifennel;
                 buildInputs = [ pkgs.luajit ];
                 installPhase = ''
-                  mkdir -p $out/bin
-                  cp antifennel $out/bin
+                    mkdir -p $out/bin
+                    cp antifennel $out/bin
                 '';
                 LUA_PATH = "?.lua;;";
               };
