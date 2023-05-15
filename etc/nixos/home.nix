@@ -24,6 +24,7 @@
     ./direnv.nix
     # ./emacs.nix
     ./environment.nix
+    ./extrautils.nix
     ./firefox.nix
     ./fish.nix
     ./fonts.nix

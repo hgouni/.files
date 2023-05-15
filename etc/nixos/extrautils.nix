@@ -10,6 +10,7 @@
     pkgs.inetutils
     pkgs.jq
     pkgs.keepassxc
+    pkgs.lm_sensors
     pkgs.lsof
     pkgs.mosh
     pkgs.mpv
