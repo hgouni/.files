@@ -20,19 +20,12 @@
   home.stateVersion = "21.03";
 
   imports = [
-    ./antifennel.nix
     ./bash.nix
-    ./bind.nix
-    ./chez.nix
-    ./cmus.nix
-    ./cubicsdr.nix
-    ./dc.nix
     ./direnv.nix
     # ./emacs.nix
     ./environment.nix
     ./firefox.nix
     ./fish.nix
-    ./fldigi.nix
     ./fonts.nix
     ./foot.nix
     ./gammastep.nix
@@ -41,32 +34,16 @@
     ./gpg.nix
     ./htop.nix
     ./icons.nix
-    ./inetutils.nix
-    ./jq.nix
-    ./keepassxc.nix
     # ./kitty.nix
-    ./lsof.nix
     ./man.nix
-    ./mosh.nix
-    ./mpv.nix
-    ./nitrokey.nix
     ./nvim.nix
-    ./pandoc.nix
     ./pass.nix
-    ./psmisc.nix
     ./rash.nix
     ./readline.nix
-    ./ripgrep.nix
     # ./rofi.nix
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
     ./tmux.nix
-    ./trash-cli.nix
-    ./tree.nix
-    ./virt-manager.nix
-    ./wget.nix
-    ./xdg-utils.nix
-    ./zip.nix
   ];
 }
