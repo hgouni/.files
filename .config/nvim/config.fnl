@@ -14,7 +14,7 @@
                            {:pattern [:*.mcr]
                             :callback
                               (fn []
-                                (std.set-options {:syntax :lisp})
+                                (std.set-options {:syntax :racket})
                                 (std.set-global-vars {:parinfer_enabled 1}))})
 
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]

@@ -2,6 +2,7 @@
 
 {
   home.packages = [
+    pkgs.at
     pkgs.bc
     pkgs.bind
     pkgs.chez
