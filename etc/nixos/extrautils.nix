@@ -2,7 +2,6 @@
 
 {
   home.packages = [
-    pkgs.at
     pkgs.bc
     pkgs.bind
     pkgs.chez
@@ -20,6 +19,7 @@
     pkgs.pciutils
     pkgs.psmisc
     pkgs.ripgrep
+    pkgs.speechd
     pkgs.trash-cli
     pkgs.tree
     pkgs.unzip

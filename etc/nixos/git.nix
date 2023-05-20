@@ -3,7 +3,7 @@
 { 
     programs.git = {
         enable = true; 
-        userEmail = "hemant@hemantgouni.com";
+        userEmail = "me@hgouni.com";
         userName = "Hemant Sai Gouni";
 
         signing = {
