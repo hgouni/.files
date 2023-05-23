@@ -102,11 +102,11 @@
     programs.sway.enable = true;
 
     programs.gnupg.agent.enable = true;
+    # services.pcscd.enable = true;
 
     # allow for nitrokey usage
     # we don't need this?
     # hardware.nitrokey.enable = true;
-    # services.pcscd.enable = true;
 
     fonts.fonts = with pkgs; [ cm_unicode ];
 
@@ -185,7 +185,12 @@
       pkgs.pavucontrol
       # for configurating printers
       pkgs.system-config-printer
+      # for yubikey
+      pkgs.yubikey-personalization
+      pkgs.yubikey-manager
     ];
+
+    services.udev.packages = [ pkgs.yubikey-personalization ];
 
     # services.opaque.enable = true;
     # services.opaque.database = ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';

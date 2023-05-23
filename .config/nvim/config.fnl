@@ -2,20 +2,42 @@
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
 
-; note that vim.filetype.add can be used to replace ftdetect
-; (and also ftplugin actually)
+; remember, c_Ctrl-R " is the keybind to paste text from register "
+
+(std.set-global-vars {:mapleader " " :maplocalleader ","})
+
+(std.set-options {:shada "!,'100,<0,s10,h"
+                  :modeline false
+                  :splitbelow true
+                  :cursorline true
+                  :autowriteall true
+                  :expandtab true
+                  :tabstop 4
+                  :shiftwidth 4
+                  :scrolloff 5
+                  :hlsearch false})
+
+(std.set-options {:termguicolors true :background :dark})
+
+(vim.cmd.colorscheme :gruvbox)
+
+; why does this work? this has remaps turned off
+(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
+
+(std.set-options {:completeopt :menu})
+
+; vim.filetype.add can be used to replace ftdetect
+; (and also ftplugin actually, these do syntax highlighting and stuff)
+(vim.filetype.add {:extension {:sv :silver}})
 
 ; TODO: make these autocmds use augroups for hot reloadability!
-
-(vim.filetype.add {:extension {:sv :silver}})
 
 (vim.filetype.add {:extension {:mcr :macaroni}})
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.mcr]
                             :callback
                               (fn []
-                                (std.set-options {:syntax :racket})
-                                (std.set-global-vars {:parinfer_enabled 1}))})
+                                (std.set-options {:syntax :racket}))})
 
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.sh]
@@ -31,34 +53,39 @@
                                 (std.set-localleader-maps
                                   {:f (fn [] (vim.cmd "silent !fnlfmt --fix %"))}))})
 
-(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
+; this will still remove buffers if it will close a tab other than
+; one we are currently on. maybe it shouldn't
+(local delete-current-buffer
+       (fn [] ; vim.fn.<vimscript_function> invokes that vimscript function
+         (let [current-buffer-identifier (std.a.nvim-get-current-buf)
+               scratch-buffer-identifier (std.a.nvim-create-buf false true)
+               current-window-identifier (std.a.nvim-get-current-win)]
+           (std.a.nvim-command "silent! w")
+           (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
+           ; final parameter here is a lua array (previously: {1 "Edit another file!"})
+           (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
+           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
+           (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
-(std.set-options {:modeline false
-                  :splitbelow true
-                  :cursorline true
-                  :autowriteall true
-                  :expandtab true
-                  :tabstop 4
-                  :shiftwidth 4
-                  :scrolloff 5
-                  :hlsearch false})
+(std.set-leader-maps {:dj :<Cmd>tabclose
+                      :dk "<Cmd>tab split"
+                      :dx delete-current-buffer
+                      :dd "<Cmd>b#"
+                      :dl :<Cmd>tabnew<bar>terminal})
 
-; attempt setting leader keys
-(std.set-global-vars {:mapleader " " :maplocalleader ","})
+(std.set-key-maps :n {:<C-j> :<Cmd>tabprev
+                      :<C-k> :<Cmd>tabnext})
 
-; insert the lozenge character, for pollen
-(std.set-key-maps :i {"\\loz" :<C-v>u25ca})
+; have to add <CR> explicitly for :t and :i bc it's a terminal mode map, and
+; set-key-maps won't automatically take care of that here (:t and :i bindings
+; shouldn't always have <CR>, this is just needed because we're escaping to
+; command mode)
 
-(std.set-options {:termguicolors true :background :dark})
+(std.set-key-maps :t {:<C-j> :<C-\><C-n><Cmd>tabprev<CR>
+                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>})
 
-(vim.cmd.colorscheme :gruvbox)
-
-(std.set-options {:completeopt :menu})
-
-; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
-
-; (std.set-global-vars {:SuperTabDefaultCompletionType :<C-x><C-o>})
+(std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
+                      :<C-k> :<Esc><Cmd>tabnext<CR>})
 
 ; undo config
 (std.set-options {:undofile true :undolevels 10000})
@@ -82,38 +109,8 @@
                       :fc :<Cmd>Commands
                       :fo :<Cmd>Buffers})
 
-; this will still remove buffers if it will close a tab other than
-; one we are currently on. maybe it shouldn't
-
-(local delete-current-buffer
-       (fn [] ; vim.fn.<vimscript_function> invokes that vimscript function
-         (let [current-buffer-identifier (std.a.nvim-get-current-buf)
-               scratch-buffer-identifier (std.a.nvim-create-buf false true)
-               current-window-identifier (std.a.nvim-get-current-win)]
-           (std.a.nvim-command "silent! w")
-           (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
-           ; final parameter here is a lua array
-           (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
-           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
-           (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
-
-(std.set-leader-maps {:dj :<Cmd>tabclose
-                      :dk "<Cmd>tab split"
-                      :dx delete-current-buffer
-                      :dd "<Cmd>b#"
-                      :dl :<Cmd>tabnew<bar>terminal})
-
-(std.set-key-maps :n {:<C-j> :<Cmd>tabprev
-                      :<C-k> :<Cmd>tabnext})
-
-; have to add <CR> explicitly here bc it's a terminal mode map,
-; and set-key-maps won't automatically take care of that here
-(std.set-key-maps :t {:<C-j> :<C-\><C-n><Cmd>tabprev<CR>
-                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>})
-
-; and here!
-(std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
-                      :<C-k> :<Esc><Cmd>tabnext<CR>})
+; insert the lozenge character, for pollen
+(std.set-key-maps :i {"\\loz" :<C-v>u25ca})
 
 (std.set-global-vars {:lisp_rainbow 1
                       :slimv_disable_scheme 1
@@ -125,6 +122,8 @@
                       "conjure#mapping#def_word" false
                       "conjure#highlight#enabled" true
                       "conjure#filetypes" [:fennel :racket :scheme]})
+
+(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
 
 (std.a.nvim-create-autocmd [:BufNewFile]
                            {:pattern [:conjure-log-*]

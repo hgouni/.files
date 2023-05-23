@@ -21,6 +21,7 @@
                         "${modifier}+Shift+d" = "exec brightnessctl set 1%-";
                         "${modifier}+Shift+b" = "exec brightnessctl set +1%";
                         "${modifier}+Shift+p" = "exec grimshot copy area";
+                        "${modifier}+Shift+c" = ''exec "wl-copy --clear && wl-copy --primary --clear && notify-send -t 2001 'Clipboard cleared!'"'';
                         "${modifier}+d" = "exec fuzzel";
                     };
         };
@@ -48,5 +49,6 @@
         wl-clipboard
         sway-contrib.grimshot
         fuzzel
+        libnotify
     ];
   }
