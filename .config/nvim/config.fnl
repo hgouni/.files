@@ -1,6 +1,7 @@
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
+(local lean (require :lean))
 
 ; remember, c_Ctrl-R " is the keybind to paste text from register "
 
@@ -133,9 +134,11 @@
 (each [_ lsp (pairs servers)]
     ((. (. lspconfig lsp) :setup) {}))
 
-(lspconfig.racket_langserver.setup { :filetypes [:racket]})
+(lspconfig.racket_langserver.setup {:filetypes [:racket]})
 
 (lspconfig.texlab.setup {:settings {:texlab {:build {:args {} :onSave true}}}})
+
+(lean.setup {:abbreviations {:builtin true} :mappings true})
 
 ; Mappings.
 ; See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -147,20 +150,20 @@
 (std.a.nvim-create-autocmd :LspAttach
     {:group (std.a.nvim-create-augroup :UserLspConfig {})
      :callback (fn [ev]
-                (tset (. vim.bo ev.buf) :omnifunc "v:lua.vim.lsp.omnifunc")
-                (local opts {:buffer ev.buf})
-                (vim.keymap.set :n :gD vim.lsp.buf.declaration opts)
-                (vim.keymap.set :n :gd vim.lsp.buf.definition opts)
-                (vim.keymap.set :n :K vim.lsp.buf.hover opts)
-                (vim.keymap.set :n :gi vim.lsp.buf.implementation opts)
-                (vim.keymap.set :n :gs vim.lsp.buf.signature_help opts)
-                (vim.keymap.set :n :<LocalLeader>wa vim.lsp.buf.add_workspace_folder opts)
-                (vim.keymap.set :n :<LocalLeader>wr vim.lsp.buf.remove_workspace_folder opts)
-                (vim.keymap.set :n :<LocalLeader>wl
-                    (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders))) opts))
-                (vim.keymap.set :n :<LocalLeader>D vim.lsp.buf.type_definition opts)
-                (vim.keymap.set :n :<LocalLeader>rn vim.lsp.buf.rename opts)
-                (vim.keymap.set :n :<LocalLeader>ca vim.lsp.buf.code_action opts)
-                (vim.keymap.set :n :gr vim.lsp.buf.references opts)
-                (vim.keymap.set :n :<LocalLeader>f
-                    (fn [] (vim.lsp.buf.format { :async true })) opts))})
+                 (tset (. vim.bo ev.buf) :omnifunc "v:lua.vim.lsp.omnifunc")
+                 (local opts {:buffer ev.buf})
+                 (vim.keymap.set :n :gD vim.lsp.buf.declaration opts)
+                 (vim.keymap.set :n :gd vim.lsp.buf.definition opts)
+                 (vim.keymap.set :n :K vim.lsp.buf.hover opts)
+                 (vim.keymap.set :n :gi vim.lsp.buf.implementation opts)
+                 (vim.keymap.set :n :gs vim.lsp.buf.signature_help opts)
+                 (vim.keymap.set :n :<LocalLeader>wa vim.lsp.buf.add_workspace_folder opts)
+                 (vim.keymap.set :n :<LocalLeader>wr vim.lsp.buf.remove_workspace_folder opts)
+                 (vim.keymap.set :n :<LocalLeader>wl
+                      (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders))) opts))
+                 (vim.keymap.set :n :<LocalLeader>D vim.lsp.buf.type_definition opts)
+                 (vim.keymap.set :n :<LocalLeader>rn vim.lsp.buf.rename opts)
+                 (vim.keymap.set :n :<LocalLeader>ca vim.lsp.buf.code_action opts)
+                 (vim.keymap.set :n :gr vim.lsp.buf.references opts)
+                 (vim.keymap.set :n :<LocalLeader>f
+                      (fn [] (vim.lsp.buf.format { :async true })) opts))})

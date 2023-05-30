@@ -14,7 +14,6 @@
     pkgs.lsof
     pkgs.mosh
     pkgs.mpv
-    pkgs.myAntifennel
     pkgs.pandoc
     pkgs.pciutils
     pkgs.psmisc

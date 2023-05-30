@@ -14,9 +14,10 @@
         plugins.tree-sitter-gleam
         plugins.tree-sitter-haskell
         plugins.tree-sitter-latex
-        plugins.tree-sitter-rust
-        plugins.tree-sitter-racket
+        plugins.tree-sitter-markdown
         plugins.tree-sitter-python
+        plugins.tree-sitter-racket
+        plugins.tree-sitter-rust
       ]))
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
@@ -51,5 +52,5 @@
     extraConfig = builtins.readFile ./files/nvim/init.vim;
   };
 
-  home.packages = [ pkgs.luajitPackages.fennel pkgs.fnlfmt ];
+  home.packages = [ pkgs.luajitPackages.fennel pkgs.fnlfmt pkgs.myAntifennel ];
 }
