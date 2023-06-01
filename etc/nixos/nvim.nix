@@ -49,7 +49,7 @@
 
     withPython3 = true;
 
-    extraConfig = builtins.readFile ./files/nvim/init.vim;
+    extraLuaConfig = ''vim.cmd.source("$HOME/.config/nvim/config.lua")'';
   };
 
   home.packages = [ pkgs.luajitPackages.fennel pkgs.fnlfmt pkgs.myAntifennel ];

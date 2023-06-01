@@ -29,6 +29,7 @@
     ./fish.nix
     ./foot.nix
     ./gammastep.nix
+    ./generators.nix
     ./git.nix
     ./gnuradio.nix
     ./gpg.nix
