@@ -11,8 +11,6 @@
         ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    programs.nix-ld.enable = true;
     
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
@@ -30,12 +28,9 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     networking.useDHCP = false;
+
     networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
 
-    # Manual dhcp for wired networks?
-    # dhcpcd <interface> should do it
-
-    # DNS settings
     services.resolved.enable = true;
     networking.wireless.iwd.enable = true;
     networking.wireless.iwd.settings = {
@@ -52,24 +47,11 @@
     
     networking.hostName = "casper";
 
-    # sound config
-    # hardware.pulseaudio.enable = true;
-    # hardware.pulseaudio.package = pkgs.pulseaudioFull;
-
     # wayland audio/video
     services.pipewire.enable = true;
     services.pipewire.alsa.enable = true;
-
-    # services.pipewire.wireplumber.enable = true;
-
-    # This might be buggy
+    # This might be buggy?
     services.pipewire.pulse.enable = true;
-    # services.pipewire.config.pipewire-pulse = {
-    #   "context.exec" = [{ 
-    #     path = "pactl";
-    #     args = "load-module module-udev-detect tsched=0";
-    #   }];
-    # };
 
     # enable wayland screen snooping
     xdg.portal = {
@@ -80,14 +62,17 @@
       ];
     };
 
+    # rootless containers
     virtualisation.podman.enable = true;
+
+    # also enables QEMU/KVM
     virtualisation.libvirtd.enable = true;
 
     users.users = {
         lawabidingcactus = {
             isNormalUser = true;
             createHome = true;
-            extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" "nitrokey" ];
+            extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" ];
             # generated using `mkpasswd -m sha-512`; useful for generated vms
             #
             # users are not managed declaratively by default, so this is just
@@ -96,19 +81,62 @@
         };
     };
 
-    services.atd.enable = true;
-
-    programs.fish.enable = true;
-    programs.sway.enable = true;
-
     programs.gnupg.agent.enable = true;
+
+    # Conflicts with gnupg agent-- allows for smartcard functionality
     # services.pcscd.enable = true;
 
-    # allow for nitrokey usage
-    # we don't need this?
-    # hardware.nitrokey.enable = true;
+    virtualisation.vmVariant = {
+      environment.systemPackages = [ pkgs.chromium ];
+      virtualisation.cores = 4;
+      virtualisation.memorySize = 7001;
+      # virtualisation.resolution = {
+      #   x = 1920;
+      #   y = 1080;
+      # };
+      virtualisation.qemu.options = [
+        "-vga qxl"
+        # "-vga none"
+        # "-device virtio-vga-gl"
+        "-display gtk,gl=on"
+        "-audiodev alsa,id=snd0,out.dev=default"
+        "-device intel-hda"
+        "-device hda-output,audiodev=snd0"
+      ];
+    };
 
-    fonts.fonts = with pkgs; [ cm_unicode ];
+    services.atd.enable = true;
+    programs.fish.enable = true;
+    programs.sway.enable = true;
+    programs.nix-ld.enable = true;
+
+    fonts.fonts = with pkgs; [ cm_unicode bakoma_ttf ];
+
+    # Allow non-root users to use ykpersonalize?
+    services.udev.packages = [ pkgs.yubikey-personalization ];
+
+    environment.systemPackages = [
+      # Manual dhcp for wired networks, and for vms built with nixos-rebuild switch build-vm
+      # sudo dhcpcd <interface> should do it
+      pkgs.dhcpcd
+      # for alsa volume ctr
+      pkgs.alsa-utils
+      # for selecting output device
+      pkgs.pavucontrol
+      # for configurating printers
+      pkgs.system-config-printer
+      # for yubikey
+      pkgs.yubikey-personalization
+      pkgs.yubikey-manager
+    ];
+
+    # Disable this when not in use because it starts a web server
+    #
+    # services.printing.enable = true;
+    # services.printing.drivers = [ pkgs.gutenprint ];
+
+    # services.opaque.enable = true;
+    # services.opaque.database = ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
 
     # services.mysql.enable = true;
     # services.mysql.package = pkgs.mariadb;
@@ -170,30 +198,6 @@
     # networking.firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
-
-    # Disable this when not in use because it starts a web server
-    #
-    # services.printing.enable = true;
-    # services.printing.drivers = [ pkgs.gutenprint ];
-
-    environment.systemPackages = [
-      # for configuring wired dhcp
-      pkgs.dhcpcd
-      # for alsa volume ctr
-      pkgs.alsa-utils
-      # for selecting output device
-      pkgs.pavucontrol
-      # for configurating printers
-      pkgs.system-config-printer
-      # for yubikey
-      pkgs.yubikey-personalization
-      pkgs.yubikey-manager
-    ];
-
-    services.udev.packages = [ pkgs.yubikey-personalization ];
-
-    # services.opaque.enable = true;
-    # services.opaque.database = ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

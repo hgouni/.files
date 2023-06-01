@@ -27,7 +27,6 @@
     ./extrautils.nix
     ./firefox.nix
     ./fish.nix
-    ./fonts.nix
     ./foot.nix
     ./gammastep.nix
     ./git.nix
@@ -35,13 +34,11 @@
     ./gpg.nix
     ./htop.nix
     ./icons.nix
-    # ./kitty.nix
     ./man.nix
     ./nvim.nix
     ./pass.nix
     ./rash.nix
     ./readline.nix
-    # ./rofi.nix
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
