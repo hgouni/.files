@@ -11,6 +11,8 @@
 
             terminal = "foot";
 
+            menu = "fuzzel";
+
             keybindings = 
                 let 
                     modifier = config.wayland.windowManager.sway.config.modifier;
@@ -22,20 +24,36 @@
                         "${modifier}+Shift+b" = "exec brightnessctl set +1%";
                         "${modifier}+Shift+p" = "exec grimshot copy area";
                         "${modifier}+Shift+c" = ''exec "wl-copy --clear && wl-copy --primary --clear && notify-send -t 2001 'Clipboard cleared!'"'';
-                        "${modifier}+d" = "exec fuzzel";
                     };
         };
 
+        # systemctl --user import-environment seems to be unneeded, since the
+        # generated config handles these environment variables for us! things
+        # like xdg-desktop-portal.service need (some of) these, and the user
+        # level systemd does not inherit them by default
+        #
+        # DISPLAY
+        # WAYLAND_DISPLAY
+        # SWAYSOCK
+        # XDG_CURRENT_DESKTOP
+        # XDG_SESSION_TYPE
+        # NIXOS_OZONE_WL
+        #
+        # see ~/.config/sway/config
+        #
+        # otherwise we could do systemctl --user import-environment <vars>
+        #
+        # don't import everything, systemd intentionally avoids doing this for
+        # hermetic sealing purposes!
         extraConfig = 
-            # see `man sway-input`
             ''
             output * bg ${./files/sway/wallpaper.png} fill
+
+            default_border pixel 2
 
             input "type:keyboard" {
                 xkb_options ctrl:nocaps
             }
-
-            exec systemctl --user import-environment
             '';
 
         wrapperFeatures.gtk = true;

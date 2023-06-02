@@ -2,11 +2,15 @@
 
 {
   systemd.user.services.gammastep = {
-    Unit.Description = "Automatic redshifting";
-    Install.WantedBy = [ "default.target" ];
+    Unit = {
+      Description = "Automatic redshifting";
+      PartOf = "graphical-session.target";
+      After = "graphical-session.target";
+      BindsTo = "sway-session.target";
+    };
+    Install.WantedBy = [ "sway-session.target" ];
     Service = {
       ExecStart = "${pkgs.gammastep}/bin/gammastep -O 4545K";
-      Restart = "always";
     };
   };
 }
