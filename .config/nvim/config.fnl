@@ -1,9 +1,9 @@
+; remember, c_Ctrl-R " is the keybind to paste text from register "
+
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
 (local lean (require :lean))
-
-; remember, c_Ctrl-R " is the keybind to paste text from register "
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
