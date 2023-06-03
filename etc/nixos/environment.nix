@@ -9,7 +9,7 @@
         EDITOR = "${config.home.sessionVariables.VISUAL}";
         LESS = "--RAW-CONTROL-CHARS";
         GROFF_NO_SGR = "1";
-        SSH_ASKPASS = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
+        SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/ssh-askpass";
         MOZ_ENABLE_WAYLAND = 1;
         XDG_CURRENT_DESKTOP = "sway";
         SSH_AUTH_SOCK = "gpgconf --list-dirs agent-ssh-socket";

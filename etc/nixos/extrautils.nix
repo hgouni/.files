@@ -18,6 +18,7 @@
     pkgs.pciutils
     pkgs.psmisc
     pkgs.ripgrep
+    pkgs.sdrangel
     pkgs.speechd
     pkgs.trash-cli
     pkgs.tree
