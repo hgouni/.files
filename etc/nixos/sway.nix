@@ -60,13 +60,14 @@
     };
 
     home.packages = with pkgs; [
-        swaylock
-        swayidle
-        mako
         brightnessctl
-        wl-clipboard
-        sway-contrib.grimshot
         fuzzel
+        gammastep
         libnotify
+        mako
+        sway-contrib.grimshot
+        swayidle
+        swaylock
+        wl-clipboard
     ];
   }
