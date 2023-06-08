@@ -99,8 +99,7 @@
 
 (std.set-leader-maps {:u :<Cmd>UndotreeToggle})
 
-(std.set-global-vars {"sneak#label" 1})
-
+; fzf config
 (std.set-leader-maps {:ff :<Cmd>Files
                       :fb :<Cmd>BLines
                       :fl :<Cmd>Lines

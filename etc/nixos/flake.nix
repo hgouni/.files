@@ -4,26 +4,20 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "github:neovim/neovim/stable?dir=contrib";
     antifennel = {
       url = "git+https://git.sr.ht/~technomancy/antifennel";
       flake = false;
     };
-    # opaque.url = "path:/home/lawabidingcactus/acm/Opaque";
+    # neovim.url = "github:neovim/neovim/stable?dir=contrib";
     # emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim, antifennel, ... }: {
+  outputs = { self, nixpkgs, home-manager, antifennel, ... }: {
     nixosConfigurations.casper = nixpkgs.lib.nixosSystem rec {
-
       system = "x86_64-linux";
-
       modules = [
         ({ config, pkgs, ... }: {
           nixpkgs.overlays = [
-            # ==== Here's how to add a package
-            # (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
-            (final: prev: { myNeovim = pkgs.neovim-unwrapped; })
             (final: prev: {
               myAntifennel = pkgs.stdenv.mkDerivation {
                 name = "antifennel";
@@ -36,6 +30,10 @@
                 LUA_PATH = "?.lua;;";
               };
             })
+            # ==== Here's how to add a package
+            # (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
+            # ==== Here's how to downgrade a package
+            # (final: prev: { libvirt = nixpkgs-stable.legacyPackages.${prev.system}.libvirt; })
             # ==== Here's how to override a package
             # (_: prev: { foot = prev.foot.overrideAttrs (_: { src = foot-src; }); } )
             # ==== Here's how to import a 'classic' overlay (with no flake support?)
@@ -49,12 +47,6 @@
           home-manager.useGlobalPkgs = true;
           home-manager.users.lawabidingcactus = import ./home.nix;
         }
-        # opaque.nixosModules.${system}.default
-        # ({ ... }: {
-          # services.opaque.enable = true;
-          # services.opaque.database =
-          #   ''{ mh_reg = { url = "mysql://mysql:mysql@127.0.0.1/mh_reg" } }'';
-        # })
       ];
     };
   };

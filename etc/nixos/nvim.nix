@@ -4,8 +4,6 @@
 
   programs.neovim = {
 
-    package = pkgs.myNeovim;
-
     enable = true; 
 
     plugins = [
@@ -26,7 +24,6 @@
       pkgs.vimPlugins.lean-nvim
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.parinfer-rust
-      pkgs.vimPlugins.rust-vim
       pkgs.vimPlugins.slimv
       pkgs.vimPlugins.supertab
       pkgs.vimPlugins.undotree
@@ -36,7 +33,6 @@
       pkgs.vimPlugins.vim-nix
       pkgs.vimPlugins.vim-racket
       pkgs.vimPlugins.vim-repeat
-      pkgs.vimPlugins.vim-sneak
       pkgs.vimPlugins.vim-surround
     ];
 
