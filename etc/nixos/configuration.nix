@@ -28,25 +28,27 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     networking.useDHCP = false;
-
     networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
-
-    services.resolved.enable = true;
-    networking.wireless.iwd.enable = true;
-    networking.wireless.iwd.settings = {
-      General = {
-        # enable automatic dhcp for wireless networks
-        EnableNetworkConfiguration = true;
-      };
-      Network = { 
-        EnableIPv6 = true;
-        # default behavior, not actually necessary?
-        NameResolvingService = "systemd";
-      };
-    };
-    
     networking.hostName = "casper";
 
+    services.resolved.enable = true;
+
+    systemd.network = {
+      enable = true;
+      networks = {
+        "10-virt" = {
+          matchConfig.Name = "en*";
+          matchConfig.Virtualization = true;
+          networkConfig.DHCP = "yes";
+          linkConfig.RequiredForOnline = "no";
+        };
+      };
+    };
+
+    networking.wireless.iwd.enable = true;
+    # enable automatic dhcp for wireless networks
+    networking.wireless.iwd.settings.General.EnableNetworkConfiguration = true;
+    
     # wayland audio/video
     services.pipewire.enable = true;
     services.pipewire.alsa.enable = true;
