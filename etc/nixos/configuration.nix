@@ -37,10 +37,14 @@
       enable = true;
       networks = {
         "10-virt" = {
-          matchConfig.Name = "en*";
+          matchConfig.Type = "ether";
           matchConfig.Virtualization = true;
           networkConfig.DHCP = "yes";
-          linkConfig.RequiredForOnline = "no";
+        };
+        "10-desktop" = {
+          matchConfig.Type = "ether";
+          matchConfig.Host = "hambone";
+          networkConfig.DHCP = "yes";
         };
       };
     };
