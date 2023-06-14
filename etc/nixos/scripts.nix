@@ -15,6 +15,7 @@
           case "$1" in
               -r)
                   reboot
+                  exit
                   ;;
           esac
       fi
@@ -26,7 +27,7 @@
               reboot
               ;;
           *)
-              printf 'Aborting.\n'
+              printf 'Exiting.\n'
               ;;
       esac
     '')
