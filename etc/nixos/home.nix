@@ -41,6 +41,7 @@
     ./pass.nix
     ./rash.nix
     ./readline.nix
+    ./scripts.nix
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
