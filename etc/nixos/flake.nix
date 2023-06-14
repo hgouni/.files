@@ -45,6 +45,7 @@
           # Use the system nixpkgs, not home-manager's own
           # This causes it to use our overlays
           home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
           home-manager.users.lawabidingcactus = import ./home.nix;
         }
       ];
