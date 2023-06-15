@@ -2,7 +2,7 @@
 
 {
   home.packages = [
-    (pkgs.writeShellScriptBin "update-and-reboot"
+    (pkgs.writeShellScriptBin "update"
     ''
       set -euo pipefail
 
