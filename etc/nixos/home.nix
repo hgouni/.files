@@ -21,7 +21,6 @@
 
   imports = [
     ./bash.nix
-    # ./chrome.nix
     ./direnv.nix
     # ./emacs.nix
     ./environment.nix

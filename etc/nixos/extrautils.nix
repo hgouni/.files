@@ -7,6 +7,7 @@
     pkgs.chez
     pkgs.cubicsdr
     pkgs.fldigi
+    pkgs.gnome.gnome-calculator
     pkgs.inetutils
     pkgs.jq
     pkgs.keepassxc
@@ -14,6 +15,7 @@
     pkgs.lsof
     pkgs.mosh
     pkgs.mpv
+    pkgs.nmap
     pkgs.pandoc
     pkgs.pciutils
     pkgs.psmisc

@@ -1,0 +1,9 @@
+[Security]
+EAP-Method=PEAP
+EAP-Identity=anonymous@andrew.cmu.edu
+EAP-PEAP-Phase2-Method=MSCHAPV2
+EAP-PEAP-Phase2-Identity={username}@andrew.cmu.edu
+EAP-PEAP-Phase2-Password-Hash={generate via: printf '%s' '<password>' | iconv -t utf16le | openssl md4 -provider legacy}
+
+[Settings]
+Autoconnect=true
