@@ -16,11 +16,13 @@
     pkgs.mosh
     pkgs.mpv
     pkgs.nmap
+    pkgs.openssl
     pkgs.pandoc
     pkgs.pciutils
     pkgs.psmisc
     pkgs.ripgrep
     pkgs.sdrangel
+    pkgs.smartmontools
     pkgs.speechd
     pkgs.trash-cli
     pkgs.tree
