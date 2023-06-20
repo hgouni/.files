@@ -20,6 +20,7 @@
   home.stateVersion = "23.05";
 
   imports = [
+    ./alacritty.nix
     ./bash.nix
     ./direnv.nix
     # ./emacs.nix
@@ -28,6 +29,7 @@
     ./firefox.nix
     ./fish.nix
     ./foot.nix
+    ./fuzzel.nix
     ./gammastep.nix
     ./generators.nix
     ./git.nix

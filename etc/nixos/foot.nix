@@ -6,8 +6,10 @@
   programs.foot.settings = {
 
     main = {
-      font = "Liberation Mono:size=7";
+      font = "Liberation Mono:size=11";
       pad = "0x0";
+      # to stop external display scaling weirdness
+      dpi-aware = "no";
     };
 
     mouse.hide-when-typing = "yes";

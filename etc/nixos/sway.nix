@@ -61,7 +61,6 @@
 
     home.packages = with pkgs; [
         brightnessctl
-        fuzzel
         gammastep
         libnotify
         mako
