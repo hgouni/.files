@@ -53,6 +53,12 @@
                                 (std.set-localleader-maps
                                   {:f (fn [] (vim.cmd "silent !fnlfmt --fix %"))}))})
 
+(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
+                           {:pattern [:*.nix]
+                            :callback
+                              (fn []
+                                (std.set-options {:commentstring "# %s"}))})
+
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
 (local delete-current-buffer
