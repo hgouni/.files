@@ -44,8 +44,7 @@
                            {:pattern [:*.sh]
                             :callback
                               (fn []
-                                (std.set-localleader-maps
-                                  {:c (fn [] (vim.cmd "!shellcheck %"))}))})
+                                (std.set-options {:makeprg "shellcheck -f gcc %"}))})
 
 (std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
                            {:pattern [:*.fnl]
