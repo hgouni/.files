@@ -8,6 +8,7 @@
     pkgs.cubicsdr
     pkgs.fldigi
     pkgs.gnome.gnome-calculator
+    pkgs.hyperfine
     pkgs.inetutils
     pkgs.jq
     pkgs.keepassxc
