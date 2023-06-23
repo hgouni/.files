@@ -8,7 +8,7 @@
       url = "git+https://git.sr.ht/~technomancy/antifennel";
       flake = false;
     };
-    # neovim.url = "github:neovim/neovim/stable?dir=contrib";
+    # neovim.url = "github:neovim/neovim?dir=contrib";
     # emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
