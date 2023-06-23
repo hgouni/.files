@@ -24,13 +24,14 @@
           fi
       }
 
-      while getopts 'hrspi' opt
+      while getopts 'hprsi' opt
       do
           case "$opt" in
               '?' | 'h')
-                  printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
-                      "Usage: $argv_0 [-prsi]" \
+                  printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
+                      "Usage: $argv_0 [-hprsi]" \
                       'Update nixos and reboot.' \
+                      '-h' 'Show this help text.' \
                       '-p' 'Suspend without prompting.' \
                       '-r' 'Reboot without prompting.' \
                       '-s' 'Shutdown without prompting.' \
