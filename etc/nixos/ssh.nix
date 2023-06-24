@@ -27,6 +27,9 @@
       Type = "oneshot";
       Environment = "SSH_AUTH_SOCK=%t/ssh-agent.socket";
       ExecStart = "${pkgs.openssh}/bin/ssh-add";
+      # Causes the service to enter an 'active' state after successfully running
+      # Important if any other service ends up as a dependency of this one
+      RemainAfterExit = "yes";
     };
   };
 
