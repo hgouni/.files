@@ -87,10 +87,10 @@
         };
     };
 
-    programs.gnupg.agent.enable = true;
+    # programs.gnupg.agent.enable = true;
 
     # Conflicts with gnupg agent-- allows for smartcard functionality
-    # services.pcscd.enable = true;
+    services.pcscd.enable = true;
 
     virtualisation.vmVariant = {
       environment.systemPackages = [ pkgs.chromium ];

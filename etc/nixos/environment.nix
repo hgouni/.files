@@ -12,7 +12,7 @@
         SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
         MOZ_ENABLE_WAYLAND = 1;
         XDG_CURRENT_DESKTOP = "sway";
-        SSH_AUTH_SOCK = "gpgconf --list-dirs agent-ssh-socket";
+        # SSH_AUTH_SOCK = "gpgconf --list-dirs agent-ssh-socket";
         MANPAGER = "nvim +Man!";
     };
 }
