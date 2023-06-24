@@ -1,4 +1,13 @@
-disable otp over usb
-set touch required on openpgp dec/aut/sig slots to fixed
+# disable accidental autotype
+ykman config usb --disable OTP
 
+# set fido password (needed for ssh prompt)
+ykman fido access change-pin
+
+# add a resident key (stored on the yubikey itself)
+# requires verification on each signing
 ssh-keygen -t ed25519-sk -O resident -O verify-required
+
+# to restore a key: https://developers.yubico.com/SSH/
+
+If using gpg, set touch required on openpgp to fixed
