@@ -3,9 +3,6 @@
 {
     programs.bash = {
         enable = true;
-        profileExtra = ''
-            ssh-add
-        '';
         # interactive only
         initExtra = ''
           if [ "$(tty)" = "/dev/tty1" ]; then

@@ -17,6 +17,19 @@
     };
   };
 
+  systemd.user.services.ssh-add = {
+    Unit = {
+      Description = "Add ssh keys from smartcard";
+      After = "ssh-agent.service";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "oneshot";
+      Environment = "SSH_AUTH_SOCK=%t/ssh-agent.socket";
+      ExecStart = "${pkgs.openssh}/bin/ssh-add";
+    };
+  };
+
   programs.ssh = {
     enable = true;
     serverAliveInterval = 60;
