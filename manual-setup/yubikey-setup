@@ -1,3 +1,5 @@
+==== KEY SETUP ====
+
 # disable accidental autotype
 ykman config usb --disable OTP
 
@@ -8,8 +10,17 @@ ykman fido access change-pin
 # require verification on each signing
 ssh-keygen -t ed25519-sk -O resident -O verify-required
 
-# to restore ssh key on another machine: https://developers.yubico.com/SSH/
-ssh-keygen -K
-
 # If using gpg, set touch required on openpgp to fixed:
 ykman openpgp keys set-touch {sig,dec,aut} fixed
+
+==== MACHINE SETUP ====
+
+# Setup sudo/login authentication via Yubikey
+mkdir -p ~/.config/Yubico
+pamu2fcfg > ~/.config/Yubico/u2f_keys
+
+# to restore ssh key on another machine: https://developers.yubico.com/SSH/
+cd ~/.ssh
+ssh-keygen -K
+mv id_ed25519_sk_{rk,}
+mv id_ed25519_sk_{rk,}.pub

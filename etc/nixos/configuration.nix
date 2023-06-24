@@ -90,6 +90,11 @@
     # allows for smartcard functionality
     services.pcscd.enable = true;
 
+    security.pam.services = {
+        login.u2fAuth= true;
+        sudo.u2fAuth = true;
+    };
+
     virtualisation.vmVariant = {
       environment.systemPackages = [ pkgs.chromium ];
       virtualisation.cores = 4;
@@ -132,6 +137,7 @@
       # for yubikey
       pkgs.yubikey-personalization
       pkgs.yubikey-manager
+      pkgs.pam_u2f
     ];
 
     # Disable this when not in use because it starts a web server
