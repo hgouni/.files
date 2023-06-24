@@ -1,0 +1,17 @@
+extensions: ublock origin, privacy badger
+
+set dns over https mode to most strict
+
+disable tracking
+
+change search engine to duckduckgo
+
+sign in to sync bookmarks and tabs
+
+turn off autofilling credit cards
+
+enable https-only mode in all windows
+
+remove cruft from toolbar
+
+disable advertisements, pocket recommendations on new tab page
