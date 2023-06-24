@@ -7,10 +7,9 @@
         FZF_DEFAULT_OPTS = "--bind alt-j:down,alt-k:up";
         VISUAL = "nvim";
         EDITOR = "${config.home.sessionVariables.VISUAL}";
-        LESS = "--RAW-CONTROL-CHARS";
-        GROFF_NO_SGR = "1";
+        # LESS = "--RAW-CONTROL-CHARS";
+        # GROFF_NO_SGR = "1";
         SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
-        # TODO: braces here?
         SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent.socket";
         MOZ_ENABLE_WAYLAND = 1;
         XDG_CURRENT_DESKTOP = "sway";
