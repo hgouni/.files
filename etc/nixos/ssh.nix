@@ -1,12 +1,27 @@
 { config, lib, pkgs, ... }:
 
 { 
+  systemd.user.services.ssh-agent = {
+    Unit = {
+      Description = "SSH Agent";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "simple";
+      # %t is $XDG_RUNTIME_DIR (/run by default)
+      Environment = [
+        "SSH_AUTH_SOCK=%t/ssh-agent.socket"
+        "SSH_ASKPASS=${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass"
+      ];
+      ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a $SSH_AUTH_SOCK";
+    };
+  };
+
   programs.ssh = {
     enable = true;
     serverAliveInterval = 60;
 
     matchBlocks = {
-
       "acm.argo" = {
         hostname = "argo.acm.umn.edu";
       };
@@ -56,6 +71,4 @@
       };
     };
   };
-
-  home.packages = with pkgs; [ x11_ssh_askpass ]; 
 }

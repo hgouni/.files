@@ -34,7 +34,7 @@
     ./generators.nix
     ./git.nix
     ./gnuradio.nix
-    ./gpg.nix
+    # ./gpg.nix
     ./htop.nix
     ./icons.nix
     ./man.nix

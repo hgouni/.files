@@ -87,9 +87,7 @@
         };
     };
 
-    # programs.gnupg.agent.enable = true;
-
-    # Conflicts with gnupg agent-- allows for smartcard functionality
+    # allows for smartcard functionality
     services.pcscd.enable = true;
 
     virtualisation.vmVariant = {

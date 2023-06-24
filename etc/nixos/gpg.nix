@@ -2,7 +2,7 @@
 
 {
     programs.gpg = {
-        # enable = true;
+        enable = true;
 
         homedir = "${config.xdg.configHome}/gnupg";
         
@@ -15,7 +15,7 @@
     };
 
     services.gpg-agent = {
-      # enable = true;
+      enable = true;
       enableSshSupport = true;
       sshKeys = [ "7747E7EA1B99F47C47FC00964840347D9B3DB009" ];
     };
