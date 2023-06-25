@@ -7,6 +7,8 @@
         FZF_DEFAULT_OPTS = "--bind alt-j:down,alt-k:up";
         VISUAL = "nvim";
         EDITOR = "${config.home.sessionVariables.VISUAL}";
+        HISTCONTROL = "ignoreboth";
+        PROMPT_DIRTRIM = "2";
         # LESS = "--RAW-CONTROL-CHARS";
         # GROFF_NO_SGR = "1";
         SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";

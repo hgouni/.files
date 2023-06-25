@@ -16,8 +16,9 @@ ykman openpgp keys set-touch {sig,dec,aut} fixed
 ==== MACHINE SETUP ====
 
 # Setup sudo/login authentication via Yubikey
-mkdir -p ~/.config/Yubico
-pamu2fcfg > ~/.config/Yubico/u2f_keys
+mkdir -p /etc/nixos/files/system/secure
+pamu2fcfg > u2f_keys
+sudo mv u2f_keys /etc/nixos/files/system/secure
 
 # to restore ssh key on another machine: https://developers.yubico.com/SSH/
 cd ~/.ssh
