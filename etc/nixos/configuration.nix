@@ -90,7 +90,7 @@
     # allows for smartcard functionality
     services.pcscd.enable = true;
 
-    security.pam.u2f.authFile = "/etc/nixos/files/system/secure/u2f_keys";
+    security.pam.u2f.authFile = ./files/system/secure/u2f_keys;
     security.pam.services = {
         login.u2fAuth= true;
         sudo.u2fAuth = true;
