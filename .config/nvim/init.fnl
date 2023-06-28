@@ -22,7 +22,7 @@
        (fn [] (std.set-options {:shadafile :NONE
                                 :undofile false
                                 :swapfile false})
-              (print "Entered secure mode. ShaDa, undo history, and swap files have been disabled.")))
+              (print "ShaDa, undo history, and swap files have been disabled.")))
 
 (std.set-leader-maps {:q enter-secure-mode})
 
