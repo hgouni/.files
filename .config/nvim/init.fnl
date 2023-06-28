@@ -130,6 +130,7 @@
 
 (lean.setup {:abbreviations {:builtin true} :mappings true})
 
+; ipairs generates index, value
 (each [_ server (ipairs [:rust_analyzer :metals :hls])]
   ((. lspconfig server :setup) {}))
 
