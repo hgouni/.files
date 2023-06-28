@@ -18,9 +18,13 @@
                   :scrolloff 5
                   :hlsearch false})
 
-(std.set-options {:termguicolors true :background :dark})
+(local enter-secure-mode
+       (fn [] (std.set-options {:shadafile :NONE
+                                :undofile false
+                                :swapfile false})
+              (print "Entered secure mode. ShaDa, undo history, and swap files have been disabled.")))
 
-(vim.cmd.colorscheme :gruvbox)
+(std.set-leader-maps {:q enter-secure-mode})
 
 ; why does this work? this has remaps turned off
 (std.set-key-maps :i {:<C-l> :<C-x><C-o>})
@@ -92,6 +96,10 @@
 
 (std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
                       :<C-k> :<Esc><Cmd>tabnext<CR>})
+
+(std.set-options {:termguicolors true :background :dark})
+
+(vim.cmd.colorscheme :gruvbox)
 
 ; undo config
 (std.set-options {:undofile true :undolevels 10000})
