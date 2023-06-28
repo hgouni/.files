@@ -125,10 +125,6 @@
 
 (tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
 
-(local servers [:metals :rust_analyzer :hls])
-(each [_ lsp (pairs servers)]
-    ((. (. lspconfig lsp) :setup) {}))
-
 ; Mappings.
 ; See `:help vim.diagnostic.*` for documentation on any of the below functions
 (vim.keymap.set :n :<LocalLeader>e vim.diagnostic.open_float)
