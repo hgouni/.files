@@ -4,10 +4,16 @@
 ;
 ; 2. FileType: buffer-local ONLY (filetype is set once per buffer)
 ;    BufEnter: each time cursor enters a buffer
+;
+; 3. vim.fn.<vimscript_function> invokes that vimscript function
 
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
+
+; replaces ftdetect
+(vim.filetype.add {:extension {:sv :silver}})
+(vim.filetype.add {:extension {:mcr :macaroni}})
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
@@ -28,10 +34,6 @@
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
 
-; replaces ftdetect
-(vim.filetype.add {:extension {:sv :silver}})
-(vim.filetype.add {:extension {:mcr :macaroni}})
-
 (local enter-secure-mode
        (fn [] (std.set-options {:shadafile :NONE
                                 :undofile false
@@ -48,7 +50,7 @@
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
 (local delete-current-buffer
-       (fn [] ; vim.fn.<vimscript_function> invokes that vimscript function
+       (fn []
          (let [current-buffer-identifier (std.a.nvim-get-current-buf)
                scratch-buffer-identifier (std.a.nvim-create-buf false true)
                current-window-identifier (std.a.nvim-get-current-win)]
