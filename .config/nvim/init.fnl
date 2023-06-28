@@ -10,6 +10,7 @@
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
+(local lean (require :lean))
 
 ; replaces ftdetect
 (vim.filetype.add {:extension {:sv :silver}})
@@ -126,6 +127,14 @@
                             :callback (fn [] (vim.diagnostic.disable 0))})
 
 (tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
+
+(lean.setup {:abbreviations {:builtin true} :mappings true})
+
+(each [_ server (ipairs [:rust_analyzer :metals :hls])]
+  ((. lspconfig server :setup) {}))
+
+(lspconfig.racket_langserver.setup {:filetypes [:racket]})
+(lspconfig.texlab.setup {:settings {:texlab {:build {:args {} :onSave true}}}})
 
 ; Mappings.
 ; See `:help vim.diagnostic.*` for documentation on any of the below functions
