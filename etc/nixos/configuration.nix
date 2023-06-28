@@ -35,6 +35,13 @@
 
     systemd.network = {
       enable = true;
+      # systemd-networkd-wait-online.service will fail because iwd usually
+      # manages our internet connection
+      #
+      # might want to change this to be conditional to machines that use
+      # wireless? if we want to write systemd services that require the network
+      # to be online
+      wait-online.enable = false;
       networks = {
         "10-virt" = {
           matchConfig.Type = "ether";

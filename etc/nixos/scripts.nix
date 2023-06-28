@@ -24,18 +24,29 @@
           fi
       }
 
-      while getopts 'hprsi' opt
+      set_method () {
+          if test "$method" == 'boot'
+          then
+              method="$1"
+          else
+              printf 'Cannot set more than one of -i and -t. Exiting.\n'
+              exit
+          fi
+      }
+
+      while getopts 'hprsit' opt
       do
           case "$opt" in
               '?' | 'h')
-                  printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
+                  printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
                       "Usage: $argv_0 [-hprsi]" \
                       'Update nixos and reboot.' \
                       '-h' 'Show this help text.' \
                       '-p' 'Suspend without prompting.' \
                       '-r' 'Reboot without prompting.' \
                       '-s' 'Shutdown without prompting.' \
-                      '-i' 'Immediately switch to the updated system.'
+                      '-i' 'Immediately switch to the updated system.' \
+                      '-t' 'Show which packages will be upgraded and exit.'
                   exit
                   ;;
               'r')
@@ -48,7 +59,11 @@
                   set_action 'systemctl suspend'
                   ;;
               'i')
-                  method='switch'
+                  set_method 'switch'
+                  ;;
+              't')
+                  set_method 'dry-run'
+                  set_action 'exit'
                   ;;
           esac
       done
