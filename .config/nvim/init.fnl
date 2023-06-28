@@ -1,9 +1,13 @@
-; remember, c_Ctrl-R " is the keybind to paste text from register "
+; A few tips:
+;
+; 1. c_Ctrl-R " is the keybind to paste text from register "
+;
+; 2. FileType: buffer-local ONLY (filetype is set once per buffer)
+;    BufEnter: each time cursor enters a buffer
 
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
-(local lean (require :lean))
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
@@ -18,6 +22,16 @@
                   :scrolloff 5
                   :hlsearch false})
 
+; why does this work? this has remaps turned off
+(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
+
+; no preview window for completions
+(std.set-options {:completeopt :menu})
+
+; replaces ftdetect
+(vim.filetype.add {:extension {:sv :silver}})
+(vim.filetype.add {:extension {:mcr :macaroni}})
+
 (local enter-secure-mode
        (fn [] (std.set-options {:shadafile :NONE
                                 :undofile false
@@ -26,42 +40,10 @@
 
 (std.set-leader-maps {:q enter-secure-mode})
 
-; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
-
-(std.set-options {:completeopt :menu})
-
-; vim.filetype.add can be used to replace ftdetect
-; (and also ftplugin actually, these do syntax highlighting and stuff)
-(vim.filetype.add {:extension {:sv :silver}})
-
-; TODO: make these autocmds use augroups for hot reloadability!
-
-(vim.filetype.add {:extension {:mcr :macaroni}})
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.mcr]
-                            :callback
-                              (fn []
-                                (std.set-options {:syntax :racket}))})
-
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.sh]
-                            :callback
-                              (fn []
-                                (std.set-options {:makeprg "shellcheck -f gcc %"}))})
-
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.fnl]
-                            :callback
-                              (fn []
-                                (std.set-localleader-maps
-                                  {:f (fn [] (vim.cmd "silent !fnlfmt --fix %"))}))})
-
-(std.a.nvim-create-autocmd [:BufEnter :BufWinEnter]
-                           {:pattern [:*.nix]
-                            :callback
-                              (fn []
-                                (std.set-options {:commentstring "# %s"}))})
+(std.a.nvim-create-autocmd [:BufEnter]
+  {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
+   :pattern [:/tmp/bash-fc.*]
+   :callback enter-secure-mode})
 
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
@@ -136,21 +118,16 @@
                       "conjure#highlight#enabled" true
                       "conjure#filetypes" [:fennel :racket :scheme]})
 
-(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
-
 (std.a.nvim-create-autocmd [:BufNewFile]
-                           {:pattern [:conjure-log-*]
+                           {:group (std.a.nvim-create-augroup :MyConjureAucmds {})
+                            :pattern [:conjure-log-*]
                             :callback (fn [] (vim.diagnostic.disable 0))})
+
+(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
 
 (local servers [:metals :rust_analyzer :hls])
 (each [_ lsp (pairs servers)]
     ((. (. lspconfig lsp) :setup) {}))
-
-(lspconfig.racket_langserver.setup {:filetypes [:racket]})
-
-(lspconfig.texlab.setup {:settings {:texlab {:build {:args {} :onSave true}}}})
-
-(lean.setup {:abbreviations {:builtin true} :mappings true})
 
 ; Mappings.
 ; See `:help vim.diagnostic.*` for documentation on any of the below functions

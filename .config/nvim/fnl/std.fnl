@@ -25,32 +25,38 @@
   (each [key value (pairs options)]
     (tset vim.opt key value)))
 
+(fn set-local-options [options]
+  (each [key value (pairs options)]
+    (tset vim.opt_local key value)))
+
 (fn set-global-vars [vars]
   (each [key value (pairs vars)]
     (a.nvim-set-var key value)))
 
-(fn set-key-maps [mode maps]
+(fn set-key-maps [mode maps opts]
   (each [key value (pairs maps)]
     (vim.keymap.set mode key
         (if (and (not= (type value) :function) (= mode :n))
             (.. value :<CR>) ; then 
             value) ; else 
-        {:silent true})))
+        opts)))
 
-(fn set-normal-maps [maps keybind]
-  (set-key-maps :n (collect [key value (pairs maps)]
-                     (.. keybind key)
-                     value)))
+(fn set-prefix-maps [mode prefix maps opts]
+  (set-key-maps mode (collect [key value (pairs maps)]
+                       (.. prefix key)
+                       value)
+                opts))
 
 (fn set-leader-maps [maps]
-  (set-normal-maps maps :<Leader>))
+  (set-prefix-maps :n :<Leader> maps {:silent true}))
 
 (fn set-localleader-maps [maps]
-  (set-normal-maps maps :<LocalLeader>))
+  (set-prefix-maps :n :<LocalLeader> maps {:silent true :buffer 0}))
 
 {: v
  : a
  : set-options
+ : set-local-options
  : set-global-vars
  : set-leader-maps
  : set-localleader-maps
