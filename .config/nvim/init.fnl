@@ -45,7 +45,7 @@
 
 (std.a.nvim-create-autocmd [:BufEnter]
   {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
-   :pattern [:/tmp/bash-fc.*]
+   :pattern [:/tmp/bash-fc.* :/var/tmp/*]
    :callback enter-secure-mode})
 
 ; this will still remove buffers if it will close a tab other than
