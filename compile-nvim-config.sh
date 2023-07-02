@@ -4,7 +4,7 @@ set -e          # immediately exit on failure
 set -u          # treat uninitialized variables as an error
 set -o pipefail # pipes return error if any commands in them do
 
-shopt -s globstar nullglob # globstar allows for ** to recurse into subdirectories
+shopt -s globstar nullglob # globstar allows for **, recurses into subdirectories
                            #
                            # nullglob causes globs matching nothing to be
                            # expanded to nothing, instead of to themselves
