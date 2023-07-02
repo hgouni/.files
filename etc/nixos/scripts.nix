@@ -34,7 +34,7 @@
           fi
       }
 
-      while getopts 'hprsit' opt
+      while getopts 'hprsil' opt
       do
           case "$opt" in
               '?' | 'h')
@@ -46,7 +46,7 @@
                       '-r' 'Reboot without prompting.' \
                       '-s' 'Shutdown without prompting.' \
                       '-i' 'Immediately switch to the updated system.' \
-                      '-t' 'Show which packages will be upgraded and exit.'
+                      '-l' 'Show which packages will be upgraded and exit.'
                   exit
                   ;;
               'r')
@@ -61,7 +61,7 @@
               'i')
                   set_method 'switch'
                   ;;
-              't')
+              'l')
                   set_method 'dry-run'
                   set_action 'exit'
                   ;;
