@@ -31,7 +31,6 @@
     ./foot.nix
     ./fuzzel.nix
     ./gammastep.nix
-    ./generators.nix
     ./git.nix
     ./gnuradio.nix
     # ./gpg.nix
@@ -40,7 +39,6 @@
     ./man.nix
     ./nvim.nix
     ./pass.nix
-    ./rash.nix
     ./readline.nix
     ./scripts.nix
     ./ssh.nix

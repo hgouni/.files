@@ -17,11 +17,13 @@
     pkgs.lsof
     pkgs.mosh
     pkgs.mpv
+    pkgs.nixos-generators
     pkgs.nmap
     pkgs.openssl
     pkgs.pandoc
     pkgs.pciutils
     pkgs.psmisc
+    pkgs.racket
     pkgs.ripgrep
     pkgs.sdrangel
     pkgs.smartmontools
