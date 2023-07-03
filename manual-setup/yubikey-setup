@@ -13,6 +13,11 @@ ssh-keygen -t ed25519-sk -O resident -O verify-required
 # If using gpg, set touch required on openpgp to fixed:
 ykman openpgp keys set-touch {sig,dec,aut} fixed
 
+# For keepassxc, setup challenge response
+ykman otp chalresp --touch --generate 2
+# or
+ykman otp chalresp --touch 2 <key>
+
 ==== MACHINE SETUP ====
 
 # Setup sudo/login authentication via Yubikey
