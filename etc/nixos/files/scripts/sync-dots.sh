@@ -16,7 +16,7 @@ rsync --info=NAME --archive --delete --prune-empty-dirs \
       --exclude 'hardware-configuration.nix' \
       '/etc/nixos/' "$HOME/.files/etc/nixos"
 
-printf "Syncing $HOME/.config/nvim\n"
+printf 'Syncing %s/.config/nvim\n' "$HOME"
 
 # exclude everything but .fnl files in any directory in the
 # nvim one. do not include empty directories
