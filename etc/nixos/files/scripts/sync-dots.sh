@@ -1,5 +1,3 @@
-#!/bin/sh
-
 printf 'Syncing /etc/nixos\n'
 
 # --prune-empty-dirs:
