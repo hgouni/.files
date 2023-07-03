@@ -3,6 +3,7 @@
 {
     programs.bash = {
         enable = true;
+        # login only
         profileExtra = ''
           if [[ "$-" == *i* && "$(tty)" == '/dev/tty1' ]]; then
               exec sway
