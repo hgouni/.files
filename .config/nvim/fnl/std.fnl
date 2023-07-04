@@ -41,17 +41,32 @@
             value) ; else 
         opts)))
 
-(fn set-prefix-maps [mode prefix maps opts]
+(fn set-prefix-maps [prefix mode maps opts]
   (set-key-maps mode (collect [key value (pairs maps)]
                        (.. prefix key)
                        value)
                 opts))
 
 (fn set-leader-maps [maps]
-  (set-prefix-maps :n :<Leader> maps {:silent true}))
+  (set-prefix-maps :<Leader> :n maps {:silent true}))
 
 (fn set-localleader-maps [maps]
-  (set-prefix-maps :n :<LocalLeader> maps {:silent true :buffer 0}))
+  (set-prefix-maps :<LocalLeader> :n maps {:silent true :buffer 0}))
+
+(fn open-centered-window [buf prop-width prop-height title]
+  (let [gui (. (a.nvim-list-uis) 1)]
+    (a.nvim-open-win buf true
+      {:title title
+       :relative :editor
+       :row (math.floor (* (- (. gui :height)
+                              (* (. gui :height) prop-height))
+                           0.5))
+       :col (math.floor (* (- (. gui :width)
+                              (* (. gui :width) prop-width))
+                           0.5))
+       :height (math.floor (* (. gui :height) prop-height))
+       :width (math.floor (* (. gui :width) prop-width))
+       :border :rounded})))
 
 {: v
  : a
@@ -60,4 +75,5 @@
  : set-global-vars
  : set-leader-maps
  : set-localleader-maps
- : set-key-maps}
+ : set-key-maps
+ : open-centered-window}

@@ -30,7 +30,7 @@
                   :hlsearch false})
 
 ; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> :<C-x><C-o>})
+(std.set-key-maps :i {:<C-l> :<C-x><C-o>} {:silent true})
 
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
@@ -41,26 +41,52 @@
                                 :swapfile false})
               (print "ShaDa, undo history, and swap files have been disabled.")))
 
-(std.set-leader-maps {:q enter-secure-mode})
-
 (std.a.nvim-create-autocmd [:BufEnter]
   {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
    :pattern [:/tmp/bash-fc.* :/var/tmp/*]
    :callback enter-secure-mode})
+       
+(std.set-leader-maps {:q enter-secure-mode})
+
+(fn str-is-empty [str]
+  (or (= str nil) (= str "")))
+
+(local get-clipboard
+  (fn []
+    (let [primary (vim.fn.getreg "*")
+          clipboard (vim.fn.getreg "+")
+          contents (vim.split
+                     (.. "PRIMARY:\n\n" (if (str-is-empty primary) "<empty>" primary)
+                         "\n\n"
+                         "CLIPBOARD:\n\n" (if (str-is-empty clipboard) "<empty>" clipboard))
+                     "\n")
+          buf (std.a.nvim-create-buf false true)]
+      (std.a.nvim-buf-set-lines buf 0 -1 true contents)
+      (std.open-centered-window buf 0.7 0.7 "Clipboard Contents")
+      (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
+                           {:silent true :buffer buf}))))
+
+(local clear-clipboard
+  (fn []
+    (vim.fn.setreg "*" "")
+    (vim.fn.setreg "+" "")
+    (print "PRIMARY and CLIPBOARD cleared.")))
+
+(std.set-leader-maps {:w get-clipboard :e clear-clipboard})
 
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
 (local delete-current-buffer
-       (fn []
-         (let [current-buffer-identifier (std.a.nvim-get-current-buf)
-               scratch-buffer-identifier (std.a.nvim-create-buf false true)
-               current-window-identifier (std.a.nvim-get-current-win)]
-           (std.a.nvim-command "silent! w")
-           (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
-           ; final parameter here is a lua array (previously: {1 "Edit another file!"})
-           (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
-           (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
-           (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
+  (fn []
+    (let [current-buffer-identifier (std.a.nvim-get-current-buf)
+          scratch-buffer-identifier (std.a.nvim-create-buf false true)
+          current-window-identifier (std.a.nvim-get-current-win)]
+      (std.a.nvim-command "silent! w")
+      (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
+      ; final parameter here is a lua array (previously: {1 "Edit another file!"})
+      (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
+      (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
+      (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
 (std.set-leader-maps {:dj :<Cmd>tabclose
                       :dk "<Cmd>tab split"
@@ -69,7 +95,8 @@
                       :dl :<Cmd>tabnew<bar>terminal})
 
 (std.set-key-maps :n {:<C-j> :<Cmd>tabprev
-                      :<C-k> :<Cmd>tabnext})
+                      :<C-k> :<Cmd>tabnext}
+                     {:silent true})
 
 ; have to add <CR> explicitly for :t and :i bc it's a terminal mode map, and
 ; set-key-maps won't automatically take care of that here (:t and :i bindings
@@ -77,10 +104,12 @@
 ; command mode)
 
 (std.set-key-maps :t {:<C-j> :<C-\><C-n><Cmd>tabprev<CR>
-                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>})
+                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>}
+                     {:silent true})
 
 (std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
-                      :<C-k> :<Esc><Cmd>tabnext<CR>})
+                      :<C-k> :<Esc><Cmd>tabnext<CR>}
+                     {:silent true})
 
 (std.set-options {:termguicolors true :background :dark})
 
@@ -108,7 +137,8 @@
                       :fo :<Cmd>Buffers})
 
 ; insert the lozenge character, for pollen
-(std.set-key-maps :i {"\\loz" :<C-v>u25ca})
+(std.set-key-maps :i {"\\loz" :<C-v>u25ca}
+                     {:silent true})
 
 (std.set-global-vars {:lisp_rainbow 1
                       :slimv_disable_scheme 1
