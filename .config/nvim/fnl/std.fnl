@@ -68,6 +68,10 @@
        :width (math.floor (* (. gui :width) prop-width))
        :border :rounded})))
 
+; do a nil check just in case, since nil should generally be treated as an empty string
+(fn str-is-empty [str]
+  (or (= str nil) (= str "")))
+
 {: v
  : a
  : set-options
@@ -76,4 +80,5 @@
  : set-leader-maps
  : set-localleader-maps
  : set-key-maps
- : open-centered-window}
+ : open-centered-window
+ : str-is-empty}

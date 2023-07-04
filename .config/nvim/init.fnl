@@ -48,21 +48,19 @@
        
 (std.set-leader-maps {:q enter-secure-mode})
 
-(fn str-is-empty [str]
-  (or (= str nil) (= str "")))
-
 (local get-clipboard
   (fn []
     (let [primary (vim.fn.getreg "*")
           clipboard (vim.fn.getreg "+")
-          contents (vim.split
-                     (.. "PRIMARY:\n\n" (if (str-is-empty primary) "<empty>" primary)
-                         "\n\n"
-                         "CLIPBOARD:\n\n" (if (str-is-empty clipboard) "<empty>" clipboard))
-                     "\n")
+          unsplit-string (.. "PRIMARY:\n\n"
+                             (if (std.str-is-empty primary) "<empty>" primary)
+                             "\n\n"
+                             "CLIPBOARD:\n\n"
+                             (if (std.str-is-empty clipboard) "<empty>" clipboard))
+          contents (vim.split unsplit-string "\n")
           buf (std.a.nvim-create-buf false true)]
       (std.a.nvim-buf-set-lines buf 0 -1 true contents)
-      (std.open-centered-window buf 0.7 0.7 "Clipboard Contents")
+      (std.open-centered-window buf 0.7 0.7 "Clipboard")
       (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
                            {:silent true :buffer buf}))))
 
