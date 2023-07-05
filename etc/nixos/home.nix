@@ -24,7 +24,6 @@
     ./bash.nix
     ./direnv.nix
     # ./emacs.nix
-    ./environment.nix
     ./extrautils.nix
     ./firefox.nix
     ./fish.nix
@@ -40,6 +39,7 @@
     ./nvim.nix
     ./pass.nix
     ./readline.nix
+    ./ripgrep.nix
     ./scripts.nix
     ./ssh.nix
     ./sway.nix
