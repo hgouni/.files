@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
+    # helps firefox start in wayland mode
+    home.sessionVariables.XDG_CURRENT_DESKTOP = "sway";
+
     wayland.windowManager.sway = {
 
         enable = true;

@@ -24,7 +24,6 @@
     pkgs.pciutils
     pkgs.psmisc
     pkgs.racket
-    pkgs.ripgrep
     pkgs.sdrangel
     pkgs.smartmontools
     pkgs.speechd

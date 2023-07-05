@@ -35,7 +35,7 @@
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
 
-(local enter-secure-mode
+(local enter-forgetful-mode
        (fn [] (std.set-options {:shadafile :NONE
                                 :undofile false
                                 :swapfile false})
@@ -44,9 +44,9 @@
 (std.a.nvim-create-autocmd [:BufEnter]
   {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
    :pattern [:/tmp/bash-fc.* :/var/tmp/*]
-   :callback enter-secure-mode})
+   :callback enter-forgetful-mode})
        
-(std.set-leader-maps {:q enter-secure-mode})
+(std.set-leader-maps {:q enter-forgetful-mode})
 
 (local get-clipboard
   (fn []

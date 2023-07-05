@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  home.sessionVariables = {
+    VISUAL = "nvim";
+    EDITOR = "${config.home.sessionVariables.VISUAL}";
+    MANPAGER = "nvim +Man!";
+    FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
+    FZF_DEFAULT_OPTS = "--bind alt-j:down,alt-k:up";
+  };
 
   programs.neovim = {
 

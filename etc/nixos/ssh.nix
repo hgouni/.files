@@ -33,6 +33,11 @@
     };
   };
 
+  home.sessionVariables = {
+        SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+        SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent.socket";
+  };
+
   programs.ssh = {
     enable = true;
     serverAliveInterval = 60;

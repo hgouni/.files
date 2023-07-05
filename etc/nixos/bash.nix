@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+    home.sessionVariables = {
+        HISTCONTROL = "ignoreboth";
+        PROMPT_DIRTRIM = "2";
+    };
+
     programs.bash = {
         enable = true;
         # login only
