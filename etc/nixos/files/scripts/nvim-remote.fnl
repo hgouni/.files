@@ -16,7 +16,7 @@
   (each [idx str (ipairs arg-array)]
     ; test if the first character is /
     ; since we don't want to change absolute paths
-    (if (~= "/" (string.sub str 1 1))
+    (when (~= "/" (string.sub str 1 1))
       ; read only a line since a command can't contain newlines
       ; (reading *all will cause a newline to be read, adds nothing for `pwd`)
       (tset arg-array idx (.. (system "pwd" "*line") "/" str))))
