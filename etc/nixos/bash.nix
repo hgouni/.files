@@ -1,29 +1,29 @@
 { config, pkgs, ... }:
 
 {
-    home.sessionVariables = {
-        HISTCONTROL = "ignoreboth";
-        PROMPT_DIRTRIM = "2";
-    };
+  home.sessionVariables = {
+    HISTCONTROL = "ignoreboth";
+    PROMPT_DIRTRIM = "2";
+  };
 
-    programs.bash = {
-        enable = true;
-        # login only
-        profileExtra = ''
-          if [[ "$-" == *i* && "$(tty)" == '/dev/tty1' ]]; then
-              exec sway
-          fi
-        '';
-        # interactive only
-        initExtra = ''
-          set -o vi
+  programs.bash = {
+    enable = true;
+    # login only
+    profileExtra = ''
+      if [[ "$-" == *i* && "$(tty)" == '/dev/tty1' ]]; then
+          exec sway
+      fi
+    '';
+    # interactive only
+    initExtra = ''
+      set -o vi
 
-          alias d='pushd'
-          alias b='popd'
-          alias c='clear'
-          alias f='ls'
+      alias d='pushd'
+      alias b='popd'
+      alias c='clear'
+      alias f='ls'
 
-          PS1="\e[1;32m\j \w\e[m "
-        '';
-    };
+      PS1="\e[1;32m\j \w\e[m "
+    '';
+  };
 }

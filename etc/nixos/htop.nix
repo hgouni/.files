@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
-{ 
+{
   programs.htop = {
-    enable = true; 
+    enable = true;
     settings = {
-        delay = 5;
-        tree_view = true;
-        vim_mode = true;
+      delay = 5;
+      tree_view = true;
+      vim_mode = true;
     };
   };
 }

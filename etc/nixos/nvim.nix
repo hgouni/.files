@@ -11,7 +11,7 @@
 
   programs.neovim = {
 
-    enable = true; 
+    enable = true;
 
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: [

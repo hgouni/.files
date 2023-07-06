@@ -1,30 +1,30 @@
 { config, pkgs, ... }:
 
-{ 
-    programs.tmux = {
+{
+  programs.tmux = {
 
-        enable = true; 
+    enable = true;
 
-        baseIndex = 1;
+    baseIndex = 1;
 
-        clock24 = true;
+    clock24 = true;
 
-        customPaneNavigationAndResize = true;
-        
-        escapeTime = 0;
+    customPaneNavigationAndResize = true;
 
-        historyLimit = 100000;
+    escapeTime = 0;
 
-        keyMode = "vi";
+    historyLimit = 100000;
 
-        # prefix = "M-f";
+    keyMode = "vi";
 
-        # shell = "\${pkgs.fish}/bin/fish";
+    # prefix = "M-f";
 
-        terminal = "tmux-256color";
+    # shell = "\${pkgs.fish}/bin/fish";
 
-        sensibleOnTop = false;
+    terminal = "tmux-256color";
 
-        extraConfig = builtins.readFile ./files/tmux/tmux.conf;
-    };
+    sensibleOnTop = false;
+
+    extraConfig = builtins.readFile ./files/tmux/tmux.conf;
+  };
 }

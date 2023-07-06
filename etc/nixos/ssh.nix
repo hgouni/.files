@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-{ 
+{
   systemd.user.services.ssh-agent = {
     Unit = {
       Description = "SSH Agent";
@@ -34,8 +34,8 @@
   };
 
   home.sessionVariables = {
-        SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
-        SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent.socket";
+    SSH_ASKPASS = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent.socket";
   };
 
   programs.ssh = {
@@ -75,7 +75,7 @@
         user = "git";
       };
 
-      "git.github" = lib.hm.dag.entryAfter [ "git.*"] {
+      "git.github" = lib.hm.dag.entryAfter [ "git.*" ] {
         hostname = "github.com";
       };
 
@@ -83,11 +83,11 @@
         hostname = "github.com";
       };
 
-      "git.umn" = lib.hm.dag.entryAfter [ "git.*"] {
+      "git.umn" = lib.hm.dag.entryAfter [ "git.*" ] {
         hostname = "github.umn.edu";
       };
 
-      "git.unipassau" = lib.hm.dag.entryAfter [ "git.*"] {
+      "git.unipassau" = lib.hm.dag.entryAfter [ "git.*" ] {
         hostname = "gitlab.infosun.fim.uni-passau.de";
       };
     };

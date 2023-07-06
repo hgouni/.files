@@ -13,6 +13,7 @@
   };
 
   outputs = { self, nixpkgs, home-manager, antifennel, ... }: {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     nixosConfigurations.casper = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       modules = [
@@ -24,8 +25,8 @@
                 src = antifennel;
                 buildInputs = [ pkgs.luajit ];
                 installPhase = ''
-                    mkdir -p $out/bin
-                    cp antifennel $out/bin
+                  mkdir -p $out/bin
+                  cp antifennel $out/bin
                 '';
                 LUA_PATH = "?.lua;;";
               };
@@ -41,7 +42,8 @@
           ];
         })
         ./configuration.nix
-        home-manager.nixosModules.home-manager {
+        home-manager.nixosModules.home-manager
+        {
           # Use the system nixpkgs, not home-manager's own
           # This causes it to use our overlays
           home-manager.useGlobalPkgs = true;
