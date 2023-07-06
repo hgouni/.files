@@ -18,7 +18,7 @@
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
-(std.set-options {:shada "!,'100,<0,s10,h"
+(std.set-options {:shada "!,'100,<0,s10,h" ; turn off saving register contents
                   :modeline false
                   :splitbelow true
                   :cursorline true
@@ -36,10 +36,9 @@
 (std.set-options {:completeopt :menu})
 
 (local enter-forgetful-mode
-       (fn [] (std.set-options {:shadafile :NONE
-                                :undofile false
-                                :swapfile false})
-              (print "ShaDa, undo history, and swap files have been disabled.")))
+       (fn []
+         (std.set-options {:shadafile :NONE :undofile false :swapfile false})
+         (print "ShaDa, undo history, and swap files have been disabled.")))
 
 (std.a.nvim-create-autocmd [:BufEnter]
   {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
@@ -108,6 +107,9 @@
 (std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
                       :<C-k> :<Esc><Cmd>tabnext<CR>}
                      {:silent true})
+
+; suppress :healthcheck warning about perl provider
+(std.set-global-vars {:loaded_perl_provider 0})
 
 (std.set-options {:termguicolors true :background :dark})
 
