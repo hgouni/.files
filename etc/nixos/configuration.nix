@@ -25,6 +25,9 @@
   # Set your time zone.
   time.timeZone = "Etc/GMT";
 
+  networking.firewall.enable = true;
+  networking.nftables.enable = true;
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -32,7 +35,10 @@
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
   networking.hostName = "casper";
 
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+    llmnr = "false";
+  };
 
   systemd.network = {
     enable = true;
@@ -104,25 +110,6 @@
     sudo.u2fAuth = true;
   };
 
-  virtualisation.vmVariant = {
-    environment.systemPackages = [ pkgs.chromium ];
-    virtualisation.cores = 4;
-    virtualisation.memorySize = 7001;
-    # virtualisation.resolution = {
-    #   x = 1920;
-    #   y = 1080;
-    # };
-    virtualisation.qemu.options = [
-      "-vga qxl"
-      # "-vga none"
-      # "-device virtio-vga-gl"
-      "-display gtk,gl=on"
-      "-audiodev alsa,id=snd0,out.dev=default"
-      "-device intel-hda"
-      "-device hda-output,audiodev=snd0"
-    ];
-  };
-
   services.atd.enable = true;
   programs.fish.enable = true;
   programs.sway.enable = true;
@@ -130,7 +117,7 @@
 
   fonts.fonts = with pkgs; [ cm_unicode bakoma_ttf ];
 
-  # Allow non-root users to use ykpersonalize?
+  # Allow non-root users to use ykpersonalize
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
   environment.systemPackages = [

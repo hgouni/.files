@@ -11,7 +11,9 @@ ykman fido access change-pin
 ssh-keygen -t ed25519-sk -O resident -O verify-required
 
 # If using gpg, set touch required on openpgp to fixed:
-ykman openpgp keys set-touch {sig,dec,aut} fixed
+ykman openpgp keys set-touch sig fixed
+ykman openpgp keys set-touch dec fixed
+ykman openpgp keys set-touch aut fixed
 
 # For keepassxc, setup challenge response
 ykman otp chalresp --touch --generate 2
