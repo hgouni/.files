@@ -8,6 +8,7 @@
   home.file.".config/ripgrep/.ripgreprc".text = ''
     --glob=!.cache
     --glob=!.files
+    --glob=!.git
     --glob=!.local
     --glob=!.nix-defexpr
     --glob=!Trash

@@ -16,7 +16,7 @@ let
         pkgs.luajit
       ];
       installPhase = ''
-        printf '#!/usr/bin/env lua\n' > tmp.lua
+        printf '#!${pkgs.luajit}/bin/lua\n' > tmp.lua
         fennel --compile ${script-path} >> tmp.lua
         chmod +x tmp.lua
         mkdir -p $out/bin
@@ -35,6 +35,6 @@ in
     (pkgs.writeShellScriptBin
       "sync-dots"
       (builtins.readFile ./files/scripts/sync-dots.sh))
-    (writeFennelScriptBin "nvimr" ./files/scripts/nvim-remote.fnl)
+    (writeFennelScriptBin "e" ./files/scripts/nvim-remote.fnl)
   ];
 }

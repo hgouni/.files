@@ -1,3 +1,10 @@
+; want this to be as fast as possible so not registering functions here
+(when (not (os.getenv "NVIM"))
+  (if ...
+    (os.execute (.. "nvim " ...))
+    (os.execute "nvim"))
+  (os.exit))
+
 (fn system [command opts]
   (let [fd (io.popen command)
         output (fd:read opts)]
