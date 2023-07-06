@@ -1,8 +1,8 @@
 ; want this to be as fast as possible so not registering functions here
 (when (not (os.getenv "NVIM"))
-  (if ...
-    (os.execute (.. "nvim " (table.concat _G.arg " "))) 
-    (os.execute "nvim"))
+  (if (= 0 (length _G.arg))
+    (os.execute "nvim")
+    (os.execute (.. "nvim " (table.concat _G.arg " ")))) 
   (os.exit))
 
 (fn system [command opts]
