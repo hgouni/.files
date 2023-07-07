@@ -30,7 +30,7 @@
                   :hlsearch false})
 
 ; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> vim.bo.omnifunc} {:silent true})
+(std.set-key-maps :i {:<C-l> :<C-x><C-o>} {:silent true})
 
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
@@ -60,7 +60,7 @@
           buf (std.a.nvim-create-buf false true)]
       (std.a.nvim-buf-set-lines buf 0 -1 true contents)
       (std.open-centered-window buf 0.7 0.7 "Clipboard")
-      (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
+      (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete buf {}))}
                            {:silent true :buffer buf}))))
 
 (local clear-clipboard
@@ -101,10 +101,20 @@
 ; shouldn't always have <CR>, this is just needed because we're escaping to
 ; command mode)
 
+(fn get-word-under-cursor []
+  (vim.fn.expand "<cWORD>"))
+
+(fn temp-tabpage-for-word [word]
+  (vim.cmd.stopinsert)
+  (vim.cmd (.. "tab Man " word)) 
+  (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
+                       {:silent true :buffer 0})) 
+
 (std.set-key-maps :t {:<C-j> (fn [] (vim.cmd.stopinsert)
                                     (vim.cmd.tabprev))
                       :<C-k> (fn [] (vim.cmd.stopinsert)
-                                    (vim.cmd.tabnext))} 
+                                    (vim.cmd.tabnext))
+                      :<C-h> (fn [] (temp-tabpage-for-word (get-word-under-cursor)))}
                      {:silent true})
 
 (std.set-key-maps :i {:<C-j> (fn [] (vim.cmd.stopinsert)
@@ -129,7 +139,7 @@
                       :undotree_HelpLine 0
                       :undotree_SetFocusWhenToggle 1})
 
-(std.set-leader-maps {:u vim.cmd.UndoTreeToggle})
+(std.set-leader-maps {:u vim.cmd.UndotreeToggle})
 
 ; fzf config
 (std.set-leader-maps {:ff vim.cmd.Files
