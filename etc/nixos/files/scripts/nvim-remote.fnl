@@ -1,5 +1,4 @@
-; want this to be as fast as possible so not registering functions here
-
+; want this to be as fast as possible so not registering functions yet
 (when (not (os.getenv "NVIM"))
   (os.execute (.. "nvim " (table.concat _G.arg " "))) 
   (os.exit))
@@ -13,13 +12,11 @@
 
 (fn prepend-abs-path [arg-array]
   (each [idx str (ipairs arg-array)]
-    ; test if the first character is /
-    ; since we don't want to change absolute paths
+    ; we don't want to change absolute paths
     (when (~= "/" (string.sub str 1 1))
       ; read only a line since a command can't contain newlines
       ; (reading *all will cause a newline to be read, adds nothing for `pwd`)
       (tset arg-array idx (.. (system "pwd" "*line") "/" str))))
-  ; return the processed array of arguments
   arg-array)
 
 ; build the final command

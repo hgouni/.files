@@ -30,7 +30,7 @@
                   :hlsearch false})
 
 ; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> :<C-x><C-o>} {:silent true})
+(std.set-key-maps :i {:<C-l> vim.bo.omnifunc} {:silent true})
 
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
@@ -85,14 +85,15 @@
       (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
       (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
-(std.set-leader-maps {:dj :<Cmd>tabclose
-                      :dk "<Cmd>tab split"
+(std.set-leader-maps {:dj vim.cmd.tabclose
+                      :dk (fn [] (vim.cmd "tab split"))
                       :dx delete-current-buffer
-                      :dd "<Cmd>b#"
-                      :dl :<Cmd>tabnew<bar>terminal})
+                      :dd (fn [] (vim.cmd.buffer "#"))
+                      :dl (fn [] (vim.cmd.tabnew)
+                                 (vim.cmd.terminal))}) 
 
-(std.set-key-maps :n {:<C-j> :<Cmd>tabprev
-                      :<C-k> :<Cmd>tabnext}
+(std.set-key-maps :n {:<C-j> vim.cmd.tabprev
+                      :<C-k> vim.cmd.tabnext} 
                      {:silent true})
 
 ; have to add <CR> explicitly for :t and :i bc it's a terminal mode map, and
@@ -100,12 +101,16 @@
 ; shouldn't always have <CR>, this is just needed because we're escaping to
 ; command mode)
 
-(std.set-key-maps :t {:<C-j> :<C-\><C-n><Cmd>tabprev<CR>
-                      :<C-k> :<C-\><C-n><Cmd>tabnext<CR>}
+(std.set-key-maps :t {:<C-j> (fn [] (vim.cmd.stopinsert)
+                                    (vim.cmd.tabprev))
+                      :<C-k> (fn [] (vim.cmd.stopinsert)
+                                    (vim.cmd.tabnext))} 
                      {:silent true})
 
-(std.set-key-maps :i {:<C-j> :<Esc><Cmd>tabprev<CR>
-                      :<C-k> :<Esc><Cmd>tabnext<CR>}
+(std.set-key-maps :i {:<C-j> (fn [] (vim.cmd.stopinsert)
+                                    (vim.cmd.tabprev))
+                      :<C-k> (fn [] (vim.cmd.stopinsert)
+                                    (vim.cmd.tabprev))}
                      {:silent true})
 
 ; suppress :healthcheck warning about perl provider
@@ -124,19 +129,19 @@
                       :undotree_HelpLine 0
                       :undotree_SetFocusWhenToggle 1})
 
-(std.set-leader-maps {:u :<Cmd>UndotreeToggle})
+(std.set-leader-maps {:u vim.cmd.UndoTreeToggle})
 
 ; fzf config
-(std.set-leader-maps {:ff :<Cmd>Files
-                      :fb :<Cmd>BLines
-                      :fl :<Cmd>Lines
-                      :ft :<Cmd>BTags
-                      :fp :<Cmd>Tags
-                      :fm :<Cmd>Marks
-                      :fc :<Cmd>Commands
-                      :fo :<Cmd>Buffers})
+(std.set-leader-maps {:ff vim.cmd.Files
+                      :fb vim.cmd.BLines
+                      :fl vim.cmd.Lines
+                      :ft vim.cmd.BTags
+                      :fp vim.cmd.Tags
+                      :fm vim.cmd.Marks
+                      :fc vim.cmd.Commands
+                      :fo vim.cmd.Buffers})
 
-; insert the lozenge character, for pollen
+; insert the lozenge character, for pollen (:h i_CTRL-V)
 (std.set-key-maps :i {"\\loz" :<C-v>u25ca}
                      {:silent true})
 
