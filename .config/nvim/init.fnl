@@ -78,6 +78,7 @@
     (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
     ; final parameter here is a lua array (previously: {1 "Edit another file!"})
     (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
+    ; remove buffer from buffer list
     (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
     ; since :h :bwipeout might be dangerous somehow, :bunload instead
     (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true})))
@@ -100,12 +101,12 @@
 (fn del-buf-close-tab []
   (let [current-buffer-identifier (std.a.nvim-get-current-buf)]
     (vim.cmd.tabclose)
+    (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
     (std.a.nvim-buf-delete current-buffer-identifier {:unload true})))
 
 (fn manpage-for-cmd [word]
   (vim.cmd (.. "silent! tab Man " word)) 
-  (std.set-key-maps :n {:<Esc> del-buf-close-tab}
-                       {:silent true :buffer 0})) 
+  (std.set-key-maps :n {:<Esc> del-buf-close-tab} {:silent true :buffer 0})) 
 
 (fn get-word-under-cursor []
   (vim.fn.expand "<cWORD>"))
