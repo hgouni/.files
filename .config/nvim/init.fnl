@@ -92,8 +92,8 @@
                       :dl (fn [] (vim.cmd.tabnew)
                                  (vim.cmd.terminal))}) 
 
-(std.set-key-maps :n {:<C-j> vim.cmd.tabprev
-                      :<C-k> vim.cmd.tabnext} 
+(std.set-key-maps :n {:<C-h> vim.cmd.tabprev
+                      :<C-l> vim.cmd.tabnext} 
                      {:silent true})
 
 ; have to add <CR> explicitly for :t and :i bc it's a terminal mode map, and
@@ -110,16 +110,16 @@
   (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
                        {:silent true :buffer 0})) 
 
-(std.set-key-maps :t {:<C-j> (fn [] (vim.cmd.stopinsert)
+(std.set-key-maps :t {:<C-h> (fn [] (vim.cmd.stopinsert)
                                     (vim.cmd.tabprev))
-                      :<C-k> (fn [] (vim.cmd.stopinsert)
+                      :<C-l> (fn [] (vim.cmd.stopinsert)
                                     (vim.cmd.tabnext))
-                      :<C-h> (fn [] (temp-tabpage-for-word (get-word-under-cursor)))}
+                      :<C-k> (fn [] (temp-tabpage-for-word (get-word-under-cursor)))}
                      {:silent true})
 
-(std.set-key-maps :i {:<C-j> (fn [] (vim.cmd.stopinsert)
+(std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert)
                                     (vim.cmd.tabprev))
-                      :<C-k> (fn [] (vim.cmd.stopinsert)
+                      :<C-l> (fn [] (vim.cmd.stopinsert)
                                     (vim.cmd.tabprev))}
                      {:silent true})
 
