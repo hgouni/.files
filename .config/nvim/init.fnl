@@ -85,12 +85,11 @@
       (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
       (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
 
-(std.set-leader-maps {:dj vim.cmd.tabclose
-                      :dk (fn [] (vim.cmd "tab split"))
+(std.set-leader-maps {:dh vim.cmd.tabclose
+                      :dl (fn [] (vim.cmd "tab split"))
                       :dx delete-current-buffer
                       :dd (fn [] (vim.cmd.buffer "#"))
-                      :dl (fn [] (vim.cmd.tabnew)
-                                 (vim.cmd.terminal))}) 
+                      "d;" (fn [] (vim.cmd.tabnew) (vim.cmd.terminal))})
 
 (std.set-key-maps :n {:<C-h> vim.cmd.tabprev
                       :<C-l> vim.cmd.tabnext} 
@@ -105,22 +104,17 @@
   (vim.fn.expand "<cWORD>"))
 
 (fn temp-tabpage-for-word [word]
-  (vim.cmd.stopinsert)
-  (vim.cmd (.. "tab Man " word)) 
+  (vim.cmd (.. "silent! tab Man " word)) 
   (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
                        {:silent true :buffer 0})) 
 
-(std.set-key-maps :t {:<C-h> (fn [] (vim.cmd.stopinsert)
-                                    (vim.cmd.tabprev))
-                      :<C-l> (fn [] (vim.cmd.stopinsert)
-                                    (vim.cmd.tabnext))
+(std.set-key-maps :t {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
+                      :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))
                       :<C-k> (fn [] (temp-tabpage-for-word (get-word-under-cursor)))}
                      {:silent true})
 
-(std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert)
-                                    (vim.cmd.tabprev))
-                      :<C-l> (fn [] (vim.cmd.stopinsert)
-                                    (vim.cmd.tabprev))}
+(std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
+                      :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))}
                      {:silent true})
 
 ; suppress :healthcheck warning about perl provider
