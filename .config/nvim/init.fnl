@@ -30,15 +30,14 @@
                   :hlsearch false})
 
 ; why does this work? this has remaps turned off
-(std.set-key-maps :i {:<C-l> :<C-x><C-o>} {:silent true})
+(std.set-key-maps :i {"<C-;>" :<C-x><C-o>} {:silent true})
 
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
 
-(local enter-forgetful-mode
-       (fn []
-         (std.set-options {:shadafile :NONE :undofile false :swapfile false})
-         (print "ShaDa, undo history, and swap files have been disabled.")))
+(fn enter-forgetful-mode []
+  (std.set-options {:shadafile :NONE :undofile false :swapfile false})
+  (print "ShaDa, persistent undo, and swap files have been disabled."))
 
 (std.a.nvim-create-autocmd [:BufEnter]
   {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
@@ -47,47 +46,45 @@
        
 (std.set-leader-maps {:q enter-forgetful-mode})
 
-(local get-clipboard
-  (fn []
-    (let [primary (vim.fn.getreg "*")
-          clipboard (vim.fn.getreg "+")
-          unsplit-string (.. "PRIMARY:\n\n"
-                             (if (std.str-is-empty primary) "<empty>" primary)
-                             "\n\n"
-                             "CLIPBOARD:\n\n"
-                             (if (std.str-is-empty clipboard) "<empty>" clipboard))
-          contents (vim.split unsplit-string "\n")
-          buf (std.a.nvim-create-buf false true)]
-      (std.a.nvim-buf-set-lines buf 0 -1 true contents)
-      (std.open-centered-window buf 0.7 0.7 "Clipboard")
-      (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete buf {}))}
-                           {:silent true :buffer buf}))))
+(fn get-clipboard []
+  (let [primary (vim.fn.getreg "*")
+        clipboard (vim.fn.getreg "+")
+        unsplit-string (.. "PRIMARY:\n\n"
+                           (if (std.str-is-empty primary) "<empty>" primary)
+                           "\n\n"
+                           "CLIPBOARD:\n\n"
+                           (if (std.str-is-empty clipboard) "<empty>" clipboard))
+        contents (vim.split unsplit-string "\n")
+        buf (std.a.nvim-create-buf false true)]
+    (std.a.nvim-buf-set-lines buf 0 -1 true contents)
+    (std.open-centered-window buf 0.7 0.7 "Clipboard")
+    (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete buf {}))}
+                         {:silent true :buffer buf})))
 
-(local clear-clipboard
-  (fn []
-    (vim.fn.setreg "*" "")
-    (vim.fn.setreg "+" "")
-    (print "PRIMARY and CLIPBOARD cleared.")))
+(fn clear-clipboard []
+  (vim.fn.setreg "*" "")
+  (vim.fn.setreg "+" "")
+  (print "PRIMARY and CLIPBOARD cleared."))
 
 (std.set-leader-maps {:w get-clipboard :e clear-clipboard})
 
 ; this will still remove buffers if it will close a tab other than
 ; one we are currently on. maybe it shouldn't
-(local delete-current-buffer
-  (fn []
-    (let [current-buffer-identifier (std.a.nvim-get-current-buf)
-          scratch-buffer-identifier (std.a.nvim-create-buf false true)
-          current-window-identifier (std.a.nvim-get-current-win)]
-      (std.a.nvim-command "silent! w")
-      (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
-      ; final parameter here is a lua array (previously: {1 "Edit another file!"})
-      (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
-      (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
-      (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true}))))
+(fn del-buf-keep-tab []
+  (let [current-buffer-identifier (std.a.nvim-get-current-buf)
+        scratch-buffer-identifier (std.a.nvim-create-buf false true)
+        current-window-identifier (std.a.nvim-get-current-win)]
+    (std.a.nvim-command "silent! w")
+    (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
+    ; final parameter here is a lua array (previously: {1 "Edit another file!"})
+    (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
+    (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
+    ; since :h :bwipeout might be dangerous somehow, :bunload instead
+    (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true})))
 
 (std.set-leader-maps {:dh vim.cmd.tabclose
                       :dl (fn [] (vim.cmd "tab split"))
-                      :dx delete-current-buffer
+                      :dx del-buf-keep-tab
                       :dd (fn [] (vim.cmd.buffer "#"))
                       "d;" (fn [] (vim.cmd.tabnew) (vim.cmd.terminal))})
 
@@ -100,17 +97,22 @@
 ; shouldn't always have <CR>, this is just needed because we're escaping to
 ; command mode)
 
+(fn del-buf-close-tab []
+  (let [current-buffer-identifier (std.a.nvim-get-current-buf)]
+    (vim.cmd.tabclose)
+    (std.a.nvim-buf-delete current-buffer-identifier {:unload true})))
+
+(fn manpage-for-cmd [word]
+  (vim.cmd (.. "silent! tab Man " word)) 
+  (std.set-key-maps :n {:<Esc> del-buf-close-tab}
+                       {:silent true :buffer 0})) 
+
 (fn get-word-under-cursor []
   (vim.fn.expand "<cWORD>"))
 
-(fn temp-tabpage-for-word [word]
-  (vim.cmd (.. "silent! tab Man " word)) 
-  (std.set-key-maps :n {:<Esc> (fn [] (std.a.nvim-buf-delete 0 {}))}
-                       {:silent true :buffer 0})) 
-
 (std.set-key-maps :t {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
                       :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))
-                      :<C-k> (fn [] (temp-tabpage-for-word (get-word-under-cursor)))}
+                      :<C-k> (fn [] (manpage-for-cmd (get-word-under-cursor)))}
                      {:silent true})
 
 (std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
