@@ -39,7 +39,7 @@
     ./nvim.nix
     ./pass.nix
     ./readline.nix
-    ./ripgrep.nix
+    ./rg.nix
     ./scripts.nix
     ./ssh.nix
     ./sway.nix

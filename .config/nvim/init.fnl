@@ -13,8 +13,12 @@
 (local lean (require :lean))
 
 ; replaces ftdetect
-(vim.filetype.add {:extension {:sv :silver}})
-(vim.filetype.add {:extension {:mcr :macaroni}})
+; there's a conflict with zipPlugin.vim using .ott
+(vim.filetype.add {:extension {:sv :silver :mcr :macaroni :ott :ott}})
+
+; interferes with ftdetect here if we don't set it only for reasonable extensions
+; plugins are loaded after init.lua so we could set this anywhere
+(std.set-global-vars {:zipPlugin_ext "*.docx,*.dotx,*.epub,*.jar,*.odf,*.otf,*.pptx,*.xlsx,*.zip"})
 
 (std.set-global-vars {:mapleader " " :maplocalleader ","})
 
@@ -105,7 +109,7 @@
     (std.a.nvim-buf-delete current-buffer-identifier {:unload true})))
 
 (fn manpage-for-cmd [word]
-  (vim.cmd (.. "silent! tab Man " word)) 
+  (vim.cmd (.. "tab Man " word)) 
   (std.set-key-maps :n {:<Esc> del-buf-close-tab} {:silent true :buffer 0})) 
 
 (fn get-word-under-cursor []
