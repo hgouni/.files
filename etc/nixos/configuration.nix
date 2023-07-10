@@ -36,9 +36,9 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
-  # should contain a line of the form
-  # hostname = "<value>"
+  # should contain a line of the form 'hostname = "<value>"'
   # TOML because it can't contain newlines, must be exact
+  # this is desirable bc otherwise differing hostname across machines = merge conflicts
   networking.hostName =
     (builtins.fromTOML (builtins.readFile ./files/system/secure/hostname.toml)).hostname;
 
@@ -52,10 +52,8 @@
     # systemd-networkd-wait-online.service will fail because iwd usually
     # manages our internet connection
     #
-    # might want to change this to be conditional to machines that use
-    # wireless? if we want to write systemd services that require the network
-    # to be online
-    wait-online.enable = false;
+    # only enable for desktops, which should have a wired internet connection
+    wait-online.enable = machineSpecific.isDesktop;
     networks = {
       "10-virt" = {
         matchConfig.Type = "ether";
