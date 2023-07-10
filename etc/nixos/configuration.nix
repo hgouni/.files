@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, machineSpecific, ... }:
 
 {
   imports =
@@ -36,7 +36,11 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
-  networking.hostName = "casper";
+  # should contain a line of the form
+  # hostname = "<value>"
+  # TOML because it can't contain newlines, must be exact
+  networking.hostName =
+    (builtins.fromTOML (builtins.readFile ./files/system/secure/hostname.toml)).hostname;
 
   services.resolved = {
     enable = true;
@@ -58,9 +62,8 @@
         matchConfig.Virtualization = true;
         networkConfig.DHCP = "yes";
       };
-      "10-desktop" = {
+      "10-desktop" = lib.mkIf machineSpecific.isDesktop {
         matchConfig.Type = "ether";
-        matchConfig.Host = "hambone";
         networkConfig.DHCP = "yes";
       };
     };
