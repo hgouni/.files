@@ -10,7 +10,7 @@ printf 'Syncing /etc/nixos\n'
 # 
 # (this comment can't go in the rsync command itself, gets parsed wrong)
 rsync --info=NAME --archive --delete --prune-empty-dirs \
-      --exclude 'secure' \
+      --exclude 'exclude' \
       --exclude 'hardware-configuration.nix' \
       '/etc/nixos/' "$HOME/.files/etc/nixos"
 

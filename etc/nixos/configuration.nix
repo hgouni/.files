@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, machineSpecific, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -36,11 +36,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "9.9.9.9" "149.112.112.112" ];
-  # should contain a line of the form 'hostname = "<value>"'
-  # TOML because it can't contain newlines, must be exact
-  # this is desirable bc otherwise differing hostname across machines = merge conflicts
-  networking.hostName =
-    (builtins.fromTOML (builtins.readFile ./files/system/secure/hostname.toml)).hostname;
 
   services.resolved = {
     enable = true;
@@ -53,14 +48,14 @@
     # manages our internet connection
     #
     # only enable for desktops, which should have a wired internet connection
-    wait-online.enable = machineSpecific.isDesktop;
+    wait-online.enable = config.machineSpecific.isDesktop;
     networks = {
       "10-virt" = {
         matchConfig.Type = "ether";
         matchConfig.Virtualization = true;
         networkConfig.DHCP = "yes";
       };
-      "10-desktop" = lib.mkIf machineSpecific.isDesktop {
+      "10-desktop" = lib.mkIf config.machineSpecific.isDesktop {
         matchConfig.Type = "ether";
         networkConfig.DHCP = "yes";
       };
@@ -108,7 +103,7 @@
   # allows for smartcard functionality
   services.pcscd.enable = true;
 
-  security.pam.u2f.authFile = ./files/system/secure/u2f_keys;
+  security.pam.u2f.authFile = ./files/system/exclude/u2f_keys;
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
