@@ -4,7 +4,7 @@ printf 'Syncing /etc/nixos\n'
 # prevent empty directories from being created at the destination (as a result
 # of exclusions)
 #
-# --exclude 'secure':
+# --exclude 'exclude':
 # exclude files that should not be uploaded to git, like private keys for VPN
 # configs
 # 

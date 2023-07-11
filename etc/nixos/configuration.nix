@@ -88,7 +88,7 @@
   virtualisation.libvirtd.enable = true;
 
   users.users = {
-    lawabidingcactus = {
+    hemant = {
       isNormalUser = true;
       createHome = true;
       extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" ];

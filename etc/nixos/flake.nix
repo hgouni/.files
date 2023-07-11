@@ -78,7 +78,7 @@
             # ===========
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.lawabidingcactus = import ./home.nix;
+            home-manager.users.hemant = import ./home.nix;
           }
         ];
       };
