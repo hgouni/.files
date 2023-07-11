@@ -23,12 +23,12 @@ ykman otp chalresp --touch 2 <key>
 ==== MACHINE SETUP ====
 
 # Setup sudo/login authentication via Yubikey
-mkdir -p /etc/nixos/files/system/secure
+mkdir -p /etc/nixos/files/system/exclude
 pamu2fcfg > u2f_keys
-sudo mv u2f_keys /etc/nixos/files/system/secure
+sudo mv u2f_keys /etc/nixos/files/system/exclude
 
 # to restore ssh key on another machine: https://developers.yubico.com/SSH/
 cd ~/.ssh
 ssh-keygen -K
-mv id_ed25519_sk_{rk,}
-mv id_ed25519_sk_{rk,}.pub
+mv id_ed25519_sk{_rk,}
+mv id_ed25519_sk{_rk,}.pub
