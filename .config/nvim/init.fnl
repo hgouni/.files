@@ -53,11 +53,10 @@
 (fn get-clipboard []
   (let [primary (vim.fn.getreg "*")
         clipboard (vim.fn.getreg "+")
-        unsplit-string (.. "PRIMARY:\n\n"
-                           (if (std.str-is-empty primary) "<empty>" primary)
-                           "\n\n"
-                           "CLIPBOARD:\n\n"
-                           (if (std.str-is-empty clipboard) "<empty>" clipboard))
+        unsplit-string (vim.fn.join
+                             ["PRIMARY:" (if (std.str-is-empty primary) "<empty>" primary)
+                              "CLIPBOARD:" (if (std.str-is-empty clipboard) "<empty>" clipboard)]
+                             "\n\n")
         contents (vim.split unsplit-string "\n")
         buf (std.a.nvim-create-buf false true)]
     (std.a.nvim-buf-set-lines buf 0 -1 true contents)
