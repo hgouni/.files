@@ -7,6 +7,8 @@ shopt -s globstar nullglob # - globstar allows for **, recurses into subdirector
                            #   expanded to nothing, instead of to themselves
 
 for file in "$HOME"/.config/nvim/**/*.fnl; do
-    fennel --compile "$file" | tee "$(printf '%s\n' "$file" | sed -e 's/fnl/lua/g')" > /dev/null
+    output_file="$(printf '%s\n' "$file" | sed -e 's/fnl/lua/g')"
+    mkdir -p "$(dirname "$output_file")"
+    fennel --compile "$file" | tee "$output_file" > /dev/null
     printf '%s compiled\n' "$file"
 done
