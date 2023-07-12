@@ -20,30 +20,24 @@
   home.stateVersion = "23.05";
 
   imports = [
-    ./alacritty.nix
     ./bash.nix
     ./direnv.nix
-    # ./emacs.nix
     ./extrautils.nix
     ./firefox.nix
-    ./fish.nix
     ./foot.nix
     ./fuzzel.nix
     ./gammastep.nix
     ./git.nix
     ./gnuradio.nix
-    # ./gpg.nix
     ./htop.nix
     ./icons.nix
     ./man.nix
     ./nvim.nix
-    ./pass.nix
     ./readline.nix
     ./rg.nix
     ./scripts.nix
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
-    ./tmux.nix
   ];
 }

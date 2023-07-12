@@ -34,6 +34,7 @@
     pkgs.virt-manager
     pkgs.wget
     pkgs.xdg-utils
+    pkgs.zbar
     pkgs.zip
   ];
 }
