@@ -63,7 +63,6 @@
 
   home.packages = with pkgs; [
     brightnessctl
-    gammastep
     libnotify
     mako
     sway-contrib.grimshot

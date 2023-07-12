@@ -48,14 +48,14 @@
     # manages our internet connection
     #
     # only enable for desktops, which should have a wired internet connection
-    wait-online.enable = config.machineSpecific.isDesktop;
+    wait-online.enable = config.machineSpecific.ethernet;
     networks = {
       "10-virt" = {
         matchConfig.Type = "ether";
         matchConfig.Virtualization = true;
         networkConfig.DHCP = "yes";
       };
-      "10-desktop" = lib.mkIf config.machineSpecific.isDesktop {
+      "10-desktop" = lib.mkIf config.machineSpecific.ethernet {
         matchConfig.Type = "ether";
         networkConfig.DHCP = "yes";
       };

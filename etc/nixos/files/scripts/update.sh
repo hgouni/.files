@@ -13,34 +13,23 @@ set_action () {
     then
         action="$1"
     else
-        printf 'Cannot set more than one of -p, -r, and -s. Exiting.\n'
+        printf 'Cannot set more than one action. Exiting.\n'
         exit
     fi
 }
 
-set_method () {
-    if test "$method" == 'boot'
-    then
-        method="$1"
-    else
-        printf 'Cannot set more than one of -i and -t. Exiting.\n'
-        exit
-    fi
-}
-
-while getopts 'hprsil' opt
+while getopts 'hprsi' opt
 do
     case "$opt" in
         '?' | 'h')
-            printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
+            printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
                 "Usage: $argv_0 [-hprsi]" \
                 'Update nixos and reboot.' \
                 '-h' 'Show this help text.' \
                 '-p' 'Suspend without prompting.' \
                 '-r' 'Reboot without prompting.' \
                 '-s' 'Shutdown without prompting.' \
-                '-i' 'Immediately switch to the updated system.' \
-                '-l' 'Show which packages will be upgraded and exit.'
+                '-i' 'Immediately switch to the updated system.'
             exit
             ;;
         'r')
@@ -53,11 +42,7 @@ do
             set_action 'systemctl suspend'
             ;;
         'i')
-            set_method 'switch'
-            ;;
-        'l')
-            set_method 'dry-run'
-            set_action 'exit'
+            method='switch'
             ;;
     esac
 done
@@ -66,6 +51,8 @@ done
 shift "$((OPTIND - 1))"
 
 sudo nix flake update /etc/nixos
+
+sudo nixos-rebuild dry-run
 
 sudo nixos-rebuild "$method"
 

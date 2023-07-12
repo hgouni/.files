@@ -21,9 +21,9 @@
                 type = lib.types.string;
                 default = machineSpecificArgs.system;
               };
-              isDesktop = lib.mkOption {
+              ethernet = lib.mkOption {
                 type = lib.types.bool;
-                default = machineSpecificArgs.isDesktop;
+                default = machineSpecificArgs.ethernet;
               };
             };
             # ===========
@@ -88,7 +88,12 @@
 
       nixosConfigurations.casper = mkNixosConfig {
         system = "x86_64-linux";
-        isDesktop = false;
+        ethernet = false;
+      };
+
+      nixosConfigurations.hambone = mkNixosConfig {
+        system = "x86_64-linux";
+        ethernet = false;
       };
     };
 }
