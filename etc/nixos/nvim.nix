@@ -46,7 +46,6 @@
       pkgs.fzf
       pkgs.shellcheck
       pkgs.texlab
-      pkgs.tectonic
     ];
 
     withPython3 = true;
