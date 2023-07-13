@@ -29,7 +29,8 @@
   time.timeZone = "Etc/GMT";
 
   networking.firewall.enable = true;
-  networking.nftables.enable = true;
+  networking.firewall.allowedTCPPorts = [ ];
+  networking.firewall.allowedUDPPorts = [ ];
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
