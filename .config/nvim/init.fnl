@@ -14,7 +14,7 @@
 
 ; replaces ftdetect
 ; there's a conflict with zipPlugin.vim using .ott
-(vim.filetype.add {:extension {:sv :silver :mcr :macaroni :ott :ott}})
+(vim.filetype.add {:extension {:sv :silver :mcr :macaroni :ott :ott :pm :pollen}})
 
 ; interferes with ftdetect here if we don't set it only for reasonable extensions
 ; plugins are loaded after init.lua so we could set this anywhere

@@ -1,0 +1,2 @@
+ctrl + l will cause readline to redraw the current line; can be used to make sure
+we're in a good editing state

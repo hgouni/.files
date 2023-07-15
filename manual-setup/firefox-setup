@@ -17,3 +17,9 @@ disable advertisements, pocket recommendations on new tab page
 about:addons -> allow extensions to run in private windows
 
 go to history -> manage history -> click on the bar and check most recent visit
+
+==== PER SITE ====
+
+github.com:
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block

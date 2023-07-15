@@ -16,8 +16,6 @@
     '';
     # interactive only
     initExtra = ''
-      set -o vi
-
       alias d='pushd'
       alias b='popd'
       alias c='clear'
