@@ -1,5 +1,5 @@
 To inspect the final value of a nixos option:
 
-1. `$ nix-repl`
+1. `$ nix repl`
 2. `nix-repl> :lf /etc/nixos`
 3. `nixosConfigurations.casper.config.<...>`
