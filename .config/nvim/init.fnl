@@ -14,7 +14,10 @@
 
 ; replaces ftdetect
 ; there's a conflict with zipPlugin.vim using .ott
-(vim.filetype.add {:extension {:sv :silver :mcr :macaroni :ott :ott :pm :pollen}})
+(vim.filetype.add {:extension {:sv :silver
+                               :mcr :macaroni
+                               :ott :ott
+                               :pm :pollen}})
 
 ; interferes with ftdetect here if we don't set it only for reasonable extensions
 ; plugins are loaded after init.lua so we could set this anywhere
@@ -53,10 +56,15 @@
 (fn get-clipboard []
   (let [primary (vim.fn.getreg "*")
         clipboard (vim.fn.getreg "+")
-        unsplit-string (vim.fn.join
-                             ["PRIMARY:" (if (std.str-is-empty primary) "<empty>" primary)
-                              "CLIPBOARD:" (if (std.str-is-empty clipboard) "<empty>" clipboard)]
-                             "\n\n")
+        unsplit-string (vim.fn.join ["PRIMARY:"
+                                     (if (std.str-is-empty primary)
+                                         :<empty>
+                                         primary)
+                                     "CLIPBOARD:"
+                                     (if (std.str-is-empty clipboard)
+                                         :<empty>
+                                         clipboard)]
+                                    "\n\n")
         contents (vim.split unsplit-string "\n")
         buf (std.a.nvim-create-buf false true)]
     (std.a.nvim-buf-set-lines buf 0 -1 true contents)

@@ -10,6 +10,7 @@
     pkgs.gnome.gnome-calculator
     pkgs.gnupg
     pkgs.hyperfine
+    pkgs.imagemagick
     pkgs.inetutils
     pkgs.jq
     pkgs.keepassxc
