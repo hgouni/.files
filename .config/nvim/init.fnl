@@ -6,6 +6,14 @@
 ;    BufEnter: each time cursor enters a buffer
 ;
 ; 3. vim.fn.<vimscript_function> invokes that vimscript function
+;
+; 4. V starts linewise insert, C-v starts block insert
+;
+; 5. :%norm can be used to execute a normal mode command on a range (every line here)
+;
+; 6. :helpgrep and :cdo can be used to perform edits on lines matching a pattern
+;
+; 7. q in a :Man buffer closes it
 
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
@@ -47,7 +55,7 @@
   (print "ShaDa, persistent undo, and swap files have been disabled."))
 
 (std.a.nvim-create-autocmd [:BufEnter]
-  {:group (std.a.nvim-create-augroup :SecureModeAucmds {})
+  {:group (std.a.nvim-create-augroup :ForgetfulModeAucmds {})
    :pattern [:/tmp/bash-fc.* :/var/tmp/*]
    :callback enter-forgetful-mode})
        
@@ -56,15 +64,12 @@
 (fn get-clipboard []
   (let [primary (vim.fn.getreg "*")
         clipboard (vim.fn.getreg "+")
-        unsplit-string (vim.fn.join ["PRIMARY:"
-                                     (if (std.str-is-empty primary)
-                                         :<empty>
-                                         primary)
-                                     "CLIPBOARD:"
-                                     (if (std.str-is-empty clipboard)
-                                         :<empty>
-                                         clipboard)]
-                                    "\n\n")
+        unsplit-string
+          (vim.fn.join ["PRIMARY:"
+                        (if (std.str-is-empty primary) :<empty> primary)
+                        "CLIPBOARD:"
+                        (if (std.str-is-empty clipboard) :<empty> clipboard)]
+                       "\n\n")
         contents (vim.split unsplit-string "\n")
         buf (std.a.nvim-create-buf false true)]
     (std.a.nvim-buf-set-lines buf 0 -1 true contents)
@@ -104,27 +109,15 @@
                       :<C-l> vim.cmd.tabnext} 
                      {:silent true})
 
-; have to add <CR> explicitly for :t and :i bc it's a terminal mode map, and
-; set-key-maps won't automatically take care of that here (:t and :i bindings
-; shouldn't always have <CR>, this is just needed because we're escaping to
-; command mode)
-
-(fn del-buf-close-tab []
-  (let [current-buffer-identifier (std.a.nvim-get-current-buf)]
-    (vim.cmd.tabclose)
-    (std.a.nvim-buf-set-option current-buffer-identifier :buflisted false)
-    (std.a.nvim-buf-delete current-buffer-identifier {:unload true})))
-
-(fn manpage-for-cmd [word]
-  (vim.cmd (.. "tab Man " word)) 
-  (std.set-key-maps :n {:<Esc> del-buf-close-tab} {:silent true :buffer 0})) 
+(fn mantab-for-cmd [word]
+  (vim.cmd (.. "tab Man " word))) 
 
 (fn get-word-under-cursor []
   (vim.fn.expand "<cWORD>"))
 
 (std.set-key-maps :t {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
                       :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))
-                      :<C-k> (fn [] (manpage-for-cmd (get-word-under-cursor)))}
+                      :<C-k> (fn [] (mantab-for-cmd (get-word-under-cursor)))}
                      {:silent true})
 
 (std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
