@@ -20,6 +20,10 @@
 (local lspconfig (require :lspconfig))
 (local lean (require :lean))
 
+; forward editor usages to the running nvim instance
+(vim.fn.setenv :EDITOR :e)
+(vim.fn.setenv :VISUAL :e)
+
 ; replaces ftdetect
 ; there's a conflict with zipPlugin.vim using .ott
 (vim.filetype.add {:extension {:sv :silver

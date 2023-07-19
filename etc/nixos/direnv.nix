@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
 {
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-  };
+  programs.direnv.enable = true;
 }

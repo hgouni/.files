@@ -43,16 +43,23 @@
           (_: {
             nixpkgs.overlays = [
               (_: prev: {
-                myAntifennel = prev.pkgs.stdenv.mkDerivation {
+                myAntifennel = prev.stdenv.mkDerivation {
                   name = "antifennel";
                   src = antifennel;
-                  buildInputs = [ prev.pkgs.luajit ];
+                  buildInputs = [ prev.luajit ];
                   installPhase = ''
                     mkdir -p $out/bin
                     cp antifennel $out/bin
                   '';
                   LUA_PATH = "?.lua;;";
                 };
+              })
+              (_: prev: {
+                myFennel = prev.luajitPackages.fennel.overrideAttrs (_: {
+                  nativeBuildInputs = prev.luajitPackages.fennel.nativeBuildInputs ++ [
+                    prev.luajitPackages.readline
+                  ];
+                });
               })
               # Do we really need to wrap prev.system in ${}?
               #

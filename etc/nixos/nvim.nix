@@ -51,5 +51,9 @@
     withPython3 = true;
   };
 
-  home.packages = [ pkgs.luajitPackages.fennel pkgs.fnlfmt pkgs.myAntifennel ];
+  home.packages = [
+    pkgs.myFennel
+    pkgs.fnlfmt
+    pkgs.myAntifennel
+  ];
 }
