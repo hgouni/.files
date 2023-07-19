@@ -3,3 +3,26 @@ To inspect the final value of a nixos option:
 1. `$ nix repl`
 2. `nix-repl> :lf /etc/nixos`
 3. `nixosConfigurations.casper.config.<...>`
+
+----
+
+The trick with using fixed points for lambdas returning self referential
+attrsets works because we're evaluating the nested function calls outside-in--
+ie, laziness:
+
+nix-repl> attrset_func = self: { a = 3; b = 4; c = self.a + self.b; }
+
+                              _________ note how we're using x in its own definition
+                             /          this creates a bunch of nested function calls f (f (f (f ...)))
+                             v
+nix-repl> fix = f: let x = f x; in x                                  
+
+nix-repl> fix attrset_func                                            
+{ a = 3; b = 4; c = 7; }
+
+nix-repl> attrset_func (attrset_func (abort "unevaluated"))
+{ a = 3; b = 4; c = 7; }   ^          ^
+                           |          \__________ this never gets evaluated...
+                           |
+                           \_______ ...since we never need the value of c from here!
+                                       (the outermost only requests a and b to complete evaluating)

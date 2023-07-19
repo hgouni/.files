@@ -1,0 +1,18 @@
+A few tips:
+
+1. c_Ctrl-R " is the keybind to paste text from register "
+
+2. FileType: buffer-local ONLY (filetype is set once per buffer)
+   BufEnter: each time cursor enters a buffer
+
+3. vim.fn.<vimscript_function> invokes that vimscript function
+
+4. V starts linewise insert, C-v starts block insert
+
+5. :%norm can be used to execute a normal mode command on a range (every line here)
+
+6. :helpgrep and :cdo can be used to perform edits on lines matching a pattern
+
+7. q in a :Man buffer closes it
+
+8. :tabm moves tabs
