@@ -4,7 +4,6 @@
 (local lean (require :lean))
 
 ; forward editor usages to the running nvim instance
-; can be done with vim.env
 (set vim.env.VISUAL :nr)
 (set vim.env.EDITOR vim.env.VISUAL)
 
@@ -81,7 +80,7 @@
   (let [current-buffer-identifier (std.a.nvim-get-current-buf)
         scratch-buffer-identifier (std.a.nvim-create-buf false true)
         current-window-identifier (std.a.nvim-get-current-win)]
-    (std.a.nvim-command "silent! w")
+    (vim.cmd "silent! w")
     (std.a.nvim-win-set-buf current-window-identifier scratch-buffer-identifier)
     ; final parameter here is a lua array (previously: {1 "Edit another file!"})
     (std.a.nvim-buf-set-lines scratch-buffer-identifier 0 0 true ["Edit another file!"])
@@ -90,11 +89,13 @@
     ; since :h :bwipeout might be dangerous somehow, :bunload instead
     (std.a.nvim-buf-delete current-buffer-identifier {:force true :unload true})))
 
-(std.set-leader-maps {:dh vim.cmd.tabclose
-                      :dl (fn [] (vim.cmd "tab split"))
-                      :dx del-buf-keep-tab
-                      :dd (fn [] (vim.cmd.buffer "#"))
-                      "d;" (fn [] (vim.cmd.tabnew) (vim.cmd.terminal))})
+(std.set-leader-maps {:sh vim.cmd.tabclose
+                      :sl (fn [] (vim.cmd "tab split"))
+                      :sx del-buf-keep-tab
+                      "s;" (fn [] (vim.cmd.tabnew) (vim.cmd.terminal))
+                      :dh (fn [] (vim.cmd "silent! tabmove -1"))
+                      :dl (fn [] (vim.cmd "silent! tabmove +1"))
+                      :dd (fn [] (vim.cmd.buffer "#"))})
 
 (std.set-key-maps :n {:<C-h> vim.cmd.tabprev
                       :<C-l> vim.cmd.tabnext} 

@@ -16,5 +16,7 @@ A few tips:
 7. q in a :Man buffer closes it
 
 8. :tabm moves tabs
+   a. tabm i to move current tab to pos i
+   b. tabm (-/+)i to move tab left/right by i
 
 9. gf opens the file under the cursor
