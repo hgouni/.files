@@ -2,7 +2,7 @@
 
 {
   home.sessionVariables = {
-    VISUAL = "nvim";
+    VISUAL = "e"; # see scripts.nix
     EDITOR = "${config.home.sessionVariables.VISUAL}";
     MANPAGER = "nvim +Man!";
     FZF_DEFAULT_COMMAND = "rg --files --hidden --follow";
