@@ -32,14 +32,14 @@
       pkgs.vimPlugins.lean-nvim
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.parinfer-rust
-      pkgs.vimPlugins.slimv
       pkgs.vimPlugins.supertab
       pkgs.vimPlugins.undotree
       pkgs.vimPlugins.vim-commentary
       pkgs.vimPlugins.vim-fugitive
-      pkgs.vimPlugins.vim-racket
-      pkgs.vimPlugins.vim-repeat
-      pkgs.vimPlugins.vim-surround
+      # Would rather use nvim-treesitter for language-aware structure edits of
+      # this sort
+      # pkgs.vimPlugins.vim-repeat
+      # pkgs.vimPlugins.vim-surround
     ];
 
     extraPackages = [

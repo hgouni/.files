@@ -38,3 +38,7 @@ nixos-rebuild switch --option substitute false
 `$ man configuration.nix`
 
 contains the contents of Appendix A from nixos-help.
+
+Same for home-configuration.nix
+
+----

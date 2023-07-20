@@ -145,11 +145,6 @@
 (std.set-key-maps :i {"\\loz" :<C-v>u25ca}
                      {:silent true})
 
-(std.set-global-vars {:lisp_rainbow 1
-                      :slimv_disable_scheme 1
-                      :slimv_disable_clojure 1
-                      :paredit_mode 0})
-
 (std.set-global-vars {"conjure#mapping#prefix" "\\"
                       "conjure#mapping#doc_word" false
                       "conjure#mapping#def_word" false

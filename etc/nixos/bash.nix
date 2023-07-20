@@ -20,6 +20,7 @@
       alias b='popd'
       alias c='clear'
       alias f='ls'
+      alias e='nvim'
 
       PS1="\e[1;32m\j \w\e[m "
     '';
