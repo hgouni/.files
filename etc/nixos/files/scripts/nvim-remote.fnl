@@ -1,6 +1,5 @@
-; want this to be as fast as possible so not registering functions yet
 (when (not (os.getenv "NVIM"))
-  (os.execute (.. "nvim " (table.concat _G.arg " "))) 
+  (print "No running neovim instance found! Exiting.")
   (os.exit))
 
 (fn system [command opts]

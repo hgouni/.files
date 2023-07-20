@@ -4,8 +4,12 @@
 (local lean (require :lean))
 
 ; forward editor usages to the running nvim instance
-(vim.fn.setenv :EDITOR :e)
-(vim.fn.setenv :VISUAL :e)
+; can be done with vim.env
+(set vim.env.VISUAL :nr)
+(set vim.env.EDITOR vim.env.VISUAL)
+
+; suppress :healthcheck warning about perl provider
+(std.set-global-vars {:loaded_perl_provider 0})
 
 ; replaces ftdetect
 ; there's a conflict with zipPlugin.vim using .ott
@@ -110,9 +114,6 @@
 (std.set-key-maps :i {:<C-h> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabprev))
                       :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))}
                      {:silent true})
-
-; suppress :healthcheck warning about perl provider
-(std.set-global-vars {:loaded_perl_provider 0})
 
 (std.set-options {:termguicolors true :background :dark})
 

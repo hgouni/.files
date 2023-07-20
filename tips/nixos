@@ -26,3 +26,15 @@ nix-repl> attrset_func (attrset_func (abort "unevaluated"))
                            |
                            \_______ ...since we never need the value of c from here!
                                        (the outermost only requests a and b to complete evaluating)
+
+----
+
+To force offline builds:
+
+nixos-rebuild switch --option substitute false
+
+----
+
+`$ man configuration.nix`
+
+contains the contents of Appendix A from nixos-help.

@@ -16,3 +16,5 @@ A few tips:
 7. q in a :Man buffer closes it
 
 8. :tabm moves tabs
+
+9. gf opens the file under the cursor

@@ -35,6 +35,6 @@ in
     (pkgs.writeShellScriptBin
       "sync-dots"
       (builtins.readFile ./files/scripts/sync-dots.sh))
-    (writeFennelScriptBin "e" ./files/scripts/nvim-remote.fnl)
+    (writeFennelScriptBin "nr" ./files/scripts/nvim-remote.fnl)
   ];
 }
