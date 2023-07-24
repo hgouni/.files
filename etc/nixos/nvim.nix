@@ -24,6 +24,8 @@
         plugins.tree-sitter-python
         plugins.tree-sitter-racket
         plugins.tree-sitter-rust
+        plugins.tree-sitter-html
+        plugins.tree-sitter-css
       ]))
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
