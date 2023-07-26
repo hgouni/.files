@@ -3,3 +3,8 @@
 
 * the section 'SHELL BUILTIN COMMANDS' in `man bash` has docs for bash's
   (extended) builtins like `read`
+
+* null termination flags (find -print0, grep --null, xargs --null, readlink
+  --zero, ...) can be used to process filenames containing newlines or spaces
+  safely
+  
