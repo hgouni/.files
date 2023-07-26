@@ -20,3 +20,5 @@ A few tips:
    b. tabm (-/+)i to move tab left/right by i
 
 9. gf opens the file under the cursor
+
+10. gO opens the table of contents for a help page or man page

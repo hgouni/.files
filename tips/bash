@@ -1,2 +1,5 @@
-ctrl + l will cause readline to redraw the current line; can be used to make sure
-we're in a good editing state
+* ctrl + l will cause readline to redraw the current line; can be used to make
+  sure we're in a good editing state
+
+* the section 'SHELL BUILTIN COMMANDS' in `man bash` has docs for bash's
+  (extended) builtins like `read`
