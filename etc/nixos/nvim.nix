@@ -15,17 +15,18 @@
 
     plugins = [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: [
+        plugins.tree-sitter-bash
+        plugins.tree-sitter-css
         plugins.tree-sitter-fennel
         plugins.tree-sitter-gleam
         plugins.tree-sitter-haskell
+        plugins.tree-sitter-html
         plugins.tree-sitter-latex
         plugins.tree-sitter-markdown
         plugins.tree-sitter-nix
         plugins.tree-sitter-python
         plugins.tree-sitter-racket
         plugins.tree-sitter-rust
-        plugins.tree-sitter-html
-        plugins.tree-sitter-css
       ]))
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
