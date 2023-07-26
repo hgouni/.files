@@ -18,7 +18,12 @@
       (tset arg-array idx (.. (system "pwd" "*line") "/" str))))
   arg-array)
 
+(fn sleep [time]
+  (os.execute (.. "sleep " time)))
+
 ; build the final command
 (os.execute (.. "nvim --server \"$NVIM\" --remote-tab "
                 ; add processed args
                 (table.concat (prepend-abs-path _G.arg) " ")))
+
+(sleep "infinity")

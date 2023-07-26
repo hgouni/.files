@@ -1,3 +1,5 @@
+(vim.loader.enable) ; byte compile and cache modules
+
 (local std (require :std))
 (local tree-sitter (require :nvim-treesitter.configs))
 (local lspconfig (require :lspconfig))
