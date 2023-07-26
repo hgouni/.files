@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 let
+  # not currently using this but will keep it around
   writeFennelScriptBin = binary-name: script-path:
     (pkgs.stdenv.mkDerivation {
       name = binary-name;
@@ -35,6 +36,8 @@ in
     (pkgs.writeShellScriptBin
       "sync-dots"
       (builtins.readFile ./files/scripts/sync-dots.sh))
-    (writeFennelScriptBin "nr" ./files/scripts/nvim-remote.fnl)
+    (pkgs.writeShellScriptBin
+      "nvim-remote"
+      (builtins.readFile ./files/scripts/nvim-remote.sh))
   ];
 }
