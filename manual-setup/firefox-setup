@@ -18,6 +18,8 @@ about:addons -> allow extensions to run in private windows
 
 go to history -> manage history -> click on the bar and check most recent visit
 
+set enhanced tracking protection to strict (also block trackers in non-private windows)
+
 ==== PER SITE ====
 
 github.com:

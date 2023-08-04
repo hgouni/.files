@@ -42,6 +42,10 @@
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
 
+(fn save-as-date [] (vim.cmd.write (std.get-date-string)))
+
+(std.a.nvim-create-user-command :S save-as-date {})
+
 (fn enter-forgetful-mode []
   (std.set-options {:shadafile :NONE :undofile false :swapfile false})
   (print "ShaDa, persistent undo, and swap files have been disabled."))

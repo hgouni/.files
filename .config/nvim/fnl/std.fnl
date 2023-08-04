@@ -72,13 +72,17 @@
 (fn str-is-empty [str]
   (or (= str nil) (= str "")))
 
+(fn get-date-string []
+  (os.date "%a-%d-%b-%Y"))
+
 {: v
  : a
+ : get-date-string
  : set-options
  : set-local-options
  : set-global-vars
  : set-leader-maps
  : set-localleader-maps
  : set-key-maps
- : open-centered-window
- : str-is-empty}
+ : str-is-empty
+ : open-centered-window}
