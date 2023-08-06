@@ -24,6 +24,7 @@
         plugins.tree-sitter-latex
         plugins.tree-sitter-markdown
         plugins.tree-sitter-nix
+        plugins.tree-sitter-ocaml
         plugins.tree-sitter-python
         plugins.tree-sitter-racket
         plugins.tree-sitter-rust

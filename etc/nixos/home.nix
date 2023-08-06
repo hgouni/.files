@@ -39,5 +39,6 @@
     ./ssh.nix
     ./sway.nix
     ./texlive.nix
+    ./utop.nix
   ];
 }
