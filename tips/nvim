@@ -9,16 +9,18 @@ A few tips:
 
 4. V starts linewise insert, C-v starts block insert
 
-5. :%norm can be used to execute a normal mode command on a range (every line here)
+5. o in visual mode swaps to other end of selection
 
-6. :helpgrep and :cdo can be used to perform edits on lines matching a pattern
+6. :%norm can be used to execute a normal mode command on a range (every line here)
 
-7. q in a :Man buffer closes it
+7. :helpgrep and :cdo can be used to perform edits on lines matching a pattern
 
-8. :tabm moves tabs
+8. q in a :Man buffer closes it
+
+9. :tabm moves tabs
    a. tabm i to move current tab to pos i
    b. tabm (-/+)i to move tab left/right by i
 
-9. gf opens the file under the cursor
+10. gf opens the file under the cursor
 
-10. gO opens the table of contents for a help page or man page
+11. gO opens the table of contents for a help page or man page
