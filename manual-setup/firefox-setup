@@ -25,3 +25,7 @@ set enhanced tracking protection to strict (also block trackers in non-private w
 github.com:
 
 1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+discord.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block

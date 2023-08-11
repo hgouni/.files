@@ -8,9 +8,10 @@
       url = "git+https://git.sr.ht/~technomancy/antifennel";
       flake = false;
     };
+    nixpkgs-ykman.url = "github:nixos/nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, antifennel, ... }:
+  outputs = { self, nixpkgs, home-manager, antifennel, nixpkgs-ykman, ... }:
     let
       mkNixosConfig = machineSpecificArgs: nixpkgs.lib.nixosSystem {
         inherit (machineSpecificArgs) system;
@@ -60,6 +61,9 @@
                     prev.luajitPackages.readline
                   ];
                 });
+              })
+              (_: prev: {
+                yubikey-manager = nixpkgs-ykman.legacyPackages.${prev.system}.yubikey-manager;
               })
               # Do we really need to wrap prev.system in ${}?
               #

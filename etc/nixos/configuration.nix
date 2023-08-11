@@ -114,7 +114,7 @@
   programs.sway.enable = true;
   programs.nix-ld.enable = true;
 
-  fonts.packages = [ pkgs.cm_unicode pkgs.bakoma_ttf ];
+  fonts.packages = [ pkgs.cm_unicode pkgs.bakoma_ttf pkgs.noto-fonts ];
 
   # Allow non-root users to use ykpersonalize
   services.udev.packages = [ pkgs.yubikey-personalization ];
