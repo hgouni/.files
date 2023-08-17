@@ -1,1 +1,7 @@
-* mod + b switchs to horizontal layout
+* `mod + b` switches to horizontal layout
+
+* `sway move workspace to output (right|left|down|up)`
+
+* `sway output <output> pos 0 0` to move <output> to left of primary screen
+
+* `sway output <output> scale 2` for 4k screens

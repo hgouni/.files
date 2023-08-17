@@ -26,6 +26,7 @@
           "${modifier}+Shift+d" = "exec brightnessctl set 1%-";
           "${modifier}+Shift+b" = "exec brightnessctl set +1%";
           "${modifier}+Shift+p" = "exec grimshot copy area";
+          "${modifier}+Shift+g" = "exec systemctl --user restart gammastep";
         };
     };
 
@@ -59,6 +60,34 @@
       '';
 
     wrapperFeatures.gtk = true;
+  };
+
+  services.kanshi = {
+    enable = true;
+
+    profiles = {
+      tcs = {
+        outputs = [
+          {
+            criteria = "Dell Inc. DELL P2723QE 7DQ1YV3";
+            scale = 2.0;
+            position = "0,0";
+          }
+          {
+            criteria = "BOE 0x06DF Unknown";
+            position = "0,1080";
+          }
+        ];
+      };
+      default = {
+        outputs = [
+          {
+            criteria = "BOE 0x06DF Unknown";
+            position = "0,0";
+          }
+        ];
+      };
+    };
   };
 
   home.packages = with pkgs; [
