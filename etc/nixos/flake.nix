@@ -25,6 +25,14 @@
                 type = lib.types.bool;
                 default = machineSpecificArgs.ethernet;
               };
+              server = lib.mkOption {
+                type = lib.types.bool;
+                default = machineSpecificArgs.server;
+              };
+              builder = lib.mkOption {
+                type = lib.types.bool;
+                default = machineSpecificArgs.builder;
+              };
             };
             # ===========
             # Since we're creating options in the same module, must
@@ -96,11 +104,15 @@
       nixosConfigurations.casper = mkNixosConfig {
         system = "x86_64-linux";
         ethernet = false;
+        server = false;
+        builder = false;
       };
 
       nixosConfigurations.hambone = mkNixosConfig {
         system = "x86_64-linux";
-        ethernet = false;
+        ethernet = true;
+        server = true;
+        builder = true;
       };
     };
 }

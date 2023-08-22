@@ -14,10 +14,11 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
+    trusted-users = lib.mkIf config.machineSpecific.builder [ "builder" ];
   };
 
+  nix.distributedBuilds = ! config.machineSpecific.builder;
   nix.extraOptions = "builders-use-substitutes = true";
-  nix.distributedBuilds = true;
   nix.buildMachines = [
     {
       hostName = "172.24.21.41";
@@ -105,13 +106,15 @@
   users.users = {
     hemant = {
       isNormalUser = true;
-      createHome = true;
       extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" ];
       # generated using `mkpasswd -m sha-512`; useful for generated vms
       #
       # users are not managed declaratively by default, so this is just
       # the password used when no other has been imperatively set
       initialPassword = "password";
+    };
+    builder = lib.mkIf config.machineSpecific.builder {
+    	isNormalUser = true;
     };
   };
 
@@ -210,7 +213,16 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+
+  services.openssh = {
+    enable = config.machineSpecific.server;
+    settings = {
+      PasswordAuthentication = false;
+      # Deprecated alias for ChallengeResponseAuthentication
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
