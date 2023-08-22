@@ -33,6 +33,10 @@
                 type = lib.types.bool;
                 default = machineSpecificArgs.builder;
               };
+              remoteBuilds = lib.mkOption {
+                type = lib.types.bool;
+                default = machineSpecificArgs.remoteBuilds;
+              };
             };
             # ===========
             # Since we're creating options in the same module, must
@@ -106,6 +110,7 @@
         ethernet = false;
         server = false;
         builder = false;
+        remoteBuilds = false;
       };
 
       nixosConfigurations.hambone = mkNixosConfig {
@@ -113,6 +118,7 @@
         ethernet = true;
         server = true;
         builder = true;
+        remoteBuilds = false;
       };
     };
 }

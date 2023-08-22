@@ -33,6 +33,8 @@ To force offline builds:
 
 nixos-rebuild switch --option substitute false
 
+(--offline flag also works for v2 cli commands)
+
 ----
 
 `$ man configuration.nix`

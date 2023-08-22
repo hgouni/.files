@@ -17,7 +17,7 @@
     trusted-users = lib.mkIf config.machineSpecific.builder [ "builder" ];
   };
 
-  nix.distributedBuilds = ! config.machineSpecific.builder;
+  nix.distributedBuilds = ! config.machineSpecific.builder && config.machineSpecific.remoteBuilds;
   nix.extraOptions = "builders-use-substitutes = true";
   nix.buildMachines = [
     {
