@@ -16,6 +16,20 @@
     auto-optimise-store = true;
   };
 
+  nix.extraOptions = "builders-use-substitutes = true";
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "172.24.21.41";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      maxJobs = 16;
+      speedFactor = 2;
+      sshUser = "builder";
+      sshKey = "/root/.ssh/id_ed25519";
+    }
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;

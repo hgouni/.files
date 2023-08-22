@@ -1,0 +1,1 @@
+monad is just functor but instead of a -> b it's a -> m b?
