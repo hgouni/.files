@@ -66,7 +66,7 @@
     enable = true;
 
     profiles = {
-      tcs = {
+      laptop-tcs = {
         outputs = [
           {
             criteria = "Dell Inc. DELL P2723QE 7DQ1YV3";
@@ -76,6 +76,14 @@
           {
             criteria = "BOE 0x06DF Unknown";
             position = "0,1080";
+          }
+        ];
+      };
+      hambone = {
+        outputs = [
+          {
+            criteria = "Dell Inc. DELL P2723QE 7DQ1YV3";
+            scale = 2.0;
           }
         ];
       };

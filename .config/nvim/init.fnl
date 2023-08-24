@@ -17,7 +17,8 @@
 (vim.filetype.add {:extension {:sv :silver
                                :mcr :macaroni
                                :ott :ott
-                               :pm :pollen}})
+                               :pm :pollen}
+                   :pattern {"/tmp/bash%-fc%.%w*" :bash}})
 
 ; interferes with ftdetect here if we don't set it only for reasonable extensions
 ; plugins are loaded after init.lua so we could set this anywhere
@@ -54,7 +55,7 @@
   {:group (std.a.nvim-create-augroup :ForgetfulModeAucmds {})
    :pattern [:/tmp/bash-fc.* :/var/tmp/*]
    :callback enter-forgetful-mode})
-       
+
 (std.set-leader-maps {:q enter-forgetful-mode})
 
 (fn get-clipboard []
