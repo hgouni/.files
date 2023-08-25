@@ -1,0 +1,8 @@
+To change LUKS password:
+
+1. Figure out luks partition from `lsblk`.
+2. `sudo cryptsetup --verbose open --test-passphrase /dev/<partition>`
+   a. This will output the key slot <slot>
+3. `sudo cryptsetup luksChangeKey /dev/<partition> -S <slot>`
+4. Make sure you inputted the new password correctly with step 2.
+   a. If you didn't, back up your whole drive.
