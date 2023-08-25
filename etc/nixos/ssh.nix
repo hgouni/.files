@@ -43,6 +43,9 @@
     serverAliveInterval = 60;
 
     matchBlocks = {
+      "hambone" = {
+        hostname = "128.237.79.4";
+      };
       "acm.argo" = {
         hostname = "argo.acm.umn.edu";
       };
