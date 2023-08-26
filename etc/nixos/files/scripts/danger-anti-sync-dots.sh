@@ -1,8 +1,7 @@
-#!/bin/bash
-
 printf 'Replacing /etc/nixos\n'
 
 sudo rsync --info=NAME --archive --delete \
+      --exclude 'exclude' \
       --exclude 'hardware-configuration.nix' \
       "$HOME/.files/etc/nixos/" '/etc/nixos'
 
