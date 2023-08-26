@@ -20,7 +20,7 @@ printf 'Syncing %s/.config/nvim\n' "$HOME"
 # nvim one. do not include empty directories
 rsync --info=NAME --archive --delete --prune-empty-dirs \
       --include '*.fnl' \
-      --include 'syntax/*.vim' \
+      --include '*.vim' \
       --include "*/" \
       --exclude "*" \
       "$HOME/.config/nvim/" "$HOME/.files/.config/nvim"
