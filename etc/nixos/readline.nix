@@ -9,4 +9,6 @@
     set vi-ins-mode-string "\1\e[6 q\2"
     set keyseq-timeout 10
   '';
+
+  home.packages = [ pkgs.rlwrap ];
 }

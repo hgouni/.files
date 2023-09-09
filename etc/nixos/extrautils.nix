@@ -7,7 +7,7 @@
     pkgs.chez
     pkgs.cubicsdr
     pkgs.fish
-    pkgs.fldigi
+    # pkgs.fldigi
     pkgs.gnome.gnome-calculator
     pkgs.gnupg
     pkgs.hyperfine
