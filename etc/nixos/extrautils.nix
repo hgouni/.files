@@ -24,6 +24,7 @@
     pkgs.openssl
     pkgs.pandoc
     pkgs.pciutils
+    pkgs.pdftk
     pkgs.psmisc
     pkgs.racket
     pkgs.sdrangel

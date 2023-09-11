@@ -78,6 +78,7 @@
             position = "0,1080";
           }
         ];
+        exec = "systemctl --user restart gammastep";
       };
       hambone = {
         outputs = [
