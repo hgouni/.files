@@ -17,7 +17,8 @@
 (vim.filetype.add {:extension {:sv :silver
                                :mcr :macaroni
                                :ott :ott
-                               :pm :pollen}
+                               :pm :pollen
+                               :lam :lambda}
                    :pattern {"/tmp/bash%-fc%.%w*" :bash}})
 
 ; interferes with ftdetect here if we don't set it only for reasonable extensions
