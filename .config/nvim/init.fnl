@@ -170,7 +170,7 @@
 
 ; pairs, ipairs generate index, value
 ; ipairs is guaranteed to iterate sequentially
-(each [_ server (ipairs [:rust_analyzer :metals :hls])]
+(each [_ server (ipairs [:rust_analyzer :metals :hls :ocamllsp])]
   ((. lspconfig server :setup) {}))
 
 (lspconfig.racket_langserver.setup {:filetypes [:racket]})

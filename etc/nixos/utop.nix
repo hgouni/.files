@@ -2,6 +2,6 @@
 
 {
   home.file.".ocamlinit".text = ''
-    #utop_prompt_simple;;
+    #edit_mode_vi
   '';
 }

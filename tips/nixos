@@ -44,3 +44,7 @@ contains the contents of Appendix A from nixos-help.
 Same for home-configuration.nix
 
 ----
+
+If something isn't working, try updating the flake it's installed from first!
+
+----
