@@ -46,6 +46,11 @@
       "hambone" = {
         hostname = "128.237.79.4";
       };
+      "hambone.initramfs" = {
+        hostname = "128.237.79.4";
+        user = "root";
+        extraOptions.UserKnownHostsFile = "~/.ssh/known_hosts_initramfs";
+      };
       "acm.argo" = {
         hostname = "argo.acm.umn.edu";
       };
