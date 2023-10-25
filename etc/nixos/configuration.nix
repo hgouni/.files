@@ -217,7 +217,7 @@
     enable = config.machineSpecific.server;
     settings = {
       PasswordAuthentication = false;
-      # Deprecated alias for ChallengeResponseAuthentication
+      # Alias for deprecated ChallengeResponseAuthentication
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
     };
