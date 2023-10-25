@@ -18,11 +18,11 @@
           ({ config, lib, ... }: {
             options.machineSpecific = {
               name = lib.mkOption {
-                type = lib.types.string;
+                type = lib.types.nonEmptyStr;
                 default = machineSpecificArgs.name;
               };
               system = lib.mkOption {
-                type = lib.types.string;
+                type = lib.types.nonEmptyStr;
                 default = machineSpecificArgs.system;
               };
               ethernet = lib.mkOption {
