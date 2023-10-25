@@ -11,7 +11,13 @@ Add entry for the machine to /etc/nixos/configuration.nix:
   - kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
 
 Client config
-------------------------------------------------------------------
+-------------
 
 - Add entry for the machine as machine.initramfs in ssh.nix
 - Add host key entry to ~/.ssh/known_hosts_initramfs
+
+Usage
+-----
+
+- ssh machine.initramfs
+- run cryptsetup-askpass
