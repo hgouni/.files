@@ -17,6 +17,10 @@
         modules = [
           ({ config, lib, ... }: {
             options.machineSpecific = {
+              name = lib.mkOption {
+                type = lib.types.string;
+                default = machineSpecificArgs.name;
+              };
               system = lib.mkOption {
                 type = lib.types.string;
                 default = machineSpecificArgs.system;
@@ -28,14 +32,6 @@
               server = lib.mkOption {
                 type = lib.types.bool;
                 default = machineSpecificArgs.server;
-              };
-              builder = lib.mkOption {
-                type = lib.types.bool;
-                default = machineSpecificArgs.builder;
-              };
-              remoteBuilds = lib.mkOption {
-                type = lib.types.bool;
-                default = machineSpecificArgs.remoteBuilds;
               };
             };
             # ===========
@@ -109,16 +105,14 @@
         system = "x86_64-linux";
         ethernet = false;
         server = false;
-        builder = false;
-        remoteBuilds = false;
+        name = "casper";
       };
 
       nixosConfigurations.hambone = mkNixosConfig {
         system = "x86_64-linux";
         ethernet = true;
         server = true;
-        builder = true;
-        remoteBuilds = false;
+        name = "hambone";
       };
     };
 }

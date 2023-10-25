@@ -14,27 +14,29 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-    trusted-users = lib.mkIf config.machineSpecific.builder [ "builder" ];
   };
-
-  nix.distributedBuilds = (! config.machineSpecific.builder) && config.machineSpecific.remoteBuilds;
-  nix.extraOptions = "builders-use-substitutes = true";
-  nix.buildMachines = [
-    {
-      hostName = "172.24.21.41";
-      system = "x86_64-linux";
-      protocol = "ssh-ng";
-      maxJobs = 16;
-      speedFactor = 2;
-      sshUser = "builder";
-      sshKey = "/root/.ssh/id_ed25519";
-    }
-  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.availableKernelModules = lib.mkIf (config.machineSpecific.name == "hambone") [ "e1000e" ];
+  boot.kernelParams = lib.mkIf (config.machineSpecific.name == "hambone") [
+    # from kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
+    # machine ip : _ : gateway : netmask : _ : nic name : {off (static), on (all), dhcp, ...}
+    "ip=128.237.79.4::128.237.79.1:255.255.255.192::enp0s31f6:off"
+  ];
+
+  boot.initrd.network = lib.mkIf config.machineSpecific.server {
+    enable = true;
+    ssh = {
+      enable = true;
+      port = 22;
+      authorizedKeys = [ "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKUw9q0rmmYPBXUHQhdSwG1/4ap0Fypm5J+s6rOch0byAAAABHNzaDo= ssh:" ];
+      hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+    };
+  };
 
   # prevent processes running as the same user from reading each others'
   # memory
@@ -112,9 +114,6 @@
       # users are not managed declaratively by default, so this is just
       # the password used when no other has been imperatively set
       initialPassword = "password";
-    };
-    builder = lib.mkIf config.machineSpecific.builder {
-    	isNormalUser = true;
     };
   };
 

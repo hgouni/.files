@@ -1,0 +1,17 @@
+Generate host key:
+------------------
+
+ssh-keygen -t ed25519 -N "" -f /etc/secrets/initrd/ssh_host_ed25519_key
+
+Add entry for the machine to /etc/nixos/configuration.nix:
+----------------------------------------------------------
+
+- Add the kernel module for your NIC to boot.initrd.availableKernelModules
+- Configure boot.kernelParams with the 'ip=' param
+  - kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
+
+Client config
+------------------------------------------------------------------
+
+- Add entry for the machine as machine.initramfs in ssh.nix
+- Add host key entry to ~/.ssh/known_hosts_initramfs
