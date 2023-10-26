@@ -25,7 +25,8 @@
   boot.kernelParams = lib.mkIf (config.machineSpecific.name == "hambone") [
     # from kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
     # machine ip : _ : gateway : netmask : _ : nic name : {off (static), on (all), dhcp, ...}
-    "ip=128.237.79.4::128.237.79.1:255.255.255.192::enp0s31f6:off"
+    # "ip=128.237.79.4::128.237.79.1:255.255.255.192::enp0s31f6:off"
+    "ip=dhcp"
   ];
 
   boot.initrd.network = lib.mkIf config.machineSpecific.server {
