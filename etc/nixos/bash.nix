@@ -33,7 +33,7 @@
       workdir = ''\w'';
     in
     ''
-      PS1=' ${improperExit}${ssh}${jobs}${workdir}${clear} '
+      PS1='${improperExit}${ssh}${jobs}${workdir} ⊢${clear} '
     '';
   };
 }
