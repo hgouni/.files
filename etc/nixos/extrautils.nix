@@ -21,6 +21,7 @@
     pkgs.mpv
     pkgs.nixos-generators
     pkgs.nmap
+    pkgs.nushell
     pkgs.openssl
     pkgs.pandoc
     pkgs.pciutils

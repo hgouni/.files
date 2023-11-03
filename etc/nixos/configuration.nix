@@ -109,7 +109,7 @@
   users.users = {
     hemant = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "dialout" "audio" "docker" "libvirtd" "kvm" ];
+      extraGroups = [ "audio" "dialout" "docker" "kvm" "libvirtd" "wheel" ];
       # generated using `mkpasswd -m sha-512`; useful for generated vms
       #
       # users are not managed declaratively by default, so this is just
