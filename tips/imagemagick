@@ -1,0 +1,2 @@
+- To identify the colors in an image: `identify -verbose -`
+  - (can paste from screenshot with `wl-paste | identify -verbose -`)
