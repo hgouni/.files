@@ -38,6 +38,7 @@
     pkgs.virt-manager
     pkgs.wget
     pkgs.xdg-utils
+    pkgs.xournalpp
     pkgs.zbar
     pkgs.zip
   ];
