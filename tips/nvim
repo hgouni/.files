@@ -24,3 +24,6 @@ A few tips:
 10. gf opens the file under the cursor
 
 11. gO opens the table of contents for a help page or man page
+
+12. zz recenters buffer vertically, zt positions it at top of window, zb bottom
+   a. preserves column
