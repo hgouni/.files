@@ -124,6 +124,7 @@
                       :<C-l> (fn [] (vim.cmd.stopinsert) (vim.cmd.tabnext))}
                      {:silent true})
 
+; make sure 24 bit TUI color is enabled (do it ourselves to be theme-independent)
 (std.set-options {:termguicolors true :background :dark})
 
 (vim.cmd.colorscheme :gruvbox)
