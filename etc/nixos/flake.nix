@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-firefox.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-faster.url = "github:nixos/nixpkgs/nixos-unstable-small";
     home-manager.url = "github:nix-community/home-manager";
     antifennel = {
       url = "git+https://git.sr.ht/~technomancy/antifennel";
@@ -11,7 +11,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-firefox, home-manager, antifennel, ... }:
+  outputs = { self, nixpkgs, nixpkgs-faster, home-manager, antifennel, ... }:
     let
       mkNixosConfig = machineSpecificArgs: nixpkgs.lib.nixosSystem {
         inherit (machineSpecificArgs) system;
@@ -70,7 +70,7 @@
                   ];
                 });
               })
-              (_: prev: { firefox = nixpkgs-firefox.legacyPackages.${prev.system}.firefox; })
+              (_: prev: { firefox = nixpkgs-faster.legacyPackages.${prev.system}.firefox; })
               # Do we really need to wrap prev.system in ${}?
               #
               # ===========

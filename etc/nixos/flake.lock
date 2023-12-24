@@ -50,7 +50,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-firefox": {
+    "nixpkgs-faster": {
       "locked": {
         "lastModified": 1703213509,
         "narHash": "sha256-BDVzvjPwKk4/yvdCNzjmm1wlDf7Pdbhsf+hV2ybKkrY=",
@@ -87,7 +87,7 @@
         "antifennel": "antifennel",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-firefox": "nixpkgs-firefox"
+        "nixpkgs-faster": "nixpkgs-faster"
       }
     }
   },
