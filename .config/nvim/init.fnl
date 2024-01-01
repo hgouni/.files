@@ -44,7 +44,7 @@
 ; no preview window for completions
 (std.set-options {:completeopt :menu})
 
-(fn save-as-date [] (vim.cmd.write (std.get-date-string)))
+(fn save-as-date [] (vim.cmd.write (.. (std.get-date-string) ".md")))
 
 (std.a.nvim-create-user-command :S save-as-date {})
 
@@ -171,7 +171,7 @@
 
 ; pairs, ipairs generate index, value
 ; ipairs is guaranteed to iterate sequentially
-(each [_ server (ipairs [:rust_analyzer :metals :hls :ocamllsp])]
+(each [_ server (ipairs [:hls :marksman :metals :ocamllsp :rust_analyzer])]
   ((. lspconfig server :setup) {}))
 
 (lspconfig.racket_langserver.setup {:filetypes [:racket]})

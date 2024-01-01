@@ -30,6 +30,8 @@
         plugins.python
         plugins.racket
         plugins.rust
+        plugins.vim
+        plugins.vimdoc
       ]))
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
@@ -52,6 +54,7 @@
       pkgs.fzf
       pkgs.shellcheck
       pkgs.texlab
+      pkgs.marksman
     ];
 
     withPython3 = true;
