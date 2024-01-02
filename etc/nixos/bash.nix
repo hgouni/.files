@@ -23,6 +23,7 @@
     '';
 
     # interactive only
+    # do NOT run external commands (non-shell builtins) here! for cleanliness
     initExtra = let
       red = ''\e[1;31m'';
       green = ''\e[1;32m'';
@@ -32,6 +33,7 @@
       jobs = ''$([ "\j" -gt 0 ] && printf "%s " "\j")'';
       workdir = ''\w'';
     in
+    # improperExit must be first, so job status isn't changed
     ''
       PS1='${improperExit}${ssh}${jobs}${workdir} ⊢${clear} '
     '';

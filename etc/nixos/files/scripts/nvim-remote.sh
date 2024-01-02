@@ -4,4 +4,4 @@ readlink --canonicalize --zero "$@" \
     | xargs --null nvim --server "$NVIM" --remote-tab
 
 # so the 'editor' waits for input
-read -rp $'Press enter to finish editing.\n'
+read -rp $'Press enter to finish editing (for temporary files).\n'

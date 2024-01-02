@@ -14,6 +14,7 @@
   outputs = { self, nixpkgs, nixpkgs-faster, home-manager, antifennel, ... }:
     let
       mkNixosConfig = machineSpecificArgs: nixpkgs.lib.nixosSystem {
+        # equivalent to `system = machineSpecificArgs.system;`
         inherit (machineSpecificArgs) system;
         modules = [
           ({ config, lib, ... }: {
