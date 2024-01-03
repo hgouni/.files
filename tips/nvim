@@ -7,7 +7,7 @@ A few tips:
 
 3. vim.fn.<vimscript_function> invokes that vimscript function
 
-4. V starts linewise insert, C-v starts block insert
+4. V starts linewise visual, C-v starts block visual 
 
 5. o in visual mode swaps to other end of selection
 
