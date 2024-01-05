@@ -5,3 +5,5 @@
 * `sway output <output> pos 0 0` to move <output> to left of primary screen
 
 * `sway output <output> scale 2` for 4k screens
+
+* `sway output <output> mode 1920x1080` to set the screen resolution for <output> to 1080p
