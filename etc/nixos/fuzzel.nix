@@ -5,7 +5,10 @@
   programs.fuzzel.settings = {
     main = {
       terminal = "${pkgs.foot}/bin/foot";
-      font = "Monospace:pixelsize=27";
+      font = "DejaVu Sans Mono:pixelsize=27";
+    };
+    border = {
+      radius = 0;
     };
   };
 }
