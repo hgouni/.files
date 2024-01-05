@@ -21,6 +21,7 @@
           modifier = config.wayland.windowManager.sway.config.modifier;
         in
         lib.mkOptionDefault {
+          "Print" = "exec grim -g \"$(slurp -d)\" -t png - | wl-copy -t image/png";
           "${modifier}+Shift+x" = "exec swaylock";
           "${modifier}+Shift+s" = ''exec "swaylock --daemonize && systemctl suspend"'';
           "${modifier}+Shift+d" = "exec brightnessctl set 1%-";
@@ -101,9 +102,10 @@
 
   home.packages = with pkgs; [
     brightnessctl
+    grim
     libnotify
     mako
-    sway-contrib.grimshot
+    slurp
     swayidle
     swaylock
     wl-clipboard
