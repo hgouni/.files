@@ -33,3 +33,5 @@ A few tips:
 
 14. if tree-sitter inexplicably breaks, try seeing if there's any grammars
     missing
+
+15. after running lsp rename, execute :wall to write changes
