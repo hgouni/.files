@@ -20,6 +20,7 @@
   home.stateVersion = "23.05";
 
   imports = [
+    ./agda.nix
     ./bash.nix
     ./direnv.nix
     ./extrautils.nix
