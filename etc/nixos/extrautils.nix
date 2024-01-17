@@ -16,6 +16,7 @@
     pkgs.inetutils
     pkgs.jq
     pkgs.keepassxc
+    pkgs.krita
     pkgs.lm_sensors
     pkgs.lsof
     pkgs.mosh

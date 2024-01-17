@@ -29,10 +29,8 @@
     ./fuzzel.nix
     ./gammastep.nix
     ./git.nix
-    ./gnuradio.nix
     ./htop.nix
     ./icons.nix
-    ./krita.nix
     ./man.nix
     ./nvim.nix
     ./readline.nix
