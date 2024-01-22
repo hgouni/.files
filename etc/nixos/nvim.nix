@@ -25,6 +25,7 @@
         plugins.latex
         plugins.lua
         plugins.markdown
+        plugins.markdown-inline
         plugins.nix
         plugins.ocaml
         plugins.python
@@ -36,7 +37,7 @@
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
       pkgs.vimPlugins.fzf-vim
-      pkgs.vimPlugins.gruvbox-nvim
+      pkgs.vimPlugins.kanagawa-nvim
       pkgs.vimPlugins.lean-nvim
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.parinfer-rust
@@ -44,10 +45,6 @@
       pkgs.vimPlugins.undotree
       pkgs.vimPlugins.vim-commentary
       pkgs.vimPlugins.vim-fugitive
-      # Would rather use nvim-treesitter for language-aware structure edits of
-      # this sort
-      # pkgs.vimPlugins.vim-repeat
-      # pkgs.vimPlugins.vim-surround
     ];
 
     extraPackages = [
