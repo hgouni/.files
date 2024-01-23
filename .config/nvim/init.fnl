@@ -127,7 +127,7 @@
 ; make sure 24 bit TUI color is enabled (do it ourselves to be theme-independent)
 (std.set-options {:termguicolors true :background :dark})
 
-(vim.cmd.colorscheme :kanagawa)
+(vim.cmd.colorscheme :gruvbox)
 
 ; undo config
 (std.set-options {:undofile true :undolevels 10000})

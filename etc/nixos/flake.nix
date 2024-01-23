@@ -5,14 +5,13 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-faster.url = "github:nixos/nixpkgs/nixos-unstable-small";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "github:neovim/neovim?dir=contrib";
     antifennel = {
       url = "git+https://git.sr.ht/~technomancy/antifennel";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-faster, home-manager, neovim, antifennel, ... }:
+  outputs = { self, nixpkgs, nixpkgs-faster, home-manager, antifennel, ... }:
     let
       mkNixosConfig = machineSpecificArgs: nixpkgs.lib.nixosSystem {
         # equivalent to `system = machineSpecificArgs.system;`
@@ -73,7 +72,6 @@
                 });
               })
               (_: prev: { firefox = nixpkgs-faster.legacyPackages.${prev.system}.firefox; })
-              (_: prev: { neovim-unwrapped = neovim.packages.${prev.system}.default; })
               # Do we really need to wrap prev.system in ${}?
               #
               # ===========

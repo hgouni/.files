@@ -24,8 +24,8 @@
         plugins.html
         plugins.latex
         plugins.lua
-        plugins.markdown
-        plugins.markdown-inline
+        # plugins.markdown
+        # plugins.markdown-inline
         plugins.nix
         plugins.ocaml
         plugins.python
@@ -37,7 +37,7 @@
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
       pkgs.vimPlugins.fzf-vim
-      pkgs.vimPlugins.kanagawa-nvim
+      pkgs.vimPlugins.gruvbox-nvim
       pkgs.vimPlugins.lean-nvim
       pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.parinfer-rust

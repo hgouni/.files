@@ -13,32 +13,26 @@
     mouse.hide-when-typing = "yes";
 
     colors = {
-      foreground = "dcd7ba";
-      background = "1f1f28";
+      foreground = "ebdbb2";
+      background = "282828";
 
-      selection-foreground = "c8c093";
-      selection-background = "2d4f67";
+      regular0 = "282828";
+      regular1 = "cc241d";
+      regular2 = "98971a";
+      regular3 = "d7991a";
+      regular4 = "458588";
+      regular5 = "b16286";
+      regular6 = "698d6a";
+      regular7 = "a89984";
 
-      regular0 = "090618";
-      regular1 = "c34043";
-      regular2 = "76946a";
-      regular3 = "c0a36e";
-      regular4 = "7e9cd8";
-      regular5 = "957fb8";
-      regular6 = "6a9589";
-      regular7 = "c8c093";
-
-      bright0  = "727169";
-      bright1  = "e82424";
-      bright2  = "98bb6c";
-      bright3  = "e6c384";
-      bright4  = "7fb4ca";
-      bright5  = "938aa9";
-      bright6  = "7aa89f";
-      bright7  = "dcd7ba";
-
-      "16"       = "ffa066";
-      "17"       = "ff5d62";
+      bright0 = "928374";
+      bright1 = "fb4934";
+      bright2 = "b8bb26";
+      bright3 = "fabd2f";
+      bright4 = "83a598";
+      bright5 = "d3869b";
+      bright6 = "8ec07c";
+      bright7 = "ebdbb2";
     };
   };
 
