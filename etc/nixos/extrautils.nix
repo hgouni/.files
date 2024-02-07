@@ -6,9 +6,7 @@
     pkgs.bc
     pkgs.bind
     pkgs.chez
-    # pkgs.cubicsdr
     pkgs.fish
-    # pkgs.fldigi
     pkgs.gnome.gnome-calculator
     pkgs.gnupg
     pkgs.hyperfine
@@ -29,8 +27,8 @@
     pkgs.pciutils
     pkgs.pdftk
     pkgs.psmisc
+    pkgs.quarto
     pkgs.racket
-    # pkgs.sdrangel
     pkgs.smartmontools
     pkgs.speechd
     pkgs.trash-cli
@@ -40,6 +38,7 @@
     pkgs.virt-manager
     pkgs.wget
     pkgs.xdg-utils
+    pkgs.xorg.xlsclients
     pkgs.xournalpp
     pkgs.zbar
     pkgs.zip
