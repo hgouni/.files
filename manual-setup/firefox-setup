@@ -20,6 +20,9 @@ go to history -> manage history -> click on the bar and check most recent visit
 
 set enhanced tracking protection to strict (also block trackers in non-private windows)
 
+disable pdf.js sidebar display on load
+- `pdfjs.sidebarViewOnLoad = 0`
+
 ==== PER SITE ====
 
 github.com:
@@ -27,5 +30,9 @@ github.com:
 1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
 
 discord.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+app.fastmail.com
 
 1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
