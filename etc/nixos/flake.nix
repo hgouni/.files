@@ -84,6 +84,9 @@
               # * (_: prev: { foot = prev.foot.overrideAttrs (_: { src = foot-src; }); } )
               # Here's how to import a 'classic' overlay (with no flake support?)
               # * (import self.inputs.emacs-overlay)
+              # Here's how to add a package from a 'packages.default' flake
+              # (do nix flake show github:agda/agda [--allow-import-from-derivation])
+              # * (_: prev: { myAgda = agda-master.packages.${prev.system}.default; })
               # ===========
             ];
           })
