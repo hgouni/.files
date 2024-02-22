@@ -24,8 +24,8 @@
         plugins.html
         plugins.latex
         plugins.lua
-        # plugins.markdown
-        # plugins.markdown-inline
+        plugins.markdown
+        plugins.markdown-inline
         plugins.nix
         plugins.ocaml
         plugins.python
