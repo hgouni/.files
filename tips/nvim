@@ -35,3 +35,5 @@ A few tips:
     missing
 
 15. after running lsp rename, execute :wall to write changes
+
+16. :registers to see the contents of all registers

@@ -29,6 +29,7 @@
     pkgs.psmisc
     pkgs.quarto
     pkgs.racket
+    pkgs.rstudio
     pkgs.smartmontools
     pkgs.speechd
     pkgs.trash-cli

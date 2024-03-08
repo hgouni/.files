@@ -39,6 +39,7 @@
                   :hlsearch false})
 
 ; why does this work? this has remaps turned off
+; for starting omnicomplete
 (std.set-key-maps :i {"<C-;>" :<C-x><C-o>} {:silent true})
 
 ; no preview window for completions
@@ -144,10 +145,7 @@
 (std.set-leader-maps {:ff vim.cmd.Files
                       :fb vim.cmd.BLines
                       :fl vim.cmd.Lines
-                      :ft vim.cmd.BTags
-                      :fp vim.cmd.Tags
                       :fm vim.cmd.Marks
-                      :fc vim.cmd.Commands
                       :fo vim.cmd.Buffers})
 
 ; insert the lozenge character, for pollen (:h i_CTRL-V)
