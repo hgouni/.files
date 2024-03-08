@@ -163,6 +163,8 @@
                             :pattern [:conjure-log-*]
                             :callback (fn [] (vim.diagnostic.disable 0))})
 
+; (tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
+
 (tree-sitter.setup
   {:textobjects
    {:select {:enable true
