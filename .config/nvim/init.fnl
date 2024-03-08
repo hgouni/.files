@@ -25,7 +25,7 @@
 ; plugins are loaded after init.lua so we could set this anywhere
 (std.set-global-vars {:zipPlugin_ext "*.docx,*.dotx,*.epub,*.jar,*.odf,*.otf,*.pptx,*.xlsx,*.zip"})
 
-(std.set-global-vars {:mapleader " " :maplocalleader ","})
+(std.set-global-vars {:mapleader " " :maplocalleader "\\"})
 
 (std.set-options {:shada "!,'100,<0,s10,h" ; turn off saving register contents
                   :modeline false
@@ -202,13 +202,15 @@
 
 (local ts-repeat-move (require :nvim-treesitter.textobjects.repeatable_move))
 
+; allow ; and , to work with tree sitter motions
 (vim.keymap.set [:n :x :o] ";" ts-repeat-move.repeat_last_move)
 (vim.keymap.set [:n :x :o] "," ts-repeat-move.repeat_last_move_opposite)
 
+; make ; and , behave as they would with f, t
 (vim.keymap.set [:n :x :o] :f ts-repeat-move.builtin_f)
 (vim.keymap.set [:n :x :o] :F ts-repeat-move.builtin_F)
 (vim.keymap.set [:n :x :o] :t ts-repeat-move.builtin_t)
-(vim.keymap.set [:n :x :o] :T ts-repeat-move.builtin_T)	
+(vim.keymap.set [:n :x :o] :T ts-repeat-move.builtin_T)
 
 (lean.setup {:abbreviations {:builtin true} :mappings true})
 
