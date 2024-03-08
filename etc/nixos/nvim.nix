@@ -34,6 +34,7 @@
         plugins.vim
         plugins.vimdoc
       ]))
+      pkgs.vimPlugins.nvim-treesitter-textobjects
       pkgs.vimPlugins.conjure
       pkgs.vimPlugins.Coqtail
       pkgs.vimPlugins.fzf-vim

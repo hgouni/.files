@@ -163,7 +163,52 @@
                             :pattern [:conjure-log-*]
                             :callback (fn [] (vim.diagnostic.disable 0))})
 
-(tree-sitter.setup {:highlight {:enable true :additional_vim_regex_highlighting false}})
+(tree-sitter.setup
+  {:textobjects
+   {:select {:enable true
+             :lookahead true
+             :keymaps {:ie "@block.inner"
+                       :ae "@block.outer"
+                       :if "@function.inner"
+                       :af "@function.outer"
+                       :ic "@call.inner"
+                       :ac "@call.outer"
+                       :ir "@frame.inner"
+                       :ar "@frame.outer"
+                       :il "@class.inner"
+                       :al "@class.outer"}}
+    :swap {:enable true
+           :swap_next {:<C-n> "@call.outer"}
+           :swap_previous {:<C-p> "@call.outer"}}
+    :move {:enable true
+           :set_jumps true
+           :goto_next_start {"]f" "@function.outer"
+                             "]e" "@block.outer"
+                             "]c" "@call.outer"
+                             "]l" "@class.outer"}
+           :goto_next_end {"]F" "@function.outer"
+                           "]E" "@block.outer"
+                           "]C" "@call.outer"
+                           "]L" "@class.outer"}
+           :goto_previous_start {"[f" "@function.outer"
+                                 "[e" "@block.outer"
+                                 "[c" "@call.outer"
+                                 "[l" "@class.outer"}
+           :goto_previous_end {"[F" "@function.outer"
+                               "[E" "@block.outer"
+                               "[C" "@call.outer"
+                               "[L" "@class.outer"}}}
+   :highlight {:enable true :additional_vim_regex_highlighting false}})
+
+(local ts-repeat-move (require :nvim-treesitter.textobjects.repeatable_move))
+
+(vim.keymap.set [:n :x :o] ";" ts-repeat-move.repeat_last_move)
+(vim.keymap.set [:n :x :o] "," ts-repeat-move.repeat_last_move_opposite)
+
+(vim.keymap.set [:n :x :o] :f ts-repeat-move.builtin_f)
+(vim.keymap.set [:n :x :o] :F ts-repeat-move.builtin_F)
+(vim.keymap.set [:n :x :o] :t ts-repeat-move.builtin_t)
+(vim.keymap.set [:n :x :o] :T ts-repeat-move.builtin_T)	
 
 (lean.setup {:abbreviations {:builtin true} :mappings true})
 
