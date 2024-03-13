@@ -38,6 +38,8 @@
                   :scrolloff 5
                   :hlsearch false})
 
+(std.a.nvim-create-user-command :W (fn [] (vim.cmd.write)) {})
+
 ; why does this work? this has remaps turned off
 ; for starting omnicomplete
 (std.set-key-maps :i {"<C-;>" :<C-x><C-o>} {:silent true})
