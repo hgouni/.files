@@ -72,10 +72,10 @@ case "$answer" in
         systemctl suspend
         ;;
     'r')
-        reboot
+        systemctl reboot
         ;;
     's')
-        shutdown
+        systemctl poweroff
         ;;
     *)
         printf 'Exiting.\n'
