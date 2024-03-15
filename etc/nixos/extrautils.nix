@@ -15,6 +15,7 @@
     pkgs.jq
     pkgs.keepassxc
     pkgs.krita
+    pkgs.libsixel
     pkgs.lm_sensors
     pkgs.lsof
     pkgs.mosh
