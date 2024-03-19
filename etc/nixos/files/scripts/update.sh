@@ -57,7 +57,7 @@ shift "$((OPTIND - 1))"
 
 sudo nix flake update /etc/nixos
 
-sudo nixos-rebuild dry-run
+nixos-rebuild dry-build
 
 if test "$host" != 'none'
 then
