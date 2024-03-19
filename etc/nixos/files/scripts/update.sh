@@ -2,6 +2,7 @@ set -euo pipefail
 
 action='noop'
 method='boot'
+host='none'
 
 # nested quotes here aren't truly nested-- command substitution begins a new
 # evaluation context, so the outer quotes don't apply and we don't need to
@@ -18,18 +19,19 @@ set_action () {
     fi
 }
 
-while getopts 'hprsi' opt
+while getopts 'hprsie:' opt
 do
     case "$opt" in
         '?' | 'h')
-            printf '%s\n%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n%s\t%s\n' \
-                "Usage: $argv_0 [-hprsi]" \
+            printf '%s\n%s\n%s\t\t%s\n%s\t\t%s\n%s\t\t%s\n%s\t\t%s\n%s\t\t%s\n%s\t\t%s\n' \
+                "Usage: $argv_0 [-hprsie]" \
                 'Update nixos and reboot.' \
-                '-h' 'Show this help text.' \
-                '-p' 'Suspend without prompting.' \
-                '-r' 'Reboot without prompting.' \
-                '-s' 'Shutdown without prompting.' \
-                '-i' 'Immediately switch to the updated system.'
+                '-h'      'Show this help text.' \
+                '-p'      'Suspend without prompting.' \
+                '-r'      'Reboot without prompting.' \
+                '-s'      'Shutdown without prompting.' \
+                '-i'      'Immediately switch to the updated system.' \
+                '-e HOST' 'Use ssh://HOST to build the system.'
             exit
             ;;
         'r')
@@ -44,6 +46,9 @@ do
         'i')
             method='switch'
             ;;
+        'e')
+            host="$OPTARG"
+            ;;
     esac
 done
 
@@ -53,6 +58,11 @@ shift "$((OPTIND - 1))"
 sudo nix flake update /etc/nixos
 
 sudo nixos-rebuild dry-run
+
+if test "$host" != 'none'
+then
+    nixos-rebuild --build-host "$host" build
+fi
 
 sudo nixos-rebuild "$method"
 

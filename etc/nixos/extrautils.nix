@@ -6,6 +6,8 @@
     pkgs.bc
     pkgs.bind
     pkgs.chez
+    pkgs.ffmpeg-full # ffmpeg-full has all features enabled; ffmpeg only has
+                     # the subset depended on in nixpkgs 
     pkgs.fish
     pkgs.gnome.gnome-calculator
     pkgs.gnupg

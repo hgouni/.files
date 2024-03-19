@@ -14,6 +14,9 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
+    # Permit anyone with sudo to use remote builders
+    # https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-users
+    trusted-users = [ "@wheel" ];
   };
 
   # hardware.enableRedistributableFirmware = true;
