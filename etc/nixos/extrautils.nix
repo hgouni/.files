@@ -8,7 +8,6 @@
     pkgs.chez
     pkgs.ffmpeg-full # ffmpeg-full has all features enabled; ffmpeg only has
                      # the subset depended on in nixpkgs 
-    pkgs.fish
     pkgs.gnome.gnome-calculator
     pkgs.gnupg
     pkgs.hyperfine
@@ -32,7 +31,7 @@
     pkgs.psmisc
     pkgs.quarto
     pkgs.racket
-    pkgs.rstudio
+    (pkgs.rstudioWrapper.override { packages = [ pkgs.rPackages.HistData ]; })
     pkgs.smartmontools
     pkgs.speechd
     pkgs.trash-cli

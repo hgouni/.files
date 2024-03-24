@@ -8,3 +8,5 @@
   --zero, ...) can be used to process filenames containing newlines or spaces
   safely
   
+* To kill defunct processes: `ps -ef | grep defunct`, note the PPID, and run
+  `kill <PPID>`
