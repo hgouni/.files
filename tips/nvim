@@ -1,0 +1,81 @@
+A few tips:
+
+1. c_Ctrl-R <reg> is the keybind to paste text from register <reg>
+   a. " is the default register
+
+2. FileType: buffer-local ONLY (filetype is set once per buffer)
+   BufEnter: each time cursor enters a buffer
+
+3. vim.fn.<vimscript_function> invokes that vimscript function
+
+4. V starts linewise visual, C-v starts block visual 
+
+5. o in visual mode swaps to other end of selection
+
+6. :%norm can be used to execute a normal mode command on a range (every line here)
+
+7. :helpgrep and :cdo can be used to perform edits on lines matching a pattern
+
+8. q in a :Man buffer closes it
+
+9. :tabm moves tabs
+   a. tabm i to move current tab to pos i
+   b. tabm (-/+)i to move tab left/right by i
+
+10. gf opens the file under the cursor
+
+11. gO opens the table of contents for a help page or man page
+
+12. zz recenters buffer vertically, zt positions it at top of window, zb bottom
+   a. preserves column
+
+13. :copen opens the quickfix window
+    :h quickfix-window for more
+
+14. if tree-sitter inexplicably breaks, try seeing if there's any grammars
+    missing
+
+15. after running lsp rename, execute :wall to write changes
+
+16. :registers to see the contents of all registers
+
+17. :sb<bufnr> to create a horizontal split of an existing buffer
+
+18. prepend :vert to a split creation to create a vertical split instead of a
+    horizontal one
+
+19. Ctrl-] to follow links in helptext
+
+20. i_Ctrl-^ or c_Ctrl-^ (or i_Ctrl-6 or c_Ctrl-6) to toggle alternate keymap
+   a. works in search mode!
+   b. `set keymap=math` will enable math input
+
+21. If nvim is updated and starts showing weird tree-sitter errors then try
+    installing more parsers, particularly for the filetype you're getting
+    errors on.
+
+22. gv reselects the last visual selection
+
+23. \c anywhere in search pattern makes it case insensitive
+
+24. :set indentexpr= in order to disable annoying autoindent behavior, for
+    instance in latex mode
+
+25. Ctrl-U/Ctrl-D scroll up/down quickly
+
+26. :h [ for square bracket commands that let you move around quickly to common
+    textual elements
+
+27. :set virtualedit=all and use visual block mode to do line drawing; use
+    mouse judiciously!
+
+28. s on an unpushed commit in a Fugitive buffer generates the command to push it
+
+29. Apple notes uses ⁃ for dash, whereas we want -. replace the former with the
+    latter before formatting with gqq, since vim's indentation heuristics for
+    markdown understand the second one
+
+30. :s performs the previous replacement on the next instance on the current
+    line (ie without /g, /c, etc)
+
+31. @: repeats the last command some number of times

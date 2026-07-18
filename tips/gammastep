@@ -1,0 +1,2 @@
+* if broken after starting another sway instance, run
+  systemctl --user import-environment WAYLAND_DISPLAY

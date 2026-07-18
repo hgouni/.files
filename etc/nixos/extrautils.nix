@@ -1,0 +1,52 @@
+{ config, pkgs, ... }:
+
+{
+  home.packages = [
+    pkgs.age
+    pkgs.bc
+    pkgs.bind
+    pkgs.diff-pdf
+    pkgs.ffmpeg-full # ffmpeg only has the features depended on in nixpkgs
+    pkgs.gnome-calculator
+    pkgs.gnupg
+    pkgs.hyperfine
+    pkgs.imagemagick
+    pkgs.jq
+    pkgs.keepassxc
+    pkgs.krita
+    pkgs.libsixel
+    pkgs.lm_sensors
+    pkgs.lsof
+    pkgs.mpv
+    pkgs.nixos-generators
+    pkgs.nmap
+    pkgs.nvme-cli
+    pkgs.openssl
+    pkgs.pandoc
+    pkgs.patchelf
+    pkgs.pciutils
+    pkgs.pdftk
+    pkgs.psmisc
+    pkgs.quarto
+    pkgs.racket
+    pkgs.smartmontools
+    pkgs.speechd
+    pkgs.traceroute
+    pkgs.tree
+    pkgs.unzip
+    pkgs.usbutils
+    pkgs.virt-manager
+    pkgs.watchexec
+    pkgs.wev
+    pkgs.wf-recorder
+    pkgs.wget
+    pkgs.whois
+    pkgs.wl-mirror
+    pkgs.xdg-utils
+    pkgs.xlsclients
+    pkgs.xournalpp
+    pkgs.zbar
+    pkgs.zip
+    pkgs.zotero
+  ];
+}

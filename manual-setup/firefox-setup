@@ -1,0 +1,85 @@
+Extensions:
+- ublock origin
+  - (maybe not this! causes captchas) settings -> filter lists -> cookie notices -> check 'EasyList/uBO — cookie notices'
+  - pin to toolbar
+  - gears -> My filters -> paste in anti-distraction filters:
+    youtube.com
+    @@music.youtube.com
+    hci.social
+    discord.com
+    news.ycombinator.com
+    reddit.com
+    @@old.reddit.com
+- zotero connector
+  - sign into zotero.org
+  - pin to toolbar
+- about:addons -> allow extensions to run in private windows
+
+Settings -> Privacy and Security:
+- DNS over HTTPS -> Max Protection
+  - Choose provider: Cloudflare (default)
+- Firefox Data Collection and Use -> uncheck all
+- HTTPS-Only Mode -> Enable HTTPS-Only Mode in all windows
+- Enhanced Tracking Protection -> Strict
+- Use a Primary Password -> check
+- history -> select 'use custom settings for history' -> uncheck 'remember search and form history'
+
+Settings -> General:
+- Recommend extensions as you browse -> uncheck
+- Recommend features as you browse -> uncheck
+- Enable link previews -> uncheck
+- Open previous windows and tabs -> check
+- Tabs -> Use AI to suggest tabs and a name for tab groups -> uncheck
+
+generic:
+- sign in to sync bookmarks and tabs
+- click on tab bar, turn on vertical tabs
+  - click on lower left gear icon, check hide tabs and sidebar, uncheck all
+    firefox tools
+- remove cruft from toolbar, to taste
+- disable advertisements, pocket recommendations on new tab page
+- new tab page -> first shortcut -> Edit -> insert Title: LWN, URL: https://lwn.net/Articles/FrontPage -> Save
+                                 -> Pin
+               -> second shortcut -> Edit -> insert Title: Wikipedia, URL: https://en.wikipedia.org/wiki/Main_Page -> Save
+                                  -> Pin
+               -> third shortcut -> Edit -> insert Title: Fastmail, URL: https://app.fastmail.com -> Save
+                                 -> Pin
+               -> fourth shortcut -> Edit -> insert Title: Calendar, URL: https://calendar.google.com -> Save
+                                  -> Pin
+               -> fifth shortcut -> Edit -> insert Title: Discord, URL: https://discord.com -> Save
+                                 -> Pin
+               -> sixth shortcut -> Edit -> insert Title: Mastodon, URL: https://hci.social -> Save
+                                 -> Pin
+               -> seventh shortcut -> Edit -> insert Title: Slack, URL: https://app.slack.com -> Save
+                                   -> Pin
+               -> eighth shortcut -> Edit -> insert Title: Scholar, URL: https://scholar.google.com -> Save
+                                  -> Pin
+- three bars -> History -> Manage history -> right click on the column label bar -> Most Recent Visit -> check
+- disable pdf.js sidebar display on load
+  - about:config -> `pdfjs.sidebarViewOnLoad = 0`
+
+==== PER SITE ====
+
+github.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+discord.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+app.fastmail.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+mail.google.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+docs.google.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block
+
+youtube.com
+
+1. View page info (ctrl + i) -> Permissions -> Override Keyboard Shortcuts -> Block

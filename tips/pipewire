@@ -1,0 +1,2 @@
+* `pw-dump | grep webrtc` will tell you if you're currently screen sharing (yes
+  if it returns a match, no if empty)

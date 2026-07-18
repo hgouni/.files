@@ -1,0 +1,8 @@
+Remove submodule:
+
+rm ${SUBMODULE_FOLDER}/.git
+mv ${SUBMODULE_FOLDER} tmp
+git submodule deinit ${SUBMODULE_FOLDER}
+git rm ${SUBMODULE_FOLDER}
+mv tmp ${SUBMODULE_FOLDER}
+git add ${SUBMODULE_FOLDER}

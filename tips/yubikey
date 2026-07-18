@@ -1,0 +1,4 @@
+- always register yubikey as second factor with backup (secure i.e. non-sms
+  etc) second factor
+- if registering yubikey as passkey, always register only your primary one.
+  less dangerous in case of physical key loss

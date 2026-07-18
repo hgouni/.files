@@ -1,0 +1,2 @@
+* bottom of `man iwd.network` contains setup for eduroam-style networks (PEAP +
+  MSCHAPv2)

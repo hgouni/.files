@@ -1,0 +1,3 @@
+need to start 'default' as root virsh
+
+make sure nftables isnt being used with libvirt

@@ -1,0 +1,34 @@
+==== KEY SETUP ====
+
+# disable accidental autotype
+ykman config usb --disable OTP
+
+# set fido password (needed for ssh prompt)
+ykman fido access change-pin
+
+# add a resident key (totally stored on the yubikey itself)
+# require verification on each signing
+ssh-keygen -t ed25519-sk -O resident -O verify-required
+
+# If using gpg, set touch required on openpgp to fixed:
+ykman openpgp keys set-touch sig fixed
+ykman openpgp keys set-touch dec fixed
+ykman openpgp keys set-touch aut fixed
+
+# For keepassxc, setup challenge response
+ykman otp chalresp --touch --generate 2
+# or
+ykman otp chalresp --touch 2 <key>
+
+==== MACHINE SETUP ====
+
+# Setup sudo/login authentication via Yubikey
+mkdir -p /etc/nixos/files/system/exclude
+pamu2fcfg > u2f_keys
+sudo mv u2f_keys /etc/nixos/files/system/exclude
+
+# to restore ssh key on another machine: https://developers.yubico.com/SSH/
+cd ~/.ssh
+ssh-keygen -K
+mv id_ed25519_sk{_rk,}
+mv id_ed25519_sk{_rk,}.pub

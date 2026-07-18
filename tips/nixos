@@ -1,0 +1,68 @@
+To inspect the final value of a nixos option:
+
+1. `$ nix repl`
+2. `nix-repl> :lf /etc/nixos`
+3. `nixosConfigurations.casper.config.<...>`
+
+----
+
+The trick with using fixed points for lambdas returning self referential
+attrsets works because we're evaluating the nested function calls outside-in--
+ie, laziness:
+
+nix-repl> attrset_func = self: { a = 3; b = 4; c = self.a + self.b; }
+
+                              _________ note how we're using x in its own definition
+                             /          this creates a bunch of nested function calls f (f (f (f ...)))
+                             v
+nix-repl> fix = f: let x = f x; in x                                  
+
+nix-repl> fix attrset_func                                            
+{ a = 3; b = 4; c = 7; }
+
+nix-repl> attrset_func (attrset_func (abort "unevaluated"))
+{ a = 3; b = 4; c = 7; }   ^          ^
+                           |          \__________ this never gets evaluated...
+                           |
+                           \_______ ...since we never need the value of c from here!
+                                       (the outermost only requests a and b to complete evaluating)
+
+----
+
+To force offline builds:
+
+nixos-rebuild switch --option substitute false
+
+(--offline flag also works for v2 cli commands)
+
+----
+
+`$ man configuration.nix`
+
+contains the contents of Appendix A from nixos-help.
+
+Same for home-configuration.nix
+
+----
+
+If something isn't working, try updating the flake it's installed from first!
+
+----
+
+To collect garbage, deleting old generations:
+
+```nix
+sudo nix-collect-garbage -d
+```
+
+Try rebooting to the latest generation first if this doesn't free up enough
+storage (in case you've updated but not rebooted since).
+
+----
+
+To format your NixOS config:
+
+```sh
+cd /etc/nixos
+nix fmt -- --tree-root .
+```

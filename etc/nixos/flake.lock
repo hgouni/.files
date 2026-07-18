@@ -1,0 +1,131 @@
+{
+  "nodes": {
+    "antifennel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759706589,
+        "narHash": "sha256-LPQLxq7WQHi6CXgdYy6FKz04efFT5p6xPwDx5qhAw50=",
+        "ref": "refs/heads/main",
+        "rev": "cea2f62b71c53eeb2bfe056625a87f1a9ddfcddf",
+        "revCount": 144,
+        "type": "git",
+        "url": "https://git.sr.ht/~technomancy/antifennel"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.sr.ht/~technomancy/antifennel"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1784129366,
+        "narHash": "sha256-N5JiyICSeQF14x+OQebNyPpYowOT9Rs1iKyeCylSzOA=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "165228b0efefc3e635e5174020c40ea64271dc25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "neovim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784156994,
+        "narHash": "sha256-zZen0c/BWqx6AjquSH1yBpjZw3GsZX+0yCII5pmay9g=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "1741da8412134fc5a2f83e509da925c4e2d65034",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1784157011,
+        "narHash": "sha256-CEHmSwSc+5kzd6tP/4ol4KEA9fMDVSKGTam7rbBPQqw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d4a57f162b50db6d7e49580a772ccbdb3a1605a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1783604885,
+        "narHash": "sha256-tzMgSkV7kljEkqIjlgV6F+n+xD+/a35Db8bs7a4BFAo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "767b0d3ec98a143ad9ed7dfc0d5553510ac27133",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1784007870,
+        "narHash": "sha256-djcLt/JJphyNt4eDY9XTly+/WbCK5lqWq9lSgCmJkkQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "18b9261cb3294b6d2a06d03f96872827b8fe2698",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "antifennel": "antifennel",
+        "home-manager": "home-manager",
+        "neovim": "neovim",
+        "nixos-unstable-small": "nixos-unstable-small",
+        "nixpkgs": "nixpkgs_2",
+        "xdg-desktop-portal-wlr-src": "xdg-desktop-portal-wlr-src"
+      }
+    },
+    "xdg-desktop-portal-wlr-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781919781,
+        "narHash": "sha256-+ZkahzXtEFydHyZhFNp29E5GSsV5X02BOsw/oOnWuYg=",
+        "owner": "emersion",
+        "repo": "xdg-desktop-portal-wlr",
+        "rev": "74be7063347880f6bf98689e24dd9a6e98032405",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emersion",
+        "ref": "74be7063347880f6bf98689e24dd9a6e98032405",
+        "repo": "xdg-desktop-portal-wlr",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

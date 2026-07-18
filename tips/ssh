@@ -1,0 +1,12 @@
+* AGENT
+  * Run `ssh-add` to load keys into the agent
+    * Ideally once the yubikey is plugged in
+  * Run `ssh-add -l` to list keys in agent
+
+* COMMON USAGES
+  * `ssh -A -L 1234:localhost:5678` forwards the ssh agent and maps port 1234 on
+    the local machine to port 5678 on the remote machine
+
+* TERMINAL BREAKAGE
+  * if your ssh session ends and breaks the terminal press `v` to edit the
+    command line in nvim, insert `reset`, and `:wq`

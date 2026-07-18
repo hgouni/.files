@@ -1,0 +1,3 @@
+To record a screen region:
+1. wf-recorder -g "$(slurp)"
+2. ffmpeg -i recording.mkv -codec copy recording.mp4

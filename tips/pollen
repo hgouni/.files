@@ -1,0 +1,15 @@
+Parameters defined by default:
+
+https://docs.racket-lang.org/pollen/Setup.html
+
+Metadata:
+
+https://docs.racket-lang.org/pollen/pollen-command-syntax.html#%28part._.Inserting_metas%29
+
+Defining/using pollen tags:
+
+https://docs.racket-lang.org/pollen/pollen-command-syntax.html#%28part._.The_.Racket_arguments%29
+
+`raco pollen render` help page:
+
+https://docs.racket-lang.org/pollen/raco-pollen.html#%28part._raco_pollen_render%29

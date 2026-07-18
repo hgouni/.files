@@ -1,0 +1,16 @@
+* `mod + b` switches to horizontal layout
+
+* `sway move workspace to output (right|left|down|up)`
+
+* `sway output <output> pos 0 0` to move <output> to left of primary screen
+
+* `sway output <output> scale 2` for 4k screens
+
+* `sway output <output> mode 1920x1080` to set the screen resolution for <output> to 1080p
+
+* shift + insert to paste from PRIMARY without middle click
+
+* fn + r to screenshot in the absence of a dedicated Print key
+
+* `mod + shift + minus` to send to scratchpad, `mod + minus` to cycle through
+  scratchpad windows
