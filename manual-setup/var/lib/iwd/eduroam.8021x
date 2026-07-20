@@ -4,15 +4,15 @@
 EAP-Method=PEAP
 EAP-Identity=anonymous@andrew.cmu.edu
 # Issuing CA for domain mask
-# 1. Obtain .crt from AIA->location section of certificate info on iOS trust popup
+# 1. Obtain .crt from AIA->location section of certificate info in iOS TOFU popup
 # 2. Convert from .crt to .pem with openssl: openssl x509 -in mycert.crt -out mycert.pem -outform PEM
 # 3. Paste contents below
 EAP-PEAP-CACert=embed:incommon
 EAP-PEAP-Phase2-Method=MSCHAPV2
 EAP-PEAP-Phase2-Identity={username}@andrew.cmu.edu
 EAP-PEAP-Phase2-Password-Hash={generate via: printf '%s' '<password>' | iconv -t utf16le | openssl md4 -provider legacy}
-# Obtain from the domain the certificate is signed for on first login (in the
-# iOS trust popup), or IT department website
+# Obtain from the domain for which the certificate is signed on first login (in the iOS TOFU popup), or IT dept website
+# Your login will be sent to this domain, for which it must present a signed certificate from the incommon CA
 EAP-PEAP-ServerDomainMask=wireless.cmu.edu
 
 [Settings]
