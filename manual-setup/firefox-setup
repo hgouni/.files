@@ -16,7 +16,8 @@ Extensions:
 - about:addons -> allow extensions to run in private windows
 
 Settings -> Privacy and Security:
-- DNS over HTTPS -> Max Protection
+- DNS over HTTPS -> Custom
+  - Check 'Always warn me if secure DNS isn't available'
   - Choose provider: Cloudflare (default)
 - Firefox Data Collection and Use -> uncheck all
 - HTTPS-Only Mode -> Enable HTTPS-Only Mode in all windows
