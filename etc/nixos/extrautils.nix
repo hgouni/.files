@@ -23,6 +23,7 @@
     pkgs.nvme-cli
     pkgs.openssl
     pkgs.pandoc
+    pkgs.parted
     pkgs.patchelf
     pkgs.pciutils
     pkgs.pdftk

@@ -35,7 +35,7 @@
         lib.mkOptionDefault {
           "Print" = "exec grim -g \"$(slurp -d)\" -t png - | wl-copy -t image/png";
           "${modifier}+Shift+x" = "exec swaylock";
-          "${modifier}+Shift+s" = ''exec "swaylock --daemonize && systemctl hibernate"'';
+          "${modifier}+Shift+s" = ''exec "swaylock --daemonize && systemctl suspend"'';
           "${modifier}+Shift+g" = "exec systemctl --user restart gammastep";
           "${modifier}+Ctrl+k" = "move workspace output up";
           "${modifier}+Ctrl+j" = "move workspace output down";
