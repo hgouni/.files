@@ -64,3 +64,6 @@ Reboot:
 `# passwd hemant`
 `# exit`
 (login to hemant)
+`# nixos-rebuild switch`
+`# shutdown -r now`
+(the prior two steps set up home-manager; nixos-install doesn't appear to do so)
