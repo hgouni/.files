@@ -111,16 +111,16 @@
     "xdg-desktop-portal-wlr-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1781919781,
-        "narHash": "sha256-+ZkahzXtEFydHyZhFNp29E5GSsV5X02BOsw/oOnWuYg=",
+        "lastModified": 1785258137,
+        "narHash": "sha256-WR9BtCj9pz75qJU3wUK/S2kyOipz0KH0rIYQmJDNzIU=",
         "owner": "emersion",
         "repo": "xdg-desktop-portal-wlr",
-        "rev": "74be7063347880f6bf98689e24dd9a6e98032405",
+        "rev": "4f70821cee131d1cb90ba979fea7bc13588ce09f",
         "type": "github"
       },
       "original": {
         "owner": "emersion",
-        "ref": "74be7063347880f6bf98689e24dd9a6e98032405",
+        "ref": "4f70821cee131d1cb90ba979fea7bc13588ce09f",
         "repo": "xdg-desktop-portal-wlr",
         "type": "github"
       }

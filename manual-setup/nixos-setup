@@ -1,0 +1,63 @@
+Format disk:
+
+`# sudo blkdiscard -f /dev/nvme0n1`
+
+Set up partitions:
+
+`# parted /dev/nvme0n1 -- mklabel gpt`
+`# parted /dev/nvme0n1 -- mkpart root ext4 512MB -32GB`
+* 32GB chosen for swap here; for hibernate, you'll want at least 1.5x your RAM
+`# parted /dev/nvme0n1 -- mkpart swap linux-swap -32GB 100%`
+`# parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB`
+`# parted /dev/nvme0n1 -- set 3 esp on`
+
+Set up LUKS for main partition and swap:
+
+`# cryptsetup luksFormat /dev/nvme0n1p1` (choose password)
+`# cryptsetup luksFormat /dev/nvme0n1p2` (choose password)
+`# cryptsetup luksOpen /dev/nvme0n1p1 nixos-crypt`
+`# cryptsetup luksOpen /dev/nvme0n1p2 swap-crypt`
+
+Make filesystems:
+
+`# mkfs.ext4 -L nixos /dev/mapper/nixos-crypt`
+`# mkswap -L swap /dev/mapper/swap-crypt`
+`# mkfs.fat -F 32 -n boot /dev/nvme0n1p3`
+
+Mount:
+
+`# mkdir /mnt`
+`# mount /dev/disk/by-label/nixos /mnt`
+`# mkdir /mnt/boot`
+`# mount -o umask=077 /dev/disk/by-label/boot /mnt/boot`
+
+Configure:
+
+`# mkdir /mnt/etc`
+`# cp -r /etc/nixos /mnt/etc/`
+`# nixos-generate-config --root /mnt`
+`sudo -e /mnt/etc/nixos/hardware-configuration.nix`
+* add:
+  ```
+  swapDevices = [{
+    # UUID of the LUKS container `swap-crypt`
+    # Find with `ls -l /dev/mapper/swap-crypt` and `ls -l /dev/disk/by-uuid`
+    device = "/dev/disk/by-uuid/4270da97-acde-46ad-b26c-4282741e6067";
+    encrypted = {
+      enable = true;
+      label = "swap";
+      # UUID of the partition `/dev/nvme0n1p2` containing the LUKS container
+      # Find with `ls -l /dev/disk/by-uuid`
+      blkDev = "/dev/disk/by-uuid/8a907990-0cfd-42b9-b724-f8e3353e7398";
+    };
+  }];
+  ```
+`# nixos-install --flake '/mnt/etc/nixos#casper`
+
+Reboot:
+
+`# shutdown -r now`
+(login to root using previously-set password)
+`# passwd hemant`
+`# exit`
+(login to hemant)

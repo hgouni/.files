@@ -14,7 +14,7 @@
       flake = false;
     };
     xdg-desktop-portal-wlr-src = {
-      url = "github:emersion/xdg-desktop-portal-wlr?ref=74be7063347880f6bf98689e24dd9a6e98032405";
+      url = "github:emersion/xdg-desktop-portal-wlr?ref=4f70821cee131d1cb90ba979fea7bc13588ce09f";
       flake = false;
     };
   };
