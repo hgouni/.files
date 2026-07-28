@@ -24,6 +24,8 @@ Make filesystems:
 `# mkswap -L swap /dev/mapper/swap-crypt`
 `# mkfs.fat -F 32 -n boot /dev/nvme0n1p3`
 
+(note that the nixos + swap + boot labels here allow nicer hardware config)
+
 Mount:
 
 `# mkdir /mnt`
@@ -46,12 +48,13 @@ Configure:
     encrypted = {
       enable = true;
       label = "swap";
-      # UUID of the partition `/dev/nvme0n1p2` containing the LUKS container
+      # UUID of the partition `/dev/nvme0n1p2` containing the LUKS container `swap-crypt`
       # Find with `ls -l /dev/disk/by-uuid`
       blkDev = "/dev/disk/by-uuid/8a907990-0cfd-42b9-b724-f8e3353e7398";
     };
   }];
   ```
+* feel free to replace `nixos-crypt` with `nixos` for cleanliness
 `# nixos-install --flake '/mnt/etc/nixos#casper`
 
 Reboot:
