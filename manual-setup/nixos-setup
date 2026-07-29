@@ -67,3 +67,4 @@ Reboot:
 `# nixos-rebuild switch`
 `# shutdown -r now`
 (the prior two steps set up home-manager; nixos-install doesn't appear to do so)
+(next setup yubikey, clone and sync dotfiles, setup keepassxc + eduroam + zotero + firefox + ...)

@@ -1,4 +1,4 @@
-Extensions:
+extensions:
 - ublock origin
   - (maybe not this! causes captchas) settings -> filter lists -> cookie notices -> check 'EasyList/uBO — cookie notices'
   - pin to toolbar
