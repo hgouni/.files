@@ -6,7 +6,7 @@ Set up partitions:
 
 `# parted /dev/nvme0n1 -- mklabel gpt`
 `# parted /dev/nvme0n1 -- mkpart root ext4 512MB -32GB`
-* 32GB chosen for swap here; for hibernate, you'll want at least 1.5x your RAM
+(32GB chosen for swap here; for hibernate, you'll want at least 1.5x your RAM)
 `# parted /dev/nvme0n1 -- mkpart swap linux-swap -32GB 100%`
 `# parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB`
 `# parted /dev/nvme0n1 -- set 3 esp on`
@@ -39,7 +39,7 @@ Configure:
 `# cp -r /etc/nixos /mnt/etc/`
 `# nixos-generate-config --root /mnt`
 `sudo -e /mnt/etc/nixos/hardware-configuration.nix`
-* add:
+- add:
   ```
   swapDevices = [{
     # UUID of the LUKS container `swap-crypt`
@@ -54,17 +54,22 @@ Configure:
     };
   }];
   ```
-* feel free to replace `nixos-crypt` with `nixos` for cleanliness
+- feel free to replace `nixos-crypt` with `nixos` for cleanliness
 `# nixos-install --flake '/mnt/etc/nixos#casper`
 
 Reboot:
 
 `# shutdown -r now`
-(login to root using previously-set password)
+- login to `root` using previously-set password
 `# passwd hemant`
 `# exit`
-(login to hemant)
+- login to `hemant`
 `# nixos-rebuild switch`
 `# shutdown -r now`
 (the prior two steps set up home-manager; nixos-install doesn't appear to do so)
-(next setup yubikey, clone and sync dotfiles, setup keepassxc + eduroam + zotero + firefox + ...)
+
+Extra (see `manual-setup` dir):
+
+- setup yubikey
+- clone and sync dotfiles
+- setup keepassxc + eduroam + zotero + firefox + ...
