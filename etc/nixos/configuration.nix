@@ -63,6 +63,8 @@
     };
   };
 
+  services.logind.settings.Login.HandlePowerKey = "hibernate";
+
   # Set your time zone.
   time.timeZone = "Etc/GMT";
 
