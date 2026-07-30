@@ -1,3 +1,5 @@
+# Setup
+
 $ bluetoothctl
 [bluetooth] # power on
 [bluetooth] # agent on
@@ -6,3 +8,7 @@ $ bluetoothctl
 ...put device in pairing mode and wait [hex-address] to appear here...
 [bluetooth] # pair [hex-address]
 [bluetooth] # connect [hex-address]
+
+# Debug
+
+bluetoothctl devices [Paired/Bonded/Trusted/Connected]
