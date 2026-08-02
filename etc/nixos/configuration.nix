@@ -28,7 +28,6 @@
     trusted-users = [ "@wheel" ];
   };
 
-  # hardware.enableRedistributableFirmware = true;
   hardware.bluetooth.enable = true;
 
   # Use the systemd-boot EFI boot loader.
