@@ -12,3 +12,10 @@ $ bluetoothctl
 # Debug
 
 bluetoothctl devices [Paired/Bonded/Trusted/Connected]
+
+# Connect
+
+$ bluetoothctl
+[bluetoothctl] #
+...put device in pairing mode and interact with it (e.g. press keys)...
+[agent] Authorize service <uuid> (yes/no): yes
