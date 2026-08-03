@@ -20,6 +20,10 @@ ykman otp chalresp --touch --generate 2
 # or
 ykman otp chalresp --touch 2 <key>
 
+# Disable NFC on challenge response for security
+# (need not disable fido2, since that still requires fido2 pin)
+ykman config nfc --disable otp
+
 ==== MACHINE SETUP ====
 
 # Setup sudo/login authentication via Yubikey
