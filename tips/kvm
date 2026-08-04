@@ -1,0 +1,6 @@
+- run podman containers inside a microVM:
+  ```
+  $ podman run --runtime=krun --rm -it docker.io/library/ubuntu:latest bash
+  ```
+  - you can use `lsmod | grep kvm` to see that kvm is in use (check that the
+    number next to kvm_intel or kvm_amd is > 0)
