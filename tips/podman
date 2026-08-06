@@ -4,3 +4,5 @@
   ```
   - you can use `lsmod | grep kvm` to see that kvm is in use (check that the
     number next to kvm_intel or kvm_amd is > 0)
+  - if you run into strange errors when launching processes, try using `strace`
+    on them and see what system call fails
