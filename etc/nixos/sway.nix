@@ -92,7 +92,7 @@
         profile.name = "casper";
         profile.outputs = [
           {
-            criteria = "BOE 0x06DF Unknown";
+            criteria = "Sharp Corporation 0x1515 Unknown";
             position = "0,0";
           }
         ];
@@ -105,7 +105,7 @@
             position = "0,0";
           }
           {
-            criteria = "BOE 0x06DF Unknown";
+            criteria = "Sharp Corporation 0x1515 Unknown";
             position = "0,1080";
           }
         ];
