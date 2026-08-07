@@ -20,6 +20,7 @@ if [ "$REPLY" == "YES" ]; then
     printf 'Replacing %s/.config/nvim\n' "$HOME"
 
     sudo rsync --info=NAME --archive --delete \
+          --exclude 'init.lua' \
           "$HOME/.files/.config/nvim/" "$HOME/.config/nvim"
 
     compile-nvim-conf
