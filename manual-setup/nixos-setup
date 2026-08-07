@@ -1,6 +1,6 @@
 Format disk:
 
-`# sudo blkdiscard -f /dev/nvme0n1`
+`# blkdiscard -f /dev/nvme0n1`
 
 Set up partitions:
 
@@ -36,7 +36,9 @@ Mount:
 Configure:
 
 `# mkdir /mnt/etc`
-`# cp -r /etc/nixos /mnt/etc/`
+`$ git clone https://github.com/hgouni/.files`
+`# cp -r .files/etc/nixos /mnt/etc/`
+- create excluded files, update stateVersions
 `# nixos-generate-config --root /mnt`
 `sudo -e /mnt/etc/nixos/hardware-configuration.nix`
 - add:
@@ -62,7 +64,7 @@ Reboot:
 `# shutdown -r now`
 - login to `root` using previously-set password
 `# passwd hemant`
-`# exit`
+`$ exit`
 - login to `hemant`
 `# nixos-rebuild switch`
 `# shutdown -r now`
