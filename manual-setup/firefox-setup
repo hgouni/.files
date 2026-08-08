@@ -27,6 +27,7 @@ Settings -> AI controls:
                   Image alt text in Firefox PDF viewer -> Blocked
                   Tab group suggestions -> Blocked
                   Key points in link previews -> Blocked
+- AI chatbot providers in sidebar -> Chatbot in sidebar -> Blocked
 
 extensions:
 - ublock origin
