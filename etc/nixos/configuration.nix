@@ -198,7 +198,7 @@
     };
 
     caddy = lib.mkIf config.machineSpecific.server {
-      enable = true;
+      enable = false;
       extraConfig = ''
         hambone.hgouni.com {
           basic_auth {
