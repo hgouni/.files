@@ -36,7 +36,7 @@
         endNonPrinting = ''\]'';
         setTitle = ''\e]0;'';
         hostName = ''\h'';
-        bell = ''\a'';
+        sendOSC = ''\e\\'';
 
         get-manpage = builtins.readFile ./files/readline/get-manpage.sh;
       in
@@ -44,7 +44,7 @@
       ''
         ${get-manpage}
 
-        PS1='${improperExit}${ssh}${jobs}${workdir} ⊢${clear}${startNonPrinting}${setTitle}${workdir} @ ${hostName}${bell}${endNonPrinting} '
+        PS1='${improperExit}${ssh}${jobs}${workdir} ⊢${clear}${startNonPrinting}${setTitle}${workdir} @ ${hostName}${sendOSC}${endNonPrinting} '
       '';
   };
 }
