@@ -1,2 +1,9 @@
+Keybinds:
+
 * ctrl + shift + c and ctrl + shift + v perform copy and paste to and from CLIPBOARD
 * ctrl + m sends enter
+
+Escape codes:
+
+* see `foot-ctlseqs(7)` for a full list
+  * ex: run OSC 52 paste with `echo -e '\e]52;c;?\a'` or `echo -e '\e]52;c;?\e\\'`
