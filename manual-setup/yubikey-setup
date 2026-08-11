@@ -1,8 +1,5 @@
 ==== KEY SETUP ====
 
-# disable accidental autotype
-ykman config usb --disable OTP
-
 # set fido password (needed for ssh prompt)
 ykman fido access change-pin
 
@@ -16,9 +13,11 @@ ykman openpgp keys set-touch dec fixed
 ykman openpgp keys set-touch aut fixed
 
 # For keepassxc, setup challenge response
-ykman otp chalresp --touch --generate 2
-# or
-ykman otp chalresp --touch 2 <key>
+ykman otp --access-code - chalresp --touch --generate 1
+# or to load existing key
+ykman otp --access-code - chalresp --touch 1
+# to change access code
+ykman otp --access-code - settings --new-access-code - 1
 
 # Disable NFC on challenge response for security
 # (need not disable fido2, since that still requires fido2 pin)
