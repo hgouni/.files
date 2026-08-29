@@ -1,6 +1,7 @@
 * AGENT
   * Run `ssh-add` to load keys into the agent
     * Ideally once the yubikey is plugged in
+    * If you don't get a GUI prompt on attempting ssh, re-run this command
   * Run `ssh-add -l` to list keys in agent
 
 * COMMON USAGES
