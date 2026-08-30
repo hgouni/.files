@@ -5,5 +5,6 @@
     * 'Mastodon' category -> right click -> Edit -> Mute Notifications
   * 'Blogs' should be before 'Mastodon'; if not, drag one on to the other to
     switch the order
+    * analogously for ordering for individual feeds
 * top left -> hamburger menu -> Preferences -> Appearance -> Spring
 * top right -> three dots -> Line Height -> slider to lowest tick
