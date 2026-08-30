@@ -1,3 +1,9 @@
-* import feed list from notes
+* import feed list from notes/wiki/feeds.opml; if unavailable, manual setup:
+  * top left -> plus sign -> Category -> type 'Blogs'
+  * top left -> plus sign -> Category -> type 'Mastodon'
+    * add all Mastodon feeds here
+    * 'Mastodon' category -> right click -> Edit -> Mute Notifications
+  * 'Blogs' should be before 'Mastodon'; if not, drag one on to the other to
+    switch the order
 * top left -> hamburger menu -> Preferences -> Appearance -> Spring
 * top right -> three dots -> Line Height -> slider to lowest tick
