@@ -7,6 +7,14 @@ git rm ${SUBMODULE_FOLDER}
 mv tmp ${SUBMODULE_FOLDER}
 git add ${SUBMODULE_FOLDER}
 
-Add second push url to remote:
+Add multiple push url to remote:
 
-git remote set-url --add --push origin <url>
+git remote set-url --add --push origin <url1>
+git remote set-url --add --push origin <url2>
+
+(add ALL intended push urls here, since the first command will overwrite the
+default push url)
+
+Remove a push url from remote:
+
+git remote set-url --delete --push origin <url>
