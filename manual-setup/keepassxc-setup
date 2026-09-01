@@ -1,2 +1,4 @@
 Tools -> Settings -> Security -> Check "Hide notes in the entry preview panel"
                               -> Set "Clear clipboard after" to "5 sec"
+
+Add backup locations as additional git remotes, see git tips for details
