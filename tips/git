@@ -6,3 +6,7 @@ git submodule deinit ${SUBMODULE_FOLDER}
 git rm ${SUBMODULE_FOLDER}
 mv tmp ${SUBMODULE_FOLDER}
 git add ${SUBMODULE_FOLDER}
+
+Add second push url to remote:
+
+git remote set-url --add --push origin <url>
