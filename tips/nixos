@@ -4,6 +4,8 @@ To inspect the final value of a nixos option:
 2. `nix-repl> :lf /etc/nixos`
 3. `nixosConfigurations.casper.config.<...>`
 
+or use `nixos-option <opt>`
+
 ----
 
 The trick with using fixed points for lambdas returning self referential
