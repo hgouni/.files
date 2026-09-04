@@ -13,11 +13,11 @@ Add entry for the machine to /etc/nixos/configuration.nix:
 Client config
 -------------
 
-- Add entry for the machine as machine.initramfs in ssh.nix
+- Add entry for the machine as <machine>.initramfs in ssh.nix
 - Add host key entry to ~/.ssh/known_hosts_initramfs
 
 Usage
 -----
 
-- ssh machine.initramfs
+- ssh <machine>.initramfs
 - run `systemd-tty-ask-password-agent` (or `systemctl default`)
