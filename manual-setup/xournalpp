@@ -1,9 +1,6 @@
-map stylus buttons to:
-- big -> eraser
-- small -> yellow
+Edit -> Preferences -> Stylus -> Stylus Buttons -> Button 1 -> sea green
+                                                   Button 2 -> eraser
+                       View -> Global -> Colors -> Border color for current page and other selections -> medium blue
+        Toolbars -> Minimal Left
 
-switch to dark theme
-
-set journal paper default to blank and second darkest option (gnome color picker)
-
-set current paper border to light green (gnome color picker)
+Journal -> Paper Background -> Plain
