@@ -79,3 +79,5 @@ A few tips:
     line (ie without /g, /c, etc)
 
 31. @: repeats the last command some number of times
+
+32. lean-lsp: `\\` on a character tells you how to type it
