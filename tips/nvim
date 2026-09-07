@@ -81,3 +81,9 @@ A few tips:
 31. @: repeats the last command some number of times
 
 32. lean-lsp: `\\` on a character tells you how to type it
+
+33. To remove search history entries:
+    a. `:call histdel('search', -1)`
+    - removes the most recent search history entry
+    b. `:wshada!`
+    - writes out in-memory history
