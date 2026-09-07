@@ -1,8 +1,10 @@
 * import feed list from notes/wiki/feeds.opml; if unavailable, manual setup:
   * top left -> plus sign -> Category -> type 'Blogs'
     * add blogs here
-  * top left -> plus sign -> Category -> type 'Aggregators'
-    * add aggregators and automated feeds here
+  * top left -> plus sign -> Category -> type 'News'
+    * add news, aggregators, and automated feeds here
+  * top left -> plus sign -> Category -> type 'Podcasts'
+    * add podcasts here
   * top left -> plus sign -> Category -> type 'Mastodon'
     * add Mastodon feeds here
     * 'Mastodon' category -> right click -> Edit -> Mute Notifications
