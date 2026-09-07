@@ -1,4 +1,4 @@
-Settings -> Privacy and Security:
+Settings -> Privacy and Security
 - DNS over HTTPS -> Custom
   - Check 'Always warn me if secure DNS isn't available'
   - Choose provider: Cloudflare (default)
@@ -6,30 +6,30 @@ Settings -> Privacy and Security:
 - Enhanced Tracking Protection -> Strict
 - History -> select 'Customize history' -> uncheck 'remember search and form history'
 
-Settings -> Passwords and autofill:
+Settings -> Passwords and autofill
 - Passwords -> Set primary password
 
 Settings -> Permissions and data
 - Firefox Data Collection and Use -> uncheck all
 
-Settings -> Tabs and Browsing:
+Settings -> Tabs and Browsing
 - Recommendations -> Recommend extensions as you browse -> uncheck
 - Recommendations -> Recommend features as you browse -> uncheck
 - Page navigation -> Enable link previews -> uncheck
 - Tabs -> Use AI to suggest tabs and a name for tab groups -> uncheck
 
-Settings -> Home and startup:
+Settings -> Home and startup
 - Firefox Home -> Support Firefox -> Sponsored shortcuts -> uncheck
 - Startup -> Open previous windows and tabs -> check
 
-Settings -> AI controls:
+Settings -> AI controls
 - On-device AI -> Translations -> Available
                   Image alt text in Firefox PDF viewer -> Blocked
                   Tab group suggestions -> Blocked
                   Key points in link previews -> Blocked
 - AI chatbot providers in sidebar -> Chatbot in sidebar -> Blocked
 
-extensions:
+extensions
 - ublock origin
   - (maybe not this! causes captchas) settings -> filter lists -> cookie notices -> check 'EasyList/uBO — cookie notices'
   - pin to toolbar
@@ -46,7 +46,7 @@ extensions:
   - pin to toolbar
 - about:addons -> allow extensions to run in private windows
 
-generic:
+generic
 - sign in to sync bookmarks and tabs
 - Ctrl + Shift + b to hide the bookmarks toolbar
 - click on tab bar, turn on vertical tabs
