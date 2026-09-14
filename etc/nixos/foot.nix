@@ -6,9 +6,7 @@
   programs.foot.settings = {
 
     main = {
-      # TODO: maybe switch to size=15 here? foot default dpi behavior was
-      # changed. try when we're at my tcs desk with the hidpi monitor
-      font = "Liberation Mono:pixelsize=15";
+      font = "Liberation Mono:size=11";
       pad = "0x0";
     };
 
