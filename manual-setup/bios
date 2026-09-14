@@ -1,0 +1,2 @@
+server:
+- set to automatically power back on after ac power loss event, or return to previous power state
