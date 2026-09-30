@@ -29,6 +29,9 @@ Settings -> AI controls
                   Key points in link previews -> Blocked
 - AI chatbot providers in sidebar -> Chatbot in sidebar -> Blocked
 
+Settings -> Appearance
+- Window density -> Compact -> select
+
 extensions
 - ublock origin
   - (maybe not this! causes captchas) settings -> filter lists -> cookie notices -> check 'EasyList/uBO — cookie notices'
