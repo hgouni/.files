@@ -1,0 +1,2 @@
+* if tooling breaks on the `.direnv` directory, set `direnv_layout_dir` to a
+  location outside the project directory, like in `$HOME/.cache/direnv/layouts`
