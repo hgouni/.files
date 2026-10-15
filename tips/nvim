@@ -87,3 +87,6 @@ A few tips:
     - removes the most recent search history entry
     b. `:wshada!`
     - writes out in-memory history
+
+34. :verbose set <opt> to see where an option was last set from, helpful for
+    debugging

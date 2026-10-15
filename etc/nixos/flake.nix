@@ -9,14 +9,6 @@
       url = "git+https://git.sr.ht/~technomancy/antifennel";
       flake = false;
     };
-    neovim = {
-      url = "github:neovim/neovim";
-      flake = false;
-    };
-    xdg-desktop-portal-wlr-src = {
-      url = "github:emersion/xdg-desktop-portal-wlr?ref=4f70821cee131d1cb90ba979fea7bc13588ce09f";
-      flake = false;
-    };
   };
 
   outputs =
@@ -98,8 +90,6 @@
                 })
                 # Do we really need to wrap prev.system in ${}? Yes, for grouping.
                 (_: prev: { my-firefox = nixos-unstable-small.legacyPackages.${prev.stdenv.hostPlatform.system}.firefox; })
-                (_: prev: { xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (_: { src = inputs.xdg-desktop-portal-wlr-src; }); })
-                # (_: prev: { neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: { src = inputs.neovim; dontVersionCheck = true; }); } )
                 # ===========
                 # Here's how to add a package
                 # * (final: prev: { myNeovim = neovim.defaultPackage.${prev.system}; })
