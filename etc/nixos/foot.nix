@@ -11,6 +11,7 @@
     };
 
     security.osc52 = "disabled";
+    desktop-notifications.command = "\"\"";
 
     mouse.hide-when-typing = "yes";
 
