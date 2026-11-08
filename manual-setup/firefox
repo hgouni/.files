@@ -37,13 +37,10 @@ extensions
   - (maybe not this! causes captchas) settings -> filter lists -> cookie notices -> check 'EasyList/uBO — cookie notices'
   - pin to toolbar
   - gears -> My filters -> paste in anti-distraction filters:
-    youtube.com
-    @@music.youtube.com
     hci.social
     discord.com
     news.ycombinator.com
     reddit.com
-    @@old.reddit.com
 - zotero connector
   - sign into zotero.org
   - pin to toolbar
