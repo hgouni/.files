@@ -19,7 +19,6 @@
     pkgs.lsof
     pkgs.mpv
     pkgs.newsflash
-    pkgs.nixos-generators
     pkgs.nmap
     pkgs.nvme-cli
     pkgs.openssl
