@@ -32,6 +32,7 @@
     ./gammastep.nix
     ./git.nix
     ./htop.nix
+    ./llama.nix
     ./man.nix
     ./nvim.nix
     ./readline.nix

@@ -2,8 +2,17 @@
 
 {
   nixpkgs.config.allowUnfreePackages = [
-    "nvidia-x11"
+    # general
     "nvidia-settings"
+    "nvidia-x11"
+    # for llama.ccp
+    "cccl"
+    "cuda_crt"
+    "cuda_cudart"
+    "cuda_nvcc"
+    "cuda_nvrtc"
+    "libcublas"
+    "libnvvm"
   ];
 
   services.xserver.videoDrivers = [
