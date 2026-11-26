@@ -1,0 +1,4 @@
+1. `ssh -A -L 0.0.0.0:9931:localhost:9931 <server>`
+2. Start `llama-server` in router mode on server (pass `--models-dir`)
+
+see pi tips for setting up connection to llama

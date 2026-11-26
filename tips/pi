@@ -1,1 +1,5 @@
-* --resume or --continue to recover past sessions
+* `--resume` or `--continue` to recover past sessions
+* for local models:
+  * `/login llama.cpp`
+  * `/llama` -> load model
+  * `/model <model>`
